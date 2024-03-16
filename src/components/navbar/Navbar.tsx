@@ -10,7 +10,7 @@ function Navbar() {
             <input type="text" placeholder="Search an employee..." />
             <CiSearch />
         </div>
-        <CgProfile style={{ width: "30px", height: "30px" }}/>
+        <CgProfile className={styles.profilePic}/>
     </div>
   )
 }

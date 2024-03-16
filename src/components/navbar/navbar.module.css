@@ -8,6 +8,13 @@
     justify-content: space-between;
 }
 
+.profilePic{
+    width: 20%;
+    height: 20%;
+    margin: 0% 0% 0% 0%;
+    padding: none;
+}
+
 .search{
     height: 100%;
     display: flex;

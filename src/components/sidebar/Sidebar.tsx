@@ -10,7 +10,9 @@ function Sidebar() {
   return (
     <div className={styles.flexContainer}>
         {/* FDM Logo */}
-        <img src={FDMLogo} className={styles.logo} alt="FDM logo"/>
+        <section className={styles.mainLogo}>
+            <img src={FDMLogo} alt="FDM logo"/>
+        </section>
         <section className={styles.links}>
             {/* Home Link */}
             <div className={styles.separateLink}>

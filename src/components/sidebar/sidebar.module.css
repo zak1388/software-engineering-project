@@ -3,24 +3,27 @@
 /* Main body */
 .flexContainer{
     background-color: black;
-    width: 15%;
+    width: auto;
+    height: auto;
     display: flex;
     flex-direction: column;
-    row-gap: 10%;
+    row-gap: 5%;
     padding: 1%;
 
 }
-
-.logo{
+.mainLogo{
     flex: 15%;
+    margin: 1em;
+}
+.img{
     color: white;
     margin: auto;
-    height: 8%;
-    width: 90%;
+    width: 6em;
 }
 
 .links{
     flex: 85%;
+    width: 100%;
     color: white;
     margin: auto;
     height: 85%;
@@ -30,19 +33,31 @@
 }
 
 .separateLink{
-    display: flex;
+    display: grid;
+    width: 100%;
+    text-align: left;
     float: left;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    padding: 0%;
+    grid-template-areas:
+    'icon link';
 }
 
 .linkIcon{
-    flex: 10%;
-    width: 2 ch;
-    height: 2 ch;
+    grid-area: icon;
+    width: 2em;
+    height: 2em;
+    padding: 0%;
+    margin: 0%;
 }
 
 h2{
-    flex: 90%;
+    grid-area: link;
     font-size: 5 ch;
+    margin: 0%;
+    padding: 0%;
+    text-align: left;
 }
 
 
