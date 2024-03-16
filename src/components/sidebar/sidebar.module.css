@@ -9,7 +9,7 @@
     flex-direction: column;
     row-gap: 5%;
     padding: 1%;
-
+    min-height: 100%;
 }
 .mainLogo{
     flex: 15%;
