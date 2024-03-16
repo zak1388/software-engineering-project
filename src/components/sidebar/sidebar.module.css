@@ -14,11 +14,12 @@
 .mainLogo{
     flex: 15%;
     margin: 1em;
+    width: 50%;
 }
 .img{
     color: white;
     margin: auto;
-    width: 6em;
+    width: 1 vw;
 }
 
 .links{
@@ -37,8 +38,8 @@
     width: 100%;
     text-align: left;
     float: left;
-    margin-top: 5%;
-    margin-bottom: 5%;
+    margin-top: 10%;
+    margin-bottom: 10%;
     padding: 0%;
     grid-template-areas:
     'icon link';

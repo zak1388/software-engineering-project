@@ -10,7 +10,11 @@ function Navbar() {
             <input type="text" placeholder="Search an employee..." />
             <CiSearch />
         </div>
-        <CgProfile className={styles.profilePic}/>
+        <section className={styles.profile}>
+            <h1>John Smith</h1>
+            <CgProfile className={styles.profilePic}/>
+        </section>
+
     </div>
   )
 }
