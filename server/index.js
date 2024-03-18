@@ -14,6 +14,10 @@ mongoose.connect("mongodb+srv://zak:ECS506@cluster0.3ranwb2.mongodb.net/", {
     }
 })
 
+app.post("/api/login", async(req, res) => {
+    
+})
+
 app.use(cors())
 
 app.listen(8000, () => {
