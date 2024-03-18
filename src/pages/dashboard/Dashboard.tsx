@@ -11,6 +11,7 @@ function Dashboard() {
         <div className={styles.wrapper}>
             <Navbar />
             <Outlet />
+
         </div>
     </div>
   )

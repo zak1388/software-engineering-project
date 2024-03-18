@@ -16,12 +16,11 @@ mongoose.connect("mongodb+srv://zak:ECS506@cluster0.3ranwb2.mongodb.net/", {
     }
 })
 
-
 app.use(cors())
 app.use(express.json());
 app.use(bodyParser.urlencoded());
 
-app.post("/login", (req, res) => {
+app.post("/api/login", async(req, res) => {
     if (!req.body.username) {
         res.status(400).json("Missing username");
         return;
