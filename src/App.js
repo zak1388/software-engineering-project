@@ -17,6 +17,7 @@ function App() {
             <Route path="/calendar" />
           </Route>
           <Route path="/issue" element= {<Issue/>}/>
+          <Route path ="/timeAway" element = {<TimeAway/>}/>
           <Route path="/login" element={<Login />}/>
         </Routes>
       </Router>
