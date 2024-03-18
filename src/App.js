@@ -4,6 +4,7 @@ import Login from './pages/login/Login.tsx';
 import Dashboard from './pages/dashboard/Dashboard.tsx';
 import Issue from './pages/issue/Issue.tsx';
 import Home from './pages/dashboard/home/Home.tsx';
+import TimeAway from './pages/TimeAway/TimeAway.tsx';
 
 function App() {
   return (
