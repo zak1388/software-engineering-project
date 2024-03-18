@@ -11,6 +11,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Dashboard />}>
             <Route path="/" index element={<Home />} />
+            <Route path="/timeAway" />
+            <Route path="teamChat" />
+            <Route path="/calendar" />
           </Route>
           <Route path="/login" element={<Login />}/>
         </Routes>
