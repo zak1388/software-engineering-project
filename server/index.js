@@ -22,24 +22,22 @@ app.use(express.json());
 app.use(bodyParser.urlencoded());
 
 app.post("/login", (req, res) => {
-    // TODO: verify works
-    // check if user is in db
-
-    if (!req.username) {
+    if (!req.body.username) {
         res.status(400).json("Missing username");
         return;
     }
     
-    UserModel.find({name: req.username})
+    UserModel.find({username: req.body.username})
+    .then((users) => users[0])
     .then((user) => {
-        if (user.password !== req.password) {
-            res.status(401).json("Incorrect password");
+        if (user.password !== req.body.password) {
+            res.status(401).json(`Incorrect password`);
             return;
         }
 
         res.status(200).json({token: "TODO"}); //TODO: JWT or something ig
     })
-})j;
+});
 
 app.listen(8000, () => {
     console.log("server started")
