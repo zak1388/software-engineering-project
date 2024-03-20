@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from "./login.module.css";
+import fdmlogo from "./fdmIcon.png"
 
 // TODO: add header as component
 // TODO: custom fonts
@@ -7,6 +8,9 @@ import styles from "./login.module.css";
 function Login() {
   return (
     <div className={styles.background}>
+      <div className={styles.header}>
+        <img src={fdmlogo} alt="FDMLogo"/>
+      </div>
         <form className={styles.loginForm}>
             <div className={styles.field}>
                 <label className={styles.label} for="username">Username: </label>

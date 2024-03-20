@@ -42,3 +42,15 @@
     height: 100vh;
     background-color: #EDF4FD;
 }
+
+.header{
+    background-color: black;
+    height: 90px;
+}
+
+img{
+    margin-top: 13px;
+    height: auto;
+    width: 90px;
+    margin-left: 48%;
+}
