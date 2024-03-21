@@ -52,13 +52,13 @@ app.post("/api/filterHomeComponents", async(req, res) => {
     }
 })
 
-// get teams
+// get teams - zak
 
-// create message
+// create message - zak
 
-// get messages in team
+// get messages in team - saif
 
-// get messages from manager
+// get messages from manager - saif
 
 // 
 

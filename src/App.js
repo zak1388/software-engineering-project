@@ -6,7 +6,7 @@ import Issue from './pages/issue/Issue.tsx';
 import Home from './pages/dashboard/home/Home.tsx';
 import TeamChat from './pages/dashboard/teamChat/TeamChat.tsx';
 import Calendar from './pages/dashboard/calendar/Calendar.tsx';
-import TimeAway from './pages/dashboard/timeAway/TimeAway.tsx';
+import TimeAway from './pages/TimeAway/TimeAway.tsx';
 
 function App() {
   return (
