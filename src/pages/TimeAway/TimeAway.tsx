@@ -7,11 +7,6 @@ import Navbar from '../../components/navbar/Navbar.tsx'
 function TimeAway () {
     return (
         <div className={styles.container}>
-            <Sidebar />
-            <div className={styles.wrapper}>
-                <Navbar />
-                <Outlet />
-            </div>
             <div className={styles.request}>
             </div>
             <div className={styles.request2}>
