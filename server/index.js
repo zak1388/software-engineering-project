@@ -3,6 +3,7 @@ const cors = require("cors")
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser");
 const UserModel = require("./models/User.ts")
+const EmployeeModel = require("./models/Employee.ts")
 
 const app = express()
 
@@ -26,7 +27,7 @@ app.post("/api/login", async(req, res) => {
         return;
     }
     
-    UserModel.find({username: req.body.username})
+    EmployeeModel.find({username: req.body.username})
     .then((users) => users[0])
     .then((user) => {
         if (user.password !== req.body.password) {
@@ -37,6 +38,30 @@ app.post("/api/login", async(req, res) => {
         res.status(200).json({token: "TODO"}); //TODO: JWT or something ig
     })
 });
+
+// filter components in home
+app.post("/api/filterHomeComponents", async(req, res) => {
+    const { userId, components } = req.body;
+
+    try{
+        const response = await EmployeeModel.updateOne({ userId: userId }, { dashboardModel: components })
+        res.send(response)
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
+
+// get teams
+
+// create message
+
+// get messages in team
+
+// get messages from manager
+
+// 
+
 
 app.listen(8000, () => {
     console.log("server started")
