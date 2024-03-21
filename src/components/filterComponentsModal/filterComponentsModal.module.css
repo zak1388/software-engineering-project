@@ -1,0 +1,15 @@
+.container{
+    background-color: white;
+    z-index: 99999;
+    width: 20%;
+    height: 70%;
+    position: absolute;
+    right: 0;
+    padding: 20px;
+}
+
+.header{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
