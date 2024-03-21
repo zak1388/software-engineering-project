@@ -5,7 +5,7 @@
     left: 50%;
     transform: translateY(-50%) translateX(-50%);
     background-color: white;
-    padding: 1em 2em;
+    padding: 3em 4em;
     display: flex;
     flex-direction: column;
     gap: 1em;
@@ -25,7 +25,7 @@
     border-radius: 1em;
     border: 0;
     background-color: lightgray;
-    padding: 0 0.7em;
+    padding: 6pt 3em;
 }
 
 .submit {
@@ -35,10 +35,23 @@
     border: 0;
     color: white;
     border-radius: 0.5em;
+    padding: 4%;
 }
 
 .background {
     width: 100vw;
     height: 100vh;
     background-color: #EDF4FD;
+}
+
+.header{
+    background-color: black;
+    height: 90px;
+}
+
+img{
+    margin-top: 13px;
+    height: auto;
+    width: 90px;
+    margin-left: 48%;
 }
