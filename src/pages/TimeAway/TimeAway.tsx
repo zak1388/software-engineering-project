@@ -8,6 +8,31 @@ function TimeAway () {
     return (
         <div className={styles.container}>
             <div className={styles.request}>
+                <div className={styles.titles}>
+                    <h2 className={styles.title0}>Type</h2>
+                    <h2 className={styles.title1}>Grant (Days)</h2>
+                    <h2 className={styles.title1}>Approved</h2>
+                    <h2 className={styles.title1}>Remaining Days</h2>
+                </div>
+                <div className={styles.dataset1}>
+                    <h1 className={styles.data0}>Holiday</h1>
+                    <h1 className={styles.data1}>25.0</h1>
+                    <h1 className={styles.data2}>2.0</h1>
+                    <h1 className={styles.data3}>23.0</h1>
+                </div>
+                <div className={styles.dataset2}>
+                    <h1 className={styles.data4}>Holiday Carrying Over</h1>
+                    <h1 className={styles.data5}>0.0</h1>
+                    <h1 className={styles.data6}>0.0</h1>
+                    <h1 className={styles.data7}>0.0</h1>
+                </div>
+                <div className={styles.dataset3}>
+                    <h1 className={styles.data8}>Sick Leave</h1>
+                    <h1 className={styles.data9}>N/A</h1>
+                    <h1 className={styles.data10}>1.0</h1>
+                    <h1 className={styles.data11}>N/A</h1>
+                </div>
+                
             </div>
             <div className={styles.request2}>
                 <div>
