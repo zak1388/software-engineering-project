@@ -18,7 +18,7 @@
     top: 12%;
     left: 20%;
     background-color: white;
-    padding: 4em 2em;
+    padding: 2em 2em;
     display: flex;
     flex-direction: column;
     border-radius: 1em;
@@ -56,7 +56,101 @@ h1{
     margin-left: 2rem;
 }
 .Accept{
-    
-    margin-top: 1rem;
+    background: linear-gradient(to right, #1541c8, #682cb7);
+
     margin-left: 13rem;
+    color: white;
+    border-radius: 1em;
+    padding-bottom: 60pt;
+    padding-top: 10pt;
+    padding-left: 30pt;
+    padding-right: 40pt;
+
 }
+
+.titles{
+    display: flex;
+    flex-direction: row;
+    background: linear-gradient(to right, #1541c8, #682cb7);
+    color: white;
+    padding: 10pt;
+    border-radius: 1rem;
+}
+
+.title0{
+    font-size: 25px;
+    margin-left: 50px;
+}
+.title1{
+    font-size: 25px;
+    margin-left: 140px;
+}
+
+.data0{
+    margin-left: 50px;
+    font-size: 18px;
+}
+.data1{
+    margin-left: 180px;
+}
+.data2{
+    margin-left: 222px;
+}
+.data3{
+    margin-left: 245px;
+}
+
+.data4{
+    font-size: 18px;
+    margin-left: 7px;
+}
+
+.data5{
+    margin-left: 110px;
+}
+.data6{
+    margin-left: 230px;
+}
+.data7{
+    margin-left: 250px;
+}
+
+.data0{
+    margin-left: 50px;
+    font-size: 18px;
+}
+
+.dataset1{
+    display: flex;
+    flex-direction: row;
+}
+
+.dataset2{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+.dataset3{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+.data8{
+    margin-left: 40px;
+    font-size: 18px;
+}
+
+.data9{
+    margin-left: 170px;
+}
+
+.data10{
+    margin-left: 227px;
+}
+
+.data11{
+    margin-left: 250px;
+}
+
