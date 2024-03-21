@@ -1,0 +1,62 @@
+.container{
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+.wrapper{
+    background-color: #EAEBEC;
+    flex: 5;
+    display: flex;
+    flex-direction: column;
+}
+
+.request{
+    width: 77%;
+    height: 40%;
+    position: absolute;
+    top: 12%;
+    left: 20%;
+    background-color: white;
+    padding: 4em 2em;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1em;
+    box-shadow: 1px 0px 2px lightgray, 0px 1px 2px gray;
+}
+
+.request2{
+    width: 77%;
+    height: 16%;
+    position: absolute;
+    top: 57%;
+    left: 20%;
+    background-color: white;
+    padding: 1em 2em;
+    display: flex;
+    flex-direction:row;
+    border-radius: 1em;
+    box-shadow: 1px 0px 2px lightgray, 0px 1px 2px gray;
+}
+
+h3{
+    font-size: 15px;
+}
+
+h1{
+    margin-top: 15px;
+    font-size: 22px;
+}
+
+.StartDate{
+    margin-left: 2rem;
+}
+
+.EndDate{
+    margin-left: 2rem;
+}
+.Accept{
+    
+    margin-top: 1rem;
+    margin-left: 13rem;
+}
