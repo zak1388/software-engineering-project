@@ -7,6 +7,9 @@ import Navbar from '../../components/navbar/Navbar.tsx'
 function TimeAway () {
     return (
         <div className={styles.container}>
+            <div>
+                <button className={styles.newRequest}>New Request</button>
+            </div>
             <div className={styles.request}>
                 <div className={styles.titles}>
                     <h2 className={styles.title0}>Type</h2>
@@ -52,7 +55,25 @@ function TimeAway () {
                 <div className={styles.Accept}>
                     <h1>Approved</h1>
                 </div>
+            </div>
+            <div className={styles.request3}>
+                <div>
+                    <h3>Type</h3>
+                    <h1>Holiday</h1>
+                </div>
+                <div className={styles.StartDate}>
+                    <h3>Start Date</h3>
+                    <h1>Tuesday 19th March 2024</h1>
+                </div>
 
+                <div className={styles.EndDate}>
+                    <h3>End Date</h3>
+                    <h1>Tuesday 19th March 2024</h1>
+                </div>
+
+                <div className={styles.Reject}>
+                    <h1>Rejected </h1>
+                </div>
             </div>
         </div>
     )
