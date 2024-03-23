@@ -12,31 +12,48 @@
 }
 
 .request{
-    width: 77%;
-    height: 40%;
+    width: 84%;
+    height: 38%;
     position: absolute;
-    top: 12%;
-    left: 20%;
+    top: 22%;
+    left: 14%;
     background-color: white;
     padding: 2em 2em;
     display: flex;
     flex-direction: column;
     border-radius: 1em;
     box-shadow: 1px 0px 2px lightgray, 0px 1px 2px gray;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
 .request2{
-    width: 77%;
-    height: 16%;
+    width: 84%;
+    height: 15%;
     position: absolute;
-    top: 57%;
-    left: 20%;
+    top: 64%;
+    left: 14%;
     background-color: white;
     padding: 1em 2em;
     display: flex;
     flex-direction:row;
     border-radius: 1em;
     box-shadow: 1px 0px 2px lightgray, 0px 1px 2px gray;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.request3{
+    width: 84%;
+    height: 15%;
+    position: absolute;
+    top: 81%;
+    left: 14%;
+    background-color: white;
+    padding: 1em 2em;
+    display: flex;
+    flex-direction:row;
+    border-radius: 1em;
+    box-shadow: 1px 0px 2px lightgray, 0px 1px 2px gray;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
 h3{
@@ -49,23 +66,32 @@ h1{
 }
 
 .StartDate{
-    margin-left: 2rem;
+    margin-left: 3rem;
 }
 
 .EndDate{
-    margin-left: 2rem;
+    margin-left: 5rem;
 }
 .Accept{
     background: linear-gradient(to right, #1541c8, #682cb7);
-
-    margin-left: 13rem;
+    margin-left: 15rem;
     color: white;
     border-radius: 1em;
-    padding-bottom: 60pt;
-    padding-top: 10pt;
-    padding-left: 30pt;
-    padding-right: 40pt;
+    padding-bottom: 50pt;
+    padding-top: 9pt;
+    padding-left: 85pt;
+    padding-right: 45pt;
+}
 
+.Reject{
+    background: linear-gradient(to right, #1541c8, #682cb7);
+    margin-left: 15rem;
+    color: white;
+    border-radius: 1em;
+    padding-bottom: 50pt;
+    padding-top: 9pt;
+    padding-left: 90pt;
+    padding-right: 45pt;
 }
 
 .titles{
@@ -83,42 +109,39 @@ h1{
 }
 .title1{
     font-size: 25px;
-    margin-left: 140px;
+    margin-left: 190px;
 }
 
 .data0{
     margin-left: 50px;
-    font-size: 18px;
+
 }
 .data1{
-    margin-left: 180px;
+    margin-left: 220px;
 }
 .data2{
-    margin-left: 222px;
+    margin-left: 272px;
 }
 .data3{
-    margin-left: 245px;
+    margin-left: 285px;
 }
 
 .data4{
-    font-size: 18px;
+
     margin-left: 7px;
 }
 
 .data5{
-    margin-left: 110px;
+    margin-left: 125px;
 }
 .data6{
-    margin-left: 230px;
+    margin-left: 280px;
 }
 .data7{
-    margin-left: 250px;
+    margin-left: 290px;
 }
 
-.data0{
-    margin-left: 50px;
-    font-size: 18px;
-}
+
 
 .dataset1{
     display: flex;
@@ -139,18 +162,34 @@ h1{
 
 .data8{
     margin-left: 40px;
-    font-size: 18px;
 }
 
 .data9{
-    margin-left: 170px;
+    margin-left: 205px;
 }
 
 .data10{
-    margin-left: 227px;
+    margin-left: 277px;
 }
 
 .data11{
-    margin-left: 250px;
+    margin-left: 290px;
+}
+
+.newRequest{
+    border-radius: 10px;
+    background: linear-gradient(90deg, #682CB7 0%, #1541C8 100%);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    width: 220px;
+    height: 46px;
+    flex-shrink: 0;
+    border: none;
+    margin-left: 2rem;
+    color: #FFF;
+    text-align: center;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
 }
 
