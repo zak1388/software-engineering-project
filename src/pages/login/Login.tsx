@@ -22,7 +22,7 @@ function Login() {
       <div className={styles.header}>
         <img src={fdmlogo} alt="FDMLogo"/>
       </div>
-        <form  method="POST" action="http://localhost:8000/login" onSubmit={onsubmit}  className={styles.loginForm}>
+        <form  method="POST" action="http://localhost:8000/api/login" onSubmit={onsubmit}  className={styles.loginForm}>
             <div className={styles.field}>
                 <label className={styles.label} htmlFor="username">Username: </label>
                 <input className={styles.input} type="text" id="username" name="username" />
