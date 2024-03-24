@@ -4,11 +4,13 @@ const mongoose = require("mongoose")
 const bodyParser = require("body-parser");
 const UserModel = require("./models/User.ts")
 const EmployeeModel = require("./models/Employee.ts")
+const EmployeeTeamModel = require("./models/EmployeeTeam.ts")
+const TeamModel = require("./models/Team.ts")
+const TeamChatMessageModel = require("./models/TeamChatMessage.ts");
+const DirectChatMessageModel = require("./models/DirectChatMessage.ts");
 
 const app = express()
 
-// TODO: ask saif to allow this anywhere
-// also i think all the stuff i did with models was pointless again, dont remember why, we can just put objects in the db and some of them just dont need to be there (ie not models)
 mongoose.connect("mongodb+srv://zak:ECS506@cluster0.3ranwb2.mongodb.net/", {
 
 }).then((response) => {
@@ -22,20 +24,25 @@ app.use(express.json());
 app.use(bodyParser.urlencoded());
 
 app.post("/api/login", async(req, res) => {
-    if (!req.body.username) {
+    const { username, password } = req.body;
+    if (!username) {
         res.status(400).json("Missing username");
         return;
     }
     
-    EmployeeModel.find({username: req.body.username})
-    .then((users) => users[0])
+    EmployeeModel.findOne({username: username})
     .then((user) => {
-        if (user.password !== req.body.password) {
+        if (user === null) {
+            res.status(401).json("Couldn't find user");
+            return;
+        }
+
+        if (user.password !== password) {
             res.status(401).json(`Incorrect password`);
             return;
         }
 
-        res.status(200).json({token: "TODO"}); //TODO: JWT or something ig
+        res.status(200).json({employeeId: user.id});
     })
 });
 
