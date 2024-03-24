@@ -60,8 +60,85 @@ app.post("/api/filterHomeComponents", async(req, res) => {
 })
 
 // get teams - zak
+app.post("/api/GetTeams", async(req, res) => {
+    const { userId } = req.body;
+
+    try {
+        const empTeams = await EmployeeTeamModel.find({ userId: userId });
+        const teams = [];
+
+        for (let i = 0; i < empTeams.length; i++) {
+            const team = await TeamModel.find({ id: empTeams[i].id });
+            teams.push(team);
+        }
+
+        res.send(teams);
+    } catch (err) {
+        console.log(err);
+        res.send(err);
+    }
+})
 
 // create message - zak
+// Team Chat
+app.post("/api/CreateTeamMessage", async(req, res) => {
+    const { userId, teamId, message } = req.body;
+
+    try {
+        const message = new TeamChatMessageModel({
+            sent_at:  Date.now(), // TODO: should this be done on the server, no spoofing but might mismatch client
+            message: message,
+            sender: userId,
+            team: teamId
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+})
+// Direct Chat Message
+app.post("/api/CreateDirectMessage", async(req, res) => {
+    const { fromUserId, message, toUserId } = req.body;
+
+    try {
+        const message = new DirectChatMessageModel({
+            sent_at: Date.now(),
+            message: message,
+            from_employee: fromUserId,
+            to_employee: toUserId,
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
+// get messages - zak
+// get team messages
+app.post("/api/GetTeamMessages", async(req, res) => {
+    const { teamId } = req.body;
+
+    try {
+        const messages = TeamChatMessageModel.find({ team: teamId });
+        res.json(messages);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
+// get ALL direct messages
+app.post("/api/GetAllDirectMessages", async(req, res) => {
+    const { userId } = req.body;
+
+    try {
+        const messages = DirectChatMessageModel.find({ from_employee: userId });
+        res.json(messages);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
 
 // get messages in team - saif
 
