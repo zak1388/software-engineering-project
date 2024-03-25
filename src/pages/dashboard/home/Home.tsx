@@ -8,11 +8,14 @@ function Home() {
 
   return (
     <div className={styles.container}>
-        {/* Filter/Adjustment Feature - allows selection of widgets*/}
 
-        <div className={styles.iconRow}>
-            <HiMiniAdjustmentsHorizontal className={styles.filterIcon} />
+        <div className={styles.header}>
+          <div className={styles.filter}>
+            <HiMiniAdjustmentsHorizontal className={styles.filterIcon} onClick={() => setModal(true)}/>
+            {modal && <FilterComponentsModal setModal={setModal}/>}
+          </div>
         </div>
+
 
         <div className={styles.widgetsGrid}>
             {/* Company Updates Widget */}
@@ -64,12 +67,6 @@ function Home() {
                 <h2>Holiday</h2>
             </div>
 
-        <div className={styles.header}>
-          <div className={styles.filter}>
-            <HiMiniAdjustmentsHorizontal className={styles.filterIcon} onClick={() => setModal(true)}/>
-            {modal && <FilterComponentsModal setModal={setModal}/>}
-          </div>
-        </div>
 
 
             {/* Sick Days Balance Widget */}
