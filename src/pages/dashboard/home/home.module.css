@@ -15,7 +15,7 @@
     'companyUpdates companyUpdates companyUpdates companyUpdates nextLeave'
     'companyUpdates companyUpdates companyUpdates companyUpdates adminUpdates'
     'teamChat calendar calendar calendar teamUpdates'
-    'teamChat daysOff holiday sick teamUpdates';
+    'teamChat daysOff daysOff daysOff teamUpdates';
     margin: 2%;
     max-width: 100%;
     row-gap: 2%;
@@ -25,51 +25,48 @@
 
 }
 
-.companyUpdatesWidget, .nextLeaveWidget, .adminUpdatesWidget, .teamChatWidget,
-.calendarWidget, .teamUpdatesWidget, .daysOffWidget, .holidayWidget, .sickDaysWidget{
+.company_updates, .next_leave_scheduled, .admin_updates, .team_chat,
+.calendar, .team_updates, .balance_block{
     border: solid black 1.5pt;
     border-radius: 10pt;
     padding: 2%;
     background-color: white;
 }
 
-.companyUpdatesWidget{
+.company_updates{
     grid-area: companyUpdates;
     display: flex;
     flex-direction: column;
 }
 
-.nextLeaveWidget{
+.next_leave_scheduled{
     grid-area: nextLeave;
-
 }
 
-.adminUpdatesWidget{
+.admin_updates{
     grid-area: adminUpdates;
 }
 
-.teamChatWidget{
+.team_chat{
     grid-area: teamChat;
 }
 
-.calendarWidget{
+.calendar{
     grid-area: calendar;
 }
 
-.teamUpdatesWidget{
+.team_updates{
     grid-area: teamUpdates;
 }
 
-.daysOffWidget{
+/* Days Off - Three Widgets in 1 */
+.days_off{
     grid-area: daysOff;
+    display: flex;
+    flex-direction: row;
 }
 
-.holidayWidget{
-    grid-area: holiday;
-}
-
-.sickDaysWidget{
-    grid-area: sick;
+.balance_block{
 }
 
 /* Other Components - Styling */
