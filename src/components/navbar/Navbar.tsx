@@ -4,6 +4,11 @@ import { CiSearch } from "react-icons/ci";
 import { CgProfile } from "react-icons/cg";
 
 function Navbar() {
+  const first_name = localStorage.getItem("first_name")
+  const last_name = localStorage.getItem("last_name")
+  const component_list = localStorage.getItem("component_list")
+  console.log(JSON.stringify(component_list))
+
   return (
     <div className={styles.container}>
         <div className={styles.search}>
@@ -11,7 +16,7 @@ function Navbar() {
             <CiSearch />
         </div>
         <section className={styles.profile}>
-            <h1>John Smith</h1>
+            <h5>{first_name} {last_name}</h5>
             <CgProfile className={styles.profilePic}/>
         </section>
 
