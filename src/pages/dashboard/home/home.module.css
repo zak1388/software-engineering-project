@@ -1,5 +1,83 @@
+/* Desktop - Styling */
+
 .container{
     flex: 9;
+
+    padding: 2%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Grid for Widgets */
+
+.widgetsGrid{
+    display: grid;
+    grid-template-areas:
+    'companyUpdates companyUpdates companyUpdates companyUpdates nextLeave'
+    'companyUpdates companyUpdates companyUpdates companyUpdates adminUpdates'
+    'teamChat calendar calendar calendar teamUpdates'
+    'teamChat daysOff holiday sick teamUpdates';
+    margin: 2%;
+    max-width: 100%;
+    row-gap: 2%;
+    column-gap: 2%;
+    overflow: auto;
+    height: 90%;
+
+}
+
+.companyUpdatesWidget, .nextLeaveWidget, .adminUpdatesWidget, .teamChatWidget,
+.calendarWidget, .teamUpdatesWidget, .daysOffWidget, .holidayWidget, .sickDaysWidget{
+    border: solid black 1.5pt;
+    border-radius: 10pt;
+    padding: 2%;
+    background-color: white;
+}
+
+.companyUpdatesWidget{
+    grid-area: companyUpdates;
+    display: flex;
+    flex-direction: column;
+}
+
+.nextLeaveWidget{
+    grid-area: nextLeave;
+
+}
+
+.adminUpdatesWidget{
+    grid-area: adminUpdates;
+}
+
+.teamChatWidget{
+    grid-area: teamChat;
+}
+
+.calendarWidget{
+    grid-area: calendar;
+}
+
+.teamUpdatesWidget{
+    grid-area: teamUpdates;
+}
+
+.daysOffWidget{
+    grid-area: daysOff;
+}
+
+.holidayWidget{
+    grid-area: holiday;
+}
+
+.sickDaysWidget{
+    grid-area: sick;
+}
+
+/* Other Components - Styling */
+
+.iconRow{
+    margin-bottom: 5%;
+=======
     padding: 20px;
 }
 
@@ -9,6 +87,7 @@
     display: flex;
     justify-content: flex-end;
     /* padding: 20px; */
+
 }
 
 .filterIcon{
@@ -17,6 +96,31 @@
     cursor: pointer;
 }
 
-.widgetsGrid{
-    display: grid;
+.newUpdates{
+    background-color: #07bcf8;
+    border-radius: 5pt;
+    padding: 0.5% 1.5% 0.5% 1.5%;
+    width: fit-content;
+}
+
+.updatesHeader{
+    display: flex;
+    flex-direction: row;
+    column-gap: 2%;
+    align-items: center;
+}
+
+.date{
+    color: #8D99AE;
+    font-size: 0.8em;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.updateBlock{
+    padding: 1%;
+    background-color: #A9AFD1;
+    margin: 1%;
+    border-radius: 5pt;
+    border: solid #8D99AE 1pt;
 }
