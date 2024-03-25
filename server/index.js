@@ -2,7 +2,6 @@ const express = require("express")
 const cors = require("cors")
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser");
-const UserModel = require("./models/User.ts")
 const EmployeeModel = require("./models/Employee.ts")
 const EmployeeTeamModel = require("./models/EmployeeTeam.ts")
 const TeamModel = require("./models/Team.ts")
@@ -21,7 +20,6 @@ mongoose.connect("mongodb+srv://zak:ECS506@cluster0.3ranwb2.mongodb.net/", {
 
 app.use(cors())
 app.use(express.json());
-app.use(bodyParser.urlencoded());
 
 app.post("/api/login", async(req, res) => {
     const { username, password } = req.body;
@@ -140,11 +138,11 @@ app.post("/api/GetAllDirectMessages", async(req, res) => {
     }
 });
 
-// get messages in team - saif
+// create message
 
-// get messages from manager - saif
+// get messages in team
 
-// 
+// get messages from manager
 
 
 app.listen(8000, () => {
