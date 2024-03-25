@@ -2,7 +2,6 @@ const express = require("express")
 const cors = require("cors")
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser");
-const UserModel = require("./models/User.ts")
 const EmployeeModel = require("./models/Employee.ts")
 
 const app = express()
@@ -19,24 +18,19 @@ mongoose.connect("mongodb+srv://zak:ECS506@cluster0.3ranwb2.mongodb.net/", {
 
 app.use(cors())
 app.use(express.json());
-app.use(bodyParser.urlencoded());
 
-app.post("/api/login", async(req, res) => {
-    if (!req.body.username) {
-        res.status(400).json("Missing username");
-        return;
+app.get("/api/login", async(req, res) => {
+    const { username, password } = req.query;
+    console.log(username, password)
+
+    try{
+        const user = await EmployeeModel.findOne({ username: username, password: password })
+        res.send(user)
+    } catch(err){
+        console.log(err)
+        res.send(err)
     }
-    
-    EmployeeModel.find({username: req.body.username})
-    .then((users) => users[0])
-    .then((user) => {
-        if (user.password !== req.body.password) {
-            res.status(401).json(`Incorrect password`);
-            return;
-        }
 
-        res.status(200).json({token: "TODO"}); //TODO: JWT or something ig
-    })
 });
 
 // filter components in home
@@ -59,8 +53,6 @@ app.post("/api/filterHomeComponents", async(req, res) => {
 // get messages in team
 
 // get messages from manager
-
-// 
 
 
 app.listen(8000, () => {
