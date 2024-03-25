@@ -11,7 +11,7 @@ function Navbar() {
             <CiSearch />
         </div>
         <section className={styles.profile}>
-            <h1>John Smith</h1>
+            <h5>John Smith</h5>
             <CgProfile className={styles.profilePic}/>
         </section>
 

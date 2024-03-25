@@ -15,12 +15,30 @@ const EmployeeSchema = new Schema({
     gender: String,
     position: String,
     address: String,
-    user: {type: Schema.Types.ObjectId, ref: "User"},
     buddy: {type: Schema.Types.ObjectId, ref: "Employee"},
-    dashboardModel: {
-        type: {
-            component1: true,
-            component2: true
+    dashboard_model: {
+        component_list: {
+            company_updates: {
+                type: Boolean,
+            },
+            next_leave_scheduled: {
+                type: Boolean,
+            },
+            admin_updates: {
+                type: Boolean,
+            },
+            team_chat: {
+                type: Boolean,
+            },
+            calendar: {
+                type: Boolean,
+            },
+            days_off: {
+                type: Boolean,
+            }, 
+            team_updates: {
+                type: Boolean,
+            }
         },
     }
 

@@ -8,6 +8,23 @@ function FilterComponentsModal({ setModal }) {
         <div className={styles.header}>
             <IoMdClose onClick={() => setModal(false)} style={{ cursor: "pointer" }}/>
         </div>
+        <div className={styles.components}>
+            <div className={styles.component}>
+                <p>Calendar</p>
+                <input type="checkbox" defaultChecked={true}/>
+            </div>
+            <div className={styles.component}>
+                <p>Calendar</p>
+                <input type="checkbox" defaultChecked={true}/>
+            </div>
+            <div className={styles.component}>
+                <p>Calendar</p>
+                <input type="checkbox" defaultChecked={true}/>
+            </div>
+        </div>
+        <div className={styles.button}>
+            <button>Save</button>
+        </div>
     </div>
   )
 }

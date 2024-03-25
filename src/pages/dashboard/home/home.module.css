@@ -1,14 +1,14 @@
 .container{
     flex: 9;
-    padding: 2%;
+    padding: 20px;
 }
 
 .header{
     width: 100%;
-    height: 10%;
+    /* height: 5%; */
     display: flex;
     justify-content: flex-end;
-    padding: 20px;
+    /* padding: 20px; */
 }
 
 .filterIcon{
