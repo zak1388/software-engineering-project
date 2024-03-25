@@ -34,7 +34,24 @@ function Login() {
     }).then((response) => {
       console.log(response)
       if(response.data){
+        const user = response.data
         navigate("/")
+        localStorage.setItem("userId", user._id)
+        localStorage.setItem("username", user.username)
+        localStorage.setItem("email", user.email)
+        localStorage.setItem("first_name", user.first_name)
+        localStorage.setItem("last_name", user.last_name)
+        localStorage.setItem("holiday_days", user.holiday_days)
+        localStorage.setItem("position", user.position)
+        localStorage.setItem("office_location", user.office_location)
+        localStorage.setItem("personal_number", user.personal_number)
+        localStorage.setItem("emergency_number", user.emergency_number)
+        localStorage.setItem("address", user.address)
+        localStorage.setItem("component_list", user.dashboard_model.component_list)
+
+
+
+
       } else{
         alert("username or password is incorrect")
       }
