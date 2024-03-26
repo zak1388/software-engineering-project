@@ -9,14 +9,6 @@ function Home() {
   return (
     <div className={styles.container}>
 
-        <div className={styles.header}>
-          <div className={styles.filter}>
-            <HiMiniAdjustmentsHorizontal className={styles.filterIcon} onClick={() => setModal(true)}/>
-            {modal && <FilterComponentsModal setModal={setModal}/>}
-          </div>
-        </div>
-
-
 
         <div className={styles.widgets_grid}>
             {/* Company Updates Widget */}
