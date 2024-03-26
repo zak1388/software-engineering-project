@@ -3,12 +3,19 @@ import styles from "./TimeAway.module.css"
 import { Outlet } from 'react-router-dom'
 import Sidebar from '../../components/sidebar/Sidebar.tsx'
 import Navbar from '../../components/navbar/Navbar.tsx'
+import { TiPlus } from "react-icons/ti";
+import { CiCircleCheck } from "react-icons/ci";
+import { CiCircleRemove } from "react-icons/ci";
 
 function TimeAway () {
     return (
         <div className={styles.container}>
-            <div>
-                <button className={styles.newRequest}>New Request</button>
+            <div className={styles.NewButton}>
+                <button className={styles.newRequest}>
+                    <span>
+                        New Request <TiPlus className={styles.plus} />
+                    </span>
+                </button>
             </div>
             <div className={styles.request}>
                 <div className={styles.titles}>
@@ -53,7 +60,12 @@ function TimeAway () {
                 </div>
 
                 <div className={styles.Accept}>
-                    <h1>Approved</h1>
+                    <h1 className={styles.Tick2}>
+                        <span>
+                            <CiCircleCheck className={styles.Tick}/>
+                        </span>
+                        Approved
+                    </h1>
                 </div>
             </div>
             <div className={styles.request3}>
@@ -72,7 +84,12 @@ function TimeAway () {
                 </div>
 
                 <div className={styles.Reject}>
-                    <h1>Rejected </h1>
+                    <h1 className={styles.cross2}>
+                        <span>
+                            <CiCircleRemove className={styles.cross}/>
+                        </span>
+                        Rejected
+                    </h1>
                 </div>
             </div>
         </div>
