@@ -72,26 +72,52 @@ h1{
 .EndDate{
     margin-left: 5rem;
 }
-.Accept{
+.Accept {
+    display: flex;
+    align-items: center; 
     background: linear-gradient(to right, #1541c8, #682cb7);
     margin-left: 15rem;
     color: white;
     border-radius: 1em;
-    padding-bottom: 50pt;
-    padding-top: 9pt;
-    padding-left: 85pt;
-    padding-right: 45pt;
+    padding: 9pt 45pt 50pt 30pt; 
 }
 
-.Reject{
+.Tick {
+    font-size: 40px;
+    margin-right: 18px; 
+    margin-bottom: -8px; 
+}
+
+.Accept h1 {
+    margin-top: 50px;
+    margin-bottom: 0; 
+    display: flex; 
+    align-items: center; 
+}
+
+
+
+.Reject {
+    display: flex;
+    align-items: center; 
     background: linear-gradient(to right, #1541c8, #682cb7);
     margin-left: 15rem;
     color: white;
     border-radius: 1em;
-    padding-bottom: 50pt;
-    padding-top: 9pt;
-    padding-left: 90pt;
-    padding-right: 45pt;
+    padding: 9pt 50pt 50pt 30pt; 
+}
+
+.cross {
+    font-size: 40px;
+    margin-right: 18px; 
+    margin-bottom: -8px; 
+}
+
+.Reject h1 {
+    margin-top: 50px;
+    margin-bottom: 0; 
+    display: flex; 
+    align-items: center; 
 }
 
 .titles{
@@ -175,21 +201,27 @@ h1{
 .data11{
     margin-left: 290px;
 }
-
-.newRequest{
+.newRequest {
     border-radius: 10px;
     background: linear-gradient(90deg, #682CB7 0%, #1541C8 100%);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     width: 220px;
     height: 46px;
-    flex-shrink: 0;
     border: none;
     margin-left: 2rem;
     color: #FFF;
-    text-align: center;
     font-size: 22px;
     font-style: normal;
     font-weight: 700;
-    line-height: normal;
 }
 
+.newRequest span {
+    margin-left: 27px;
+    display: flex;
+    align-items: center;
+}
+
+.plus {
+    margin-left: 5px;
+    font-size: 29px;
+}
