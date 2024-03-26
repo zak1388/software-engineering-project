@@ -23,6 +23,15 @@ function FilterComponentsModal({ setModal }) {
 
     const update_components = async (e, component) => {
         console.log(e.target.checked)
+        // let container = document.getElementsByClassName("c") as HTMLCollectionOf<HTMLElement>;
+        let container: any = document.getElementById(`${component}`)
+        if(e.target.checked == true){
+            container.style.display = "block"
+        } else{
+            container.style.display = "none"
+        }
+
+   
         setComponentListState(prev => ({
             ...prev,
             [component]: e.target.checked

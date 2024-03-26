@@ -35,7 +35,7 @@ app.get("/api/login", async(req, res) => {
 
 app.get("/api/getProfile", async(req, res) => {
     const { userId } = req.query;
-    console.log(userId)
+    // console.log(userId)
 
     try{
         const user = await EmployeeModel.findOne({ _id: userId })
