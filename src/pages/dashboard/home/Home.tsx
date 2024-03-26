@@ -56,6 +56,10 @@ function Home() {
                 <div className={styles.balance_block}>
                     <FaRegCalendarMinus className={styles.days_off_icon}/>
                     <h2>Days Off</h2>
+                    <div>
+                        <b>1</b>
+                        <p>/6</p>
+                    </div>
                 </div>
 
                 {/* Holiday */}
