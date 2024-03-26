@@ -1,11 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styles from "./home.module.css"
 import { HiMiniAdjustmentsHorizontal } from "react-icons/hi2";
-import FilterComponentsModal from '../../../components/filterComponentsModal/FilterComponentsModal.tsx';
 
 function Home() {
-  const [modal, setModal] = useState(false)
-
   return (
     <div className={styles.container}>
 
@@ -17,9 +14,10 @@ function Home() {
         </div>
 
 
+
         <div className={styles.widgetsGrid}>
             {/* Company Updates Widget */}
-            <div className={styles.companyUpdatesWidget}>
+            <div className={styles.company_updates}>
                 <div className={styles.updatesHeader}>
                     <h2>Company Updates</h2>
                     <h5 className={styles.newUpdates}>2 new</h5>
@@ -30,49 +28,54 @@ function Home() {
             </div>
 
             {/* Next Leave Widget */}
-            <div className={styles.nextLeaveWidget}>
+            <div className={styles.next_leave_scheduled}>
                 <h2>Next Scheduled Leave</h2>
             </div>
 
             {/* Admin Updates Widget */}
-            <div className={styles.adminUpdatesWidget}>
+            <div className={styles.admin_updates}>
                 <h2>Admin Updates</h2>
             </div>
 
             {/* Team Chat Widget */}
-            <div className={styles.teamChatWidget}>
+            <div className={styles.team_chat}>
                 <h2>Team Chat</h2>
             </div>
 
             {/* Calendar Widget */}
-            <div className={styles.calendarWidget}>
+            <div className={styles.calendar}>
                 <h2>Calendar</h2>
             </div>
 
             {/* Team Updates Widget */}
-            <div className={styles.teamUpdatesWidget}>
+            <div className={styles.team_updates}>
                 <div className={styles.updatesHeader}>
                     <h2>Team Updates</h2>
                     <h5 className={styles.newUpdates}>1 new</h5>
                 </div>
             </div>
 
-            {/* Days Off Widget */}
-            <div className={styles.daysOffWidget}>
-                <h2>Days Off</h2>
+            {/* Days Off Set (includes days off, holiday and sick day balances) */}
+            <div className={styles.days_off}>
+                {/* Days Off */}
+                <div className={styles.balance_block}>
+                    <h2>Days Off</h2>
+                </div>
+
+                {/* Holiday */}
+                <div className={styles.balance_block}>
+                    <h2>Holiday</h2>
+                </div>
+
+
+                {/* Sick Days */}
+                <div className={styles.balance_block}>
+                    <h2>Sick</h2>
+                </div>
             </div>
 
-            {/* Holiday Widget */}
-            <div className={styles.holidayWidget}>
-                <h2>Holiday</h2>
-            </div>
 
 
-
-            {/* Sick Days Balance Widget */}
-            <div className={styles.sickDaysWidget}>
-                <h2>Sick</h2>
-            </div>
         </div>
 
     </div>
