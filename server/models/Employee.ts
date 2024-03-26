@@ -17,7 +17,7 @@ const EmployeeSchema = new Schema({
     address: String,
     buddy: {type: Schema.Types.ObjectId, ref: "Employee"},
     dashboard_model: {
-        component_list: {
+        components_list: {
             company_updates: {
                 type: Boolean,
             },

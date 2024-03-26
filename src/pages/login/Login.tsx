@@ -47,7 +47,7 @@ function Login() {
         localStorage.setItem("personal_number", user.personal_number)
         localStorage.setItem("emergency_number", user.emergency_number)
         localStorage.setItem("address", user.address)
-        localStorage.setItem("component_list", JSON.stringify(user.dashboard_model.component_list))
+        localStorage.setItem("component_list", JSON.stringify(user.dashboard_model.components_list))
 
 
 
