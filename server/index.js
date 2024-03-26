@@ -33,12 +33,28 @@ app.get("/api/login", async(req, res) => {
 
 });
 
-// filter components in home
-app.post("/api/filterHomeComponents", async(req, res) => {
-    const { userId, components } = req.body;
+app.get("/api/getProfile", async(req, res) => {
+    const { userId } = req.query;
+    console.log(userId)
 
     try{
-        const response = await EmployeeModel.updateOne({ userId: userId }, { dashboardModel: components })
+        const user = await EmployeeModel.findOne({ _id: userId })
+        res.send(user)
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
+
+// filter components in home
+app.post("/api/filterHomeComponents", async(req, res) => {
+    const { userId, components_list } = req.body;
+    console.log(components_list)
+
+    try{
+        const response = await EmployeeModel.updateOne({ _id: userId }, { dashboard_model: {
+            components_list: components_list
+        } })
         res.send(response)
     } catch(err){
         console.log(err)

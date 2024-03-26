@@ -9,6 +9,14 @@ function Home() {
   return (
     <div className={styles.container}>
 
+        <div className={styles.header}>
+          <div className={styles.filter}>
+            <HiMiniAdjustmentsHorizontal className={styles.filterIcon} onClick={() => setModal(true)}/>
+            {modal && <FilterComponentsModal setModal={setModal}/>}
+          </div>
+        </div>
+
+
 
         <div className={styles.widgets_grid}>
             {/* Company Updates Widget */}
@@ -68,12 +76,14 @@ function Home() {
                     <h2>Holiday</h2>
                 </div>
 
+
                 {/* Sick Days */}
                 <div className={styles.balance_block}>
                     <PiFirstAidKitBold className={styles.days_off_icon}/>
                     <h2>Sick</h2>
                 </div>
             </div>
+
 
 
         </div>

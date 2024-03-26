@@ -6,8 +6,7 @@ import { CgProfile } from "react-icons/cg";
 function Navbar() {
   const first_name = localStorage.getItem("first_name")
   const last_name = localStorage.getItem("last_name")
-  const component_list = localStorage.getItem("component_list")
-  console.log(JSON.stringify(component_list))
+
 
   return (
     <div className={styles.container}>
