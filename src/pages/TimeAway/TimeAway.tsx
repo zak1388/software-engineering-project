@@ -17,7 +17,7 @@ function TimeAway () {
                     </span>
                 </button>
             </div>
-            <div className={styles.request}>
+            <div className={styles.HolidayInfo}>
                 <div className={styles.titles}>
                     <h2 className={styles.title0}>Type</h2>
                     <h2 className={styles.title1}>Grant (Days)</h2>
@@ -60,7 +60,7 @@ function TimeAway () {
                 </div>
 
                 <div className={styles.Accept}>
-                    <h1 className={styles.Tick2}>
+                    <h1>
                         <span>
                             <CiCircleCheck className={styles.Tick}/>
                         </span>
@@ -84,7 +84,7 @@ function TimeAway () {
                 </div>
 
                 <div className={styles.Reject}>
-                    <h1 className={styles.cross2}>
+                    <h1>
                         <span>
                             <CiCircleRemove className={styles.cross}/>
                         </span>
