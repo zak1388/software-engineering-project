@@ -7,6 +7,7 @@ import Home from './pages/dashboard/home/Home.tsx';
 import TeamChat from './pages/dashboard/teamChat/TeamChat.tsx';
 import Calendar from './pages/dashboard/calendar/Calendar.tsx';
 import TimeAway from './pages/TimeAway/TimeAway.tsx';
+import UserInfo from './pages/userInfo/userInfo.tsx';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/timeAway" element={<TimeAway />}/>
             <Route path="teamChat" element={<TeamChat />}/>
             <Route path="/calendar" element={<Calendar />}/>
+            <Route path="/userInfo" element={<UserInfo />} />
           </Route>
           <Route path="/issue" element= {<Issue/>}/>
           <Route path ="/timeAway" element = {<TimeAway/>}/>
