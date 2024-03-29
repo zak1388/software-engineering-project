@@ -43,7 +43,7 @@ function FilterComponentsModal({ setModal }) {
             await Axios.get("http://localhost:8000/api/getProfile", {
                 params: { userId }
             }).then((response) => {
-                console.log(response)
+                // console.log(response)
                 setComponentListState(response.data.dashboard_model.components_list)
             })
         }
@@ -60,7 +60,7 @@ function FilterComponentsModal({ setModal }) {
             {Object.keys(componentListState).map((component, i) => (
                 <div className={styles.component}>
                     <p>{component}</p>
-                    <input type="checkbox" defaultChecked={componentListState[component]} onClick={((e) => update_components(e, component))}/>
+                    <input type="checkbox" defaultChecked={componentListState[component]} onClick={((e) => update_components(e, component))} disabled={(component == "company_updates") ? true : false}/>
                 </div>
             ))}
         </div>

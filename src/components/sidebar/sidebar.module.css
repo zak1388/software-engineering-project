@@ -13,7 +13,7 @@
 }
 .mainLogo{
     flex: 15%;
-    margin: 1em;
+    /* margin: 1em; */
     width: 50%;
 }
 .img{
@@ -47,6 +47,7 @@
     display: flex;
     align-items: center;
     gap: 20px;
+    cursor: pointer;
 }
 
 .linkIcon{

@@ -29,7 +29,7 @@ function Home() {
       for (let [key, value] of Object.entries(componentListState)){
         // console.log(key, value)
         let container: any = document.getElementById(`${key}`)
-        if(value == false){
+        if(value === false){
           container.style.display = "none"
         } else{
           container.style.display = "block"
