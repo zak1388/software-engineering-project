@@ -2,6 +2,7 @@
     display: flex;
     height: 100vh;
     width: 100%;
+    overflow: auto;
 }
 
 .wrapper{
@@ -46,6 +47,21 @@
     height: 15%;
     position: absolute;
     top: 81%;
+    left: 14%;
+    background-color: white;
+    padding: 1em 2em;
+    display: flex;
+    flex-direction:row;
+    border-radius: 1em;
+    box-shadow: 1px 0px 2px lightgray, 0px 1px 2px gray;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.request4{
+    width: 84%;
+    height: 15%;
+    position: absolute;
+    top: 98%;
     left: 14%;
     background-color: white;
     padding: 1em 2em;

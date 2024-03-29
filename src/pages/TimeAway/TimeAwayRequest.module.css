@@ -1,0 +1,190 @@
+.container{
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    overflow: auto;
+}
+
+.wrapper{
+    background-color: #EAEBEC;
+    flex: 5;
+    display: flex;
+    flex-direction: column;
+}
+
+.HolidayInfo{
+    width: 84%;
+    height: 38%;
+    position: absolute;
+    top: 13%;
+    left: 14%;
+    background-color: white;
+    padding: 2em 2em;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1em;
+    box-shadow: 1px 0px 2px lightgray, 0px 1px 2px gray;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.titles{
+    display: flex;
+    flex-direction: row;
+    background: linear-gradient(to right, #1541c8, #682cb7);
+    color: white;
+    padding: 10pt;
+    border-radius: 1rem;
+}
+
+.title0{
+    font-size: 25px;
+    margin-left: 50px;
+}
+.title1{
+    font-size: 25px;
+    margin-left: 190px;
+}
+
+.HolidayTitle{
+    margin-left: 50px;
+
+}
+.data1{
+    margin-left: 220px;
+}
+.data2{
+    margin-left: 272px;
+}
+.data3{
+    margin-left: 285px;
+}
+
+.HolidayCO{
+
+    margin-left: 7px;
+}
+
+.data5{
+    margin-left: 125px;
+}
+.data6{
+    margin-left: 280px;
+}
+.data7{
+    margin-left: 290px;
+}
+
+
+
+.dataset1{
+    display: flex;
+    flex-direction: row;
+}
+
+.dataset2{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+.dataset3{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+.SickLeaveTitle{
+    margin-left: 40px;
+}
+
+.data9{
+    margin-left: 205px;
+}
+
+.data10{
+    margin-left: 277px;
+}
+
+.data11{
+    margin-left: 290px;
+}
+
+.HolidayRequestForum{
+    width: 84%;
+    height: 44%;
+    position: absolute;
+    top: 54%;
+    left: 14%;
+    background-color: white;
+    padding: 1em 2em;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1em;
+    box-shadow: 1px 0px 2px lightgray, 0px 1px 2px gray;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.CancelButton {
+    border-radius: 10px;
+    background: linear-gradient(90deg, #682CB7 0%, #1541C8 100%);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    width: 220px;
+    height: 46px;
+    border: none;
+    margin-left: 2rem;
+    color: #FFF;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.SubmitButton {
+    border-radius: 10px;
+    background: linear-gradient(90deg, #682CB7 0%, #1541C8 100%);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    width: 220px;
+    height: 46px;
+    border: none;
+    margin-left: 2rem;
+    color: #FFF;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.DatesForHoliday {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.FormField {
+    margin-top: 0.5em;
+}
+
+.StartDate{
+    background: rgba(217, 217, 217, 0.75);
+    width: 257px;
+    height: 34px;
+    flex-shrink: 0;
+    font-size: large;
+}
+.EndDate{
+    background: rgba(217, 217, 217, 0.75);
+    width: 257px;
+    height: 34px;
+    flex-shrink: 0;
+    font-size: large;
+}
+.Reason{
+    background: rgba(217, 217, 217, 0.75);
+    width: 257px;
+    height: 34px;
+    flex-shrink: 0;
+    font-size: large;
+}
+
+.CancelButton{
+    margin-top: 1.2rem;
+    margin-left: 20rem;
+}
