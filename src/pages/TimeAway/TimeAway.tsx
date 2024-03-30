@@ -78,12 +78,12 @@ function Request({type, start_date, end_date, accepted}) {
                     <h3>Type</h3>
                     <h1>{type}</h1>
                 </div>
-                <div className={styles.StartDate}>
+                <div>
                     <h3>Start Date</h3>
                     <h1>{start_date}</h1>
                 </div>
 
-                <div className={styles.EndDate}>
+                <div>
                     <h3>End Date</h3>
                     <h1>{end_date}</h1>
                 </div>
@@ -91,8 +91,8 @@ function Request({type, start_date, end_date, accepted}) {
                 <div className={styles.Accepted}>
                     <span>
                         {
-                            accepted && <CiCircleCheck className={styles.Tick}/> 
-                            || <CiCircleRemove className={styles.cross}/>
+                            accepted && <CiCircleCheck className={styles.AcceptedIcon}/> 
+                            || <CiCircleRemove className={styles.AcceptedIcon}/>
                         }
                     </span>
                     <h1>
