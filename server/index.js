@@ -119,7 +119,7 @@ app.post("/api/GetTeamMessages", async(req, res) => {
     const { teamId } = req.body;
 
     try {
-        const messages = TeamChatMessageModel.find({ team: teamId });
+        const messages = await TeamChatMessageModel.find({ team: teamId });
         res.json(messages);
     } catch (err) {
         console.log(err);
@@ -129,10 +129,11 @@ app.post("/api/GetTeamMessages", async(req, res) => {
 
 // get ALL direct messages
 app.post("/api/GetAllDirectMessages", async(req, res) => {
-    const { userId } = req.body;
+    const { id } = req.body;
 
     try {
-        const messages = DirectChatMessageModel.find({ from_employee: userId });
+        const employee = await EmployeeModel.findOne({ id });
+        const messages = await DirectChatMessageModel.find({ from_employee: employee });
         res.json(messages);
     } catch (err) {
         console.log(err);
