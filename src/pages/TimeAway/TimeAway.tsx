@@ -1,29 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import Axios from "axios";
 import styles from "./TimeAway.module.css"
-import { Outlet } from 'react-router-dom'
-import Sidebar from '../../components/sidebar/Sidebar.tsx'
-import Navbar from '../../components/navbar/Navbar.tsx'
 import { TiPlus } from "react-icons/ti";
 import { CiCircleCheck } from "react-icons/ci";
 import { CiCircleRemove } from "react-icons/ci";
 
-function findResponseFor(request, responses) {
-    return responses.find(response => response.request === request);
-}
-
 function TimeAway () {
-    const [requests, setRequests] = useState([]);
+    const [requestsRaw, setRequestsRaw] = useState([]);
     const [responses, setResponses] = useState([]);
+    const [requests, setRequests] = useState([]);
     const dateFormatter = new Intl.DateTimeFormat("en-GB", {weekday: "long", year: 'numeric', month: "long", day: "numeric"});
 
     useEffect(() => {
         Axios.post("http://localhost:8000/api/GetLeaveRequests", {
             params: { userId: localStorage.getItem("userId") }
         }).then(response => {
-            console.log("Got leave requests as:", response.data);
-            setRequests(response.data);
-        }, (err) => console.log("Failed to get leave requests", err));
+            console.log("Got leave requests raw as:", response.data);
+            setRequestsRaw(response.data);
+        }, (err) => console.log("Failed to get leave requests (raw)", err));
     }, []);
 
     useEffect(() => {
@@ -36,13 +30,16 @@ function TimeAway () {
     }, []);
 
     useEffect(() => {
-        responses.forEach(response => {
-                let request = requests.find(request => request._id === response.request);
-                if (!request) return;
-                request.accepted = response.approved;
+        const r = requestsRaw.map(request => {
+                let response = responses.find(response => request._id === response.request);
+                if (response) {
+                    request.accepted = response.approved;
+                }
+                return request;
             }
         );
-    }, [requests, responses]);
+        setRequests(r);
+    }, [requestsRaw, responses]);
 
     return (
         <div className={styles.container}>
@@ -82,7 +79,7 @@ function TimeAway () {
             {
                 requests.map((request) => (
                     <Request 
-                        key={request.id}
+                        key={request._id}
                         type={request.type}
                         start_date={dateFormatter.format(new Date(request.start))}
                         end_date={dateFormatter.format(new Date(request.end))}
@@ -126,13 +123,13 @@ function Request({type, start_date, end_date, accepted}) {
                 <div className={styles.Accepted}>
                     <span>
                         {
-                            accepted && <CiCircleCheck className={styles.AcceptedIcon}/> 
+                            (accepted && <CiCircleCheck className={styles.AcceptedIcon}/>)
                             || <CiCircleRemove className={styles.AcceptedIcon}/>
                         }
                     </span>
                     <h1>
                         {
-                            accepted && "Accepted"
+                            (accepted && "Accepted")
                             || "Rejected"
                         }
                     </h1>
