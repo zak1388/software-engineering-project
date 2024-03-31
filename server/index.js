@@ -22,7 +22,7 @@ app.use(cors())
 app.use(express.json());
 
 app.post("/api/login", async(req, res) => {
-    const { username, password } = req.body;
+    const { username, password } = req.body.params;
     if (!username) {
         res.status(400).json("Missing username");
         return;
@@ -40,7 +40,7 @@ app.post("/api/login", async(req, res) => {
             return;
         }
 
-        res.status(200).json({employeeId: user.id});
+        res.status(200).json(user);
     })
 });
 
