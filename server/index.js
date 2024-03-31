@@ -148,8 +148,23 @@ app.post("/api/GetLeaveRequests", async(req, res) => {
     try {
         const employee = await EmployeeModel.findOne({ id });
         const leave_reqs = await LeaveRequestModel.find({ requestor: employee })
-        console.log(leave_reqs[0]);
         res.json(leave_reqs);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
+// get all responses for employee
+app.post("/api/GetLeaveResponses", async(req, res) => {
+    const { id } = req.body;
+
+    try {
+        const employee = await EmployeeModel.findOne({ id });
+        const leave_reqs = await LeaveRequestModel.find({ requestor: employee })
+        const leave_resps_promises = leave_reqs.map(leave_req => LeaveResponseModel.findOne({ request: leave_req }));
+        const leave_resps = await Promise.all(leave_resps_promises);
+        res.json(leave_resps);
     } catch (err) {
         console.log(err);
         res.status(500).send(err);

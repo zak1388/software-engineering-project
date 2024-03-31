@@ -8,17 +8,41 @@ import { TiPlus } from "react-icons/ti";
 import { CiCircleCheck } from "react-icons/ci";
 import { CiCircleRemove } from "react-icons/ci";
 
+function findResponseFor(request, responses) {
+    return responses.find(response => response.request === request);
+}
+
 function TimeAway () {
-    const [leaves, setLeaves] = useState();
+    const [requests, setRequests] = useState([]);
+    const [responses, setResponses] = useState([]);
+    const dateFormatter = new Intl.DateTimeFormat("en-GB", {weekday: "long", year: 'numeric', month: "long", day: "numeric"});
 
     useEffect(() => {
         Axios.post("http://localhost:8000/api/GetLeaveRequests", {
             params: { userId: localStorage.getItem("userId") }
         }).then(response => {
-            console.log("Got leave requests as:", response);
-            setLeaves(response);
-        }, (err) => console.log("Failed to get leave reqs", err));
+            console.log("Got leave requests as:", response.data);
+            setRequests(response.data);
+        }, (err) => console.log("Failed to get leave requests", err));
     }, []);
+
+    useEffect(() => {
+        Axios.post("http://localhost:8000/api/GetLeaveResponses", {
+            params: { userId: localStorage.getItem("userId") }
+        }).then(response => {
+            console.log("Got leave responses as:", response.data);
+            setResponses(response.data);
+        }, (err) => console.log("Failed to get leave responses", err));
+    }, []);
+
+    useEffect(() => {
+        responses.forEach(response => {
+                let request = requests.find(request => request._id === response.request);
+                if (!request) return;
+                request.accepted = response.approved;
+            }
+        );
+    }, [requests, responses]);
 
     return (
         <div className={styles.container}>
@@ -36,39 +60,50 @@ function TimeAway () {
                     <h2 className={styles.title}>Approved</h2>
                     <h2 className={styles.title}>Remaining Days</h2>
                 </div>
-                <div className={styles.dataset}>
-                    <h1 className={styles.data}>Holiday</h1>
-                    <h1 className={styles.data}>25.0</h1>
-                    <h1 className={styles.data}>2.0</h1>
-                    <h1 className={styles.data}>23.0</h1>
-                </div>
-                <div className={styles.dataset}>
-                    <h1 className={styles.data}>Holiday Carrying Over</h1>
-                    <h1 className={styles.data}>0.0</h1>
-                    <h1 className={styles.data}>0.0</h1>
-                    <h1 className={styles.data}>0.0</h1>
-                </div>
-                <div className={styles.dataset}>
-                    <h1 className={styles.data}>Sick Leave</h1>
-                    <h1 className={styles.data}>N/A</h1>
-                    <h1 className={styles.data}>1.0</h1>
-                    <h1 className={styles.data}>N/A</h1>
-                </div>
+                <HolidayInfoRow
+                    type="Holiday"
+                    grant="25.0"
+                    approved="2.0"
+                    remaining="23.0"
+                />
+                <HolidayInfoRow
+                    type="Holiday Carrying Over"
+                    grant="0"
+                    approved="0"
+                    remaining="0"
+                />
+                <HolidayInfoRow
+                    type="Sick Leave"
+                    grant="N/A"
+                    approved="1.0"
+                    remaining="N/A"
+                />
             </div>
-            <Request 
-                type="Holiday"
-                start_date="Tuesday 19th March 2024"
-                end_date="Tuesday 19th March 2024"
-                accepted="true"
-            />
-            <Request 
-                type="Holiday"
-                start_date="Tuesday 29th March 2024"
-                end_date="Tuesday 29th March 2024"
-                accepted="{false}"
-            />
+            {
+                requests.map((request) => (
+                    <Request 
+                        key={request.id}
+                        type={request.type}
+                        start_date={dateFormatter.format(new Date(request.start))}
+                        end_date={dateFormatter.format(new Date(request.end))}
+                        accepted={request.accepted}
+                    />
+                ))
+            }
         </div>
     )
+}
+
+
+function HolidayInfoRow({type, grant, approved, remaining}) {
+    return (
+        <div className={styles.dataset}>
+            <h1 className={styles.data}>{type}</h1>
+            <h1 className={styles.data}>{grant}</h1>
+            <h1 className={styles.data}>{approved}</h1>
+            <h1 className={styles.data}>{remaining}</h1>
+        </div>
+    );
 }
 
 function Request({type, start_date, end_date, accepted}) {
