@@ -7,6 +7,8 @@ const EmployeeTeamModel = require("./models/EmployeeTeam.ts")
 const TeamModel = require("./models/Team.ts")
 const TeamChatMessageModel = require("./models/TeamChatMessage.ts");
 const DirectChatMessageModel = require("./models/DirectChatMessage.ts");
+const LeaveRequestModel = require("./models/LeaveRequest.ts");
+const LeaveResponseModel = require("./models/LeaveResponse.ts");
 
 const app = express()
 
@@ -132,6 +134,34 @@ app.post("/api/GetAllDirectMessages", async(req, res) => {
     try {
         const messages = DirectChatMessageModel.find({ from_employee: userId });
         res.json(messages);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
+// get all leave requests
+app.post("/api/GetLeaveRequests", async(req, res) => {
+    const { id } = req.body;
+
+    try {
+        const employee = await EmployeeModel.findOne({ id });
+        const leave_reqs = await LeaveRequestModel.find({ requestor: employee })
+        console.log(leave_reqs[0]);
+        res.json(leave_reqs);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
+// get response for leave request
+app.post("/api/GetLeaveResponseFor", async(req, res) => {
+    const { requestId } = req.body;
+
+    try {
+        const leave_resps = await LeaveResponseModel.find({ request: requestId });
+        res.json(leave_resps);
     } catch (err) {
         console.log(err);
         res.status(500).send(err);
