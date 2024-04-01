@@ -6,7 +6,7 @@
 
 .contact_panel, .personal_info_panel {
     background-color: white;
-    padding: 3em 2em 3em 2em;
+    padding: 1em 2em 3em 2em;
     margin-bottom: 1em;
     border-radius: 1em;
     box-shadow: 0px 4px 5px rgba(0,0,0,0.25);
@@ -15,9 +15,69 @@
 .edit_btn {
     border: none;
     background-color: transparent;
+    float: right;
+    margin-top: 1em;
 }
 
  .title h1 {
     display: inline-block;
     margin-right: 10px;
+ }
+
+ .data {
+    border: 1px black solid;
+    height: 100%;
+    width: 60%;
+    text-align: center;
+    padding-top: 1em;
+ }
+
+ .contact_panel .title {
+    grid-area: ctitle;
+ }
+
+ .personal_info_panel .title {
+    grid-area: pititle;
+ }
+
+ .address {
+    grid-area: addr;
+ }
+
+ .contact {
+    grid-area: cont;
+ }
+
+ .emergency_contact {
+    grid-area: emcont;
+ }
+
+ .details {
+    grid-area: details;
+ }
+
+ .office {
+    grid-area: off;
+ }
+
+.work_details {
+    grid-area: wkdetails;
+}
+
+ .contact_panel {
+    display: grid;
+    grid-template-areas: 
+    'ctitle ctitle ctitle'
+    '. . . '
+    'addr cont emcont';
+    gap: 0.5em;
+ }
+
+ .personal_info_panel {
+    display: grid;
+    grid-template-areas: 
+    'pititle pititle pititle'
+    '. . .'
+    'details off wkdetails';
+    gap: 0.5em;
  }
