@@ -21,6 +21,7 @@ function App() {
             <Route path ="/timeAwayRequest" element = {<TimeAwayRequest/>}/>
             <Route path="teamChat" element={<TeamChat />}/>
             <Route path="/calendar" element={<Calendar />}/>
+            <Route path="/issue" element= {<Issue/>}/>
           </Route>
           <Route path="/issue" element= {<Issue/>}/>
           <Route path ="/timeAway" element = {<TimeAway/>}/>
