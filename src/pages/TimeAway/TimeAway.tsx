@@ -6,12 +6,18 @@ import Navbar from '../../components/navbar/Navbar.tsx'
 import { TiPlus } from "react-icons/ti";
 import { CiCircleCheck } from "react-icons/ci";
 import { CiCircleRemove } from "react-icons/ci";
+import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function TimeAway () {
+    let navigate = useNavigate();
+    function newRequestFunction(){
+        navigate("/TimeAwayRequest");
+    }
     return (
         <div className={styles.container}>
             <div className={styles.NewButton}>
-                <button className={styles.newRequest}>
+                <button className={styles.newRequest} onClick={newRequestFunction}>
                     <span>
                         New Request <TiPlus className={styles.plus} />
                     </span>

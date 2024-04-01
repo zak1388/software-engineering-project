@@ -6,8 +6,13 @@ import Navbar from '../../components/navbar/Navbar.tsx';
 import { TiPlus } from "react-icons/ti";
 import { CiCircleCheck } from "react-icons/ci";
 import { CiCircleRemove } from "react-icons/ci";
+import { useNavigate } from "react-router-dom";
 
 function TimeAwayRequest() {
+    let navigate = useNavigate();
+    function cancelFunction(){
+        navigate("/TimeAway");
+    }
     return (
         <div className={styles.container}>
             <div className={styles.HolidayInfo}>
@@ -56,7 +61,7 @@ function TimeAwayRequest() {
                     <textarea className={styles.Comments} cols={113} rows={3}></textarea>
                 </div>
                 <div>
-                    <button className={styles.CancelButton}>Cancel</button>
+                    <button className={styles.CancelButton} onClick={cancelFunction}>Cancel</button>
                     <button className={styles.SubmitButton}>Submit</button>
                 </div>
             </div>
