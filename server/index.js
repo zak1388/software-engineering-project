@@ -10,6 +10,7 @@ const DirectChatMessageModel = require("./models/DirectChatMessage.ts");
 const LeaveRequestModel = require("./models/LeaveRequest.ts");
 const LeaveResponseModel = require("./models/LeaveResponse.ts");
 
+require("dotenv").config();
 const app = express()
 
 mongoose.connect("mongodb+srv://zak:ECS506@cluster0.3ranwb2.mongodb.net/", {
@@ -179,6 +180,26 @@ app.post("/api/GetLeaveResponseFor", async(req, res) => {
         const leave_resps = await LeaveResponseModel.find({ request: requestId });
         res.json(leave_resps);
     } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
+app.post("/api/GetHolidayDays", async(req, res) => {
+    try {
+        const holidayDays = process.env.HOLIDAY_DAYS;
+        res.json(holidayDays);
+    } catch (err) { 
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
+app.post("/api/GetSickDays", async(req, res) => {
+    try {
+        const sickDays = process.env.SICK_DAYS;
+        res.json(sickDays);
+    } catch (err) { 
         console.log(err);
         res.status(500).send(err);
     }

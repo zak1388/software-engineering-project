@@ -9,24 +9,24 @@ function TimeAway () {
     const [requestsRaw, setRequestsRaw] = useState([]);
     const [responses, setResponses] = useState([]);
     const [requests, setRequests] = useState([]);
+    const [holidayDays, setHolidayDays] = useState(0);
+    const [sickDays, setSickDays] = useState(0);
     const dateFormatter = new Intl.DateTimeFormat("en-GB", {weekday: "long", year: 'numeric', month: "long", day: "numeric"});
 
     useEffect(() => {
         Axios.post("http://localhost:8000/api/GetLeaveRequests", {
             params: { userId: localStorage.getItem("userId") }
         }).then(response => {
-            console.log("Got leave requests raw as:", response.data);
             setRequestsRaw(response.data);
-        }, (err) => console.log("Failed to get leave requests (raw)", err));
+        }, (err) => console.error("Failed to get leave requests (raw)", err));
     }, []);
 
     useEffect(() => {
         Axios.post("http://localhost:8000/api/GetLeaveResponses", {
             params: { userId: localStorage.getItem("userId") }
         }).then(response => {
-            console.log("Got leave responses as:", response.data);
             setResponses(response.data);
-        }, (err) => console.log("Failed to get leave responses", err));
+        }, (err) => console.error("Failed to get leave responses", err));
     }, []);
 
     useEffect(() => {
@@ -34,12 +34,43 @@ function TimeAway () {
                 let response = responses.find(response => request._id === response.request);
                 if (response) {
                     request.accepted = response.approved;
+                    request.response = response;
                 }
                 return request;
             }
         );
         setRequests(r);
     }, [requestsRaw, responses]);
+
+    useEffect(() => {
+        Axios.post("http://localhost:8000/api/GetSickDays")
+        .then((response) => {
+            return response.data;
+        })
+        .then((sickDays) => setSickDays(sickDays));
+    }, []);
+
+    useEffect(() => {
+        Axios.post("http://localhost:8000/api/GetHolidayDays")
+        .then((response) => {
+            return response.data;
+        })
+        .then((holidayDays) => setHolidayDays(holidayDays));
+    });
+
+    const approvedHolidayDays = (requests.reduce((acc, req) => {
+        if (req.accepted && req.type === "Holiday") {
+            return acc + (new Date(req.end) - new Date(req.start));
+        } else 
+            return 0;
+    }, 0) / (24 * 60 * 60 * 1000)).toFixed(0);
+
+    const approvedSickLeave = (requests.reduce((acc, req) => {
+        if (req.accepted && req.type === "Sick") {
+            return acc + (new Date(req.end) - new Date(req.start));
+        } else 
+            return 0;
+    }, 0)).toFixed(0);
 
     return (
         <div className={styles.container}>
@@ -59,9 +90,9 @@ function TimeAway () {
                 </div>
                 <HolidayInfoRow
                     type="Holiday"
-                    grant="25.0"
-                    approved="2.0"
-                    remaining="23.0"
+                    grant={holidayDays}
+                    approved={approvedHolidayDays}
+                    remaining={holidayDays - approvedHolidayDays}
                 />
                 <HolidayInfoRow
                     type="Holiday Carrying Over"
@@ -71,9 +102,9 @@ function TimeAway () {
                 />
                 <HolidayInfoRow
                     type="Sick Leave"
-                    grant="N/A"
-                    approved="1.0"
-                    remaining="N/A"
+                    grant={sickDays}
+                    approved={approvedSickLeave}
+                    remaining={sickDays - approvedSickLeave}
                 />
             </div>
             {
