@@ -35,7 +35,7 @@ app.get("/api/login", async(req, res) => {
 
 app.get("/api/getProfile", async(req, res) => {
     const { userId } = req.query;
-    console.log(userId)
+    // console.log(userId)
 
     try{
         const user = await EmployeeModel.findOne({ _id: userId })
@@ -44,6 +44,25 @@ app.get("/api/getProfile", async(req, res) => {
         console.log(err)
         res.send(err)
     }
+})
+
+app.post("/api/updateProfile", async(req, res) => {
+    const { userId, first_name, last_name, email, address } = req.body;
+
+    try{
+        const response = await EmployeeModel.updateOne({_id: userId}, {
+            first_name: first_name,
+            last_name: last_name,
+            email: email,
+            address: address
+        })
+
+        res.send(response)
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+
 })
 
 // filter components in home
@@ -56,6 +75,19 @@ app.post("/api/filterHomeComponents", async(req, res) => {
             components_list: components_list
         } })
         res.send(response)
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
+
+// get employees
+
+app.get("/api/getEmployees", async(req, res) => {
+    
+    try{
+        const data = await EmployeeModel.find({})
+        res.send(data)
     } catch(err){
         console.log(err)
         res.send(err)
