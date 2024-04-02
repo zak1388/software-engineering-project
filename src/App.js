@@ -7,9 +7,14 @@ import Home from './pages/dashboard/home/Home.tsx';
 import TeamChat from './pages/dashboard/teamChat/TeamChat.tsx';
 import Calendar from './pages/dashboard/calendar/Calendar.tsx';
 import TimeAway from './pages/TimeAway/TimeAway.tsx';
+
 import TimeAwayRequest from './pages/TimeAway/TimeAwayRequest.tsx';
+=======
+import Profile from './pages/dashboard/profile/Profile.tsx';
+
 
 function App() {
+
   return (
     <div className="app">
       <Router>
@@ -22,10 +27,13 @@ function App() {
             <Route path="teamChat" element={<TeamChat />}/>
             <Route path="/calendar" element={<Calendar />}/>
           </Route>
+          <Route path="/profile/:id" element={<Profile />} />
           <Route path="/issue" element= {<Issue/>}/>
           <Route path ="/timeAway" element = {<TimeAway/>}/>
+
           <Route path ="/timeAwayRequest" element = {<TimeAwayRequest/>}/>
           <Route path="/login" element={<Login />}/>
+
         </Routes>
       </Router>
     </div>
