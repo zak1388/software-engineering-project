@@ -4,6 +4,7 @@ import styles from "./TimeAway.module.css"
 import { TiPlus } from "react-icons/ti";
 import { CiCircleCheck } from "react-icons/ci";
 import { CiCircleRemove } from "react-icons/ci";
+import TimeAwayRequest from "./TimeAwayRequest.tsx";
 
 function TimeAway () {
     const [requestsRaw, setRequestsRaw] = useState([]);
@@ -11,7 +12,6 @@ function TimeAway () {
     const [requests, setRequests] = useState([]);
     const [holidayDays, setHolidayDays] = useState(0);
     const [sickDays, setSickDays] = useState(0);
-    const dateFormatter = new Intl.DateTimeFormat("en-GB", {weekday: "long", year: 'numeric', month: "long", day: "numeric"});
 
     useEffect(() => {
         Axios.post("http://localhost:8000/api/GetLeaveRequests", {
@@ -72,15 +72,24 @@ function TimeAway () {
             return 0;
     }, 0)).toFixed(0);
 
+    let [creatingRequest, setCreatingRequest] = useState(false);
+
+    function createRequest() {
+        setCreatingRequest(true);
+    }
+
     return (
         <div className={styles.container}>
-            <div className={styles.NewButton}>
-                <button className={styles.newRequest}>
-                    <span>
-                        New Request <TiPlus className={styles.plus} />
-                    </span>
-                </button>
-            </div>
+            {
+                !creatingRequest && 
+                <div className={styles.NewButton}>
+                    <button className={styles.newRequest} onClick={createRequest}>
+                        <span>
+                            New Request <TiPlus className={styles.plus} />
+                        </span>
+                    </button>
+                </div>
+            }
             <div className={styles.HolidayInfo}>
                 <div className={styles.titles}>
                     <h2 className={styles.title}>Type</h2>
@@ -108,20 +117,31 @@ function TimeAway () {
                 />
             </div>
             {
-                requests.map((request) => (
-                    <Request 
-                        key={request._id}
-                        type={request.type}
-                        start_date={dateFormatter.format(new Date(request.start))}
-                        end_date={dateFormatter.format(new Date(request.end))}
-                        accepted={request.accepted}
-                    />
-                ))
+                (creatingRequest && <TimeAwayRequest setCreatingRequest={setCreatingRequest} />) ||
+                <RequestList requests={requests} />
             }
         </div>
     )
 }
 
+function RequestList({requests}) {
+    const dateFormatter = new Intl.DateTimeFormat("en-GB", {weekday: "long", year: 'numeric', month: "long", day: "numeric"});
+    return (
+        <div className={styles.RequestList}>
+            {
+            requests.map((request) => (
+                <Request 
+                    key={request._id}
+                    type={request.type}
+                    start_date={dateFormatter.format(new Date(request.start))}
+                    end_date={dateFormatter.format(new Date(request.end))}
+                    accepted={request.accepted}
+                />
+            ))
+            }
+        </div>
+    );
+}
 
 function HolidayInfoRow({type, grant, approved, remaining}) {
     return (
