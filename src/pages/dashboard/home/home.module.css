@@ -2,7 +2,6 @@
 
 .container{
     flex: 9;
-
     padding: 2%;
     flex-direction: column;
     justify-content: space-between;
@@ -21,6 +20,7 @@
     overflow: auto;
     height: 100%;
     width: 100%;
+    max-height: 100%;
 }
 
 .company_updates, .next_leave_scheduled, .admin_updates, .team_chat,
@@ -73,13 +73,30 @@
     justify-content: space-around;
     order: 4;
     width: 25%;
+    max-width: 100%;
     height: 30%;
     align-content: center;
+    column-gap: 5%;
 }
 
 .balance_block{
-    width: 32%;
+    width: 50%;
     padding: 2%;
+    margin: 2%;
+}
+
+.days_off_icon{
+    width: 30%;
+    height: 30%;
+    margin-bottom: 5%;
+}
+
+.separate_balance{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 3rem;
+    font-size: xx-large;
 }
 
 /* Other Components - Styling */
@@ -126,15 +143,28 @@
 }
 
 .update_block{
-    padding: 1%;
+    padding: 2%;
     background-color: #A9AFD1;
-    margin: 1%;
+    margin: 0.5%;
+    margin-bottom: 4%;
+    margin-top: 4%;
     border-radius: 5pt;
     border: solid #8D99AE 1pt;
+    height: fit-content;
 }
 
-.days_off_icon{
-    width: 30%;
-    height: 30%;
-    margin-bottom: 5%;
+/* Calendar Component */
+
+.calendar_header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+}
+
+.calendar_icon{
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 1px;
 }
