@@ -45,11 +45,11 @@ function TimeAwayRequest() {
                 <div className={styles.DatesForHoliday}>
                     <div className={styles.FormField}>
                         <h1>Start Date:</h1>
-                        <input className={styles.StartDate} type="text" id="StartDate" name="Start Date" />
+                        <input className={styles.StartDate} type="date" id="StartDate" name="Start Date" />
                     </div>
                     <div className={styles.FormField}>
                         <h1>End Date:</h1>
-                        <input className={styles.EndDate} type="text" id="EndDate" name="End Date" />
+                        <input className={styles.EndDate} type="date" id="EndDate" name="End Date" />
                     </div>
                     <div className={styles.FormField}>
                         <h1>Reason:</h1>
