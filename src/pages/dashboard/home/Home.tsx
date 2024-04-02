@@ -15,12 +15,12 @@ import Login from './../../login/Login.tsx';
 
 
 function Home() {
-
+  
   const userId = localStorage.getItem("userId")
 
   const [modal, setModal] = useState(false)
   const [componentListState, setComponentListState] = useState({})
-
+  
   useEffect(() => {
     const fetch_components = async () => {
         await Axios.get("http://localhost:8000/api/getProfile", {
@@ -77,17 +77,17 @@ function Home() {
                 {modal && <FilterComponentsModal setModal={setModal}/>}
                 </div>
             </div>
-
-
+    
+    
             <div className={styles.widgets_grid}>
                 <div className={styles.top} id="top">
                     {/* Company Updates Widget */}
-
+    
                     <div className={styles.company_updates}>
                         <div className={styles.updates_header}>
                             <div className={styles.company_updates} id="company_updates">
                                 <div className={styles.updatesHeader}>
-
+    
                                     <h2>Company Updates</h2>
                                     <h5 className={styles.new_updates}>2 new</h5>
                                 </div>
@@ -97,26 +97,26 @@ function Home() {
                             </div>
                         </div>
                     </div>
-
+    
                     <div className={styles.top_right}>
                         {/* Next Leave Widget */}
                         <div className={styles.next_leave_scheduled} id="next_leave_scheduled">
                             <h2>Next Scheduled Leave</h2>
                         </div>
-
+    
                         {/* Admin Updates Widget */}
                         <div className={styles.admin_updates} id="admin_updates">
                             <h2>Admin Updates</h2>
                         </div>
                     </div>
                 </div>
-
+    
                 <div className={styles.bottom} id="bottom">
                     {/* Team Chat Widget */}
                     <div className={styles.team_chat} id="team_chat">
                         <h2>Team Chat</h2>
                     </div>
-
+    
                     <div className={styles.bottom_middle} id="bottom_middle">
                         {/* Calendar Widget */}
                         <div className={styles.calendar} id="calendar">
@@ -134,8 +134,8 @@ function Home() {
                                 </article>
                             </div>
                         </div>
-
-
+    
+    
                         {/* Days Off Set (includes days off, holiday and sick day balances) */}
                         <div className={styles.days_off} id="days_off">
                             <div className={styles.days_off_wrapper}>
@@ -147,8 +147,8 @@ function Home() {
                                         <b>1</b>
                                         <p>/6</p>
                                     </div>
-                                </div>
-
+                                </div> 
+    
                                 {/* Holiday */}
                                 <div className={styles.balance_block}>
                                     <GiIsland className={styles.days_off_icon}/>
@@ -157,9 +157,9 @@ function Home() {
                                         <b>17</b>
                                         <p>/28</p>
                                     </div>
-                                </div>
-
-
+                                </div> 
+    
+    
                                 {/* Sick Days */}
                                 <div className={styles.balance_block}>
                                     <PiFirstAidKitBold className={styles.days_off_icon}/>
@@ -172,13 +172,13 @@ function Home() {
                         </div>
                     </div>
                     {/* Team Updates Widget */}
-
+    
                     {/* <div className={styles.team_updates}>
                         <div className={styles.updates_header}> */}
-
+    
                     <div className={styles.team_updates} id="team_updates">
                         <div className={styles.updatesHeader}>
-
+    
                             <h2>Team Updates</h2>
                             <h5 className={styles.new_updates}>1 new</h5>
                         </div>
@@ -186,14 +186,14 @@ function Home() {
                     </div>
                     {/* </div> */}
                     {/* </div> */}
-
+    
                 </div>
-
-
+    
+    
         </div>
-
+    
         </div>
-
+    
   )
 }
 
