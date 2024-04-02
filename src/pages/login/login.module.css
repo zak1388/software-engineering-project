@@ -1,3 +1,9 @@
+.errorDiv {
+    margin-top: 1.5em !important;
+    margin-bottom: 1em;
+    color: red;
+}
+
 .loginForm {
     width: fit-content;
     position: absolute;
@@ -5,12 +11,27 @@
     left: 50%;
     transform: translateY(-50%) translateX(-50%);
     background-color: white;
-    padding: 3em 4em;
     display: flex;
     flex-direction: column;
     gap: 1em;
     border-radius: 1em;
     box-shadow: 1px 0px 2px lightgray, 0px 1px 2px gray;
+}
+
+.loginForm > * {
+    width: 95%;
+    margin: 0 auto;
+    padding-left: 4em;
+    padding-right: 4em;
+}
+
+
+.loginForm > *:last-child {
+    margin-bottom: 3em;
+}
+
+.loginForm > *:first-child {
+    margin-top: 3em;
 }
 
 .label {
@@ -25,11 +46,12 @@
     border-radius: 1em;
     border: 0;
     background-color: lightgray;
-    padding: 6pt 3em;
+    padding: 10px;
+    width: 100%;
 }
 
 .submit {
-    width: 75%;
+    width: max(5em, 40%);
     margin: auto;
     background: linear-gradient(to right, #1541c8, #682cb7);
     border: 0;

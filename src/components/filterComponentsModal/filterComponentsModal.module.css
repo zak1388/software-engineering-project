@@ -1,0 +1,41 @@
+.container{
+    margin-right: 20px;
+    background-color: white;
+    z-index: 99999;
+    width: 20%;
+    height: fit-content;
+    position: absolute;
+    right: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.header{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.components{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.component{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.button button{
+    width: 50px;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    outline: none;
+    background: linear-gradient(to right, #1541C8, #682CB7);
+    color: white;
+}
