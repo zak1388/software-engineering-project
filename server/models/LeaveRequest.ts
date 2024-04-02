@@ -8,6 +8,7 @@ const LeaveRequestSchema = new Schema({
     active: Boolean,
     proof: String,
     requestor: {type: Schema.Types.ObjectId, ref: "Employee"},
+    type: String,
 })
 
 module.exports = mongoose.model("LeaveRequest", LeaveRequestSchema);
