@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import styles from "./home.module.css"
+
+{/* Icons Used: */}
 import { HiMiniAdjustmentsHorizontal } from "react-icons/hi2";
 import { FaRegCalendarMinus } from "react-icons/fa";
 import { GiIsland } from "react-icons/gi";
 import { PiFirstAidKitBold } from "react-icons/pi";
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 
 import FilterComponentsModal from '../../../components/filterComponentsModal/FilterComponentsModal.tsx';
 import Axios from "axios"
@@ -68,8 +72,8 @@ function Home() {
                     <h5 className={styles.new_updates}>2 new</h5>
                 </div>
                 <p className={styles.date}>25 March</p>
-                <p className={styles.update_block}>Example Update</p>
-                <p className={styles.update_block}>Another Update</p>
+                <p className={styles.update_block}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a varius ante, ut sagittis ipsum. Ut vitae porta lectus. Sed.</p>
+                <p className={styles.update_block}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at eleifend leo. Praesent interdum ut dolor et auctor. Nunc rutrum congue lacus vel ornare. Sed nisi risus, gravida eu odio.</p>
             </div>
 
             {/* Next Leave Widget */}
@@ -89,7 +93,12 @@ function Home() {
 
             {/* Calendar Widget */}
             <div className={styles.calendar} id="calendar">
-                <h2>Calendar</h2>
+                <div className={styles.calendar_header}>
+                    <IoIosArrowBack className={styles.calendar_icon}/>
+                    <IoIosArrowForward className={styles.calendar_icon}/>
+                    <h2>Today</h2>
+                    <h2>, 02 April</h2>
+                </div>
             </div>
 
             {/* Team Updates Widget */}
@@ -99,10 +108,10 @@ function Home() {
 
             <div className={styles.team_updates} id="team_updates">
                 <div className={styles.updatesHeader}>
-
                     <h2>Team Updates</h2>
                     <h5 className={styles.new_updates}>1 new</h5>
                 </div>
+                <p className={styles.update_block}>lectus quam id leo in vitae turpis massa sed elementum tempus egestas sed sed risus pretium quam vulputate dignissim suspendisse</p>
             </div>
 
             {/* Days Off Set (includes days off, holiday and sick day balances) */}
@@ -111,7 +120,7 @@ function Home() {
                 <div className={styles.balance_block}>
                     <FaRegCalendarMinus className={styles.days_off_icon}/>
                     <h2>Days Off</h2>
-                    <div>
+                    <div className={styles.separate_balance}>
                         <b>1</b>
                         <p>/6</p>
                     </div>
@@ -121,6 +130,10 @@ function Home() {
                 <div className={styles.balance_block}>
                     <GiIsland className={styles.days_off_icon}/>
                     <h2>Holiday</h2>
+                    <div className={styles.separate_balance}>
+                        <b>17</b>
+                        <p>/28</p>
+                    </div>
                 </div>
 
 
@@ -128,6 +141,9 @@ function Home() {
                 <div className={styles.balance_block}>
                     <PiFirstAidKitBold className={styles.days_off_icon}/>
                     <h2>Sick</h2>
+                    <div className={styles.separate_balance}>
+                        <b>10</b>
+                    </div>
                 </div>
             </div>
 
