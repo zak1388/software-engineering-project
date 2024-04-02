@@ -3,6 +3,8 @@ const cors = require("cors")
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser");
 const EmployeeModel = require("./models/Employee.ts")
+const EventModel = require("./models/Event.ts")
+const moment = require("moment")
 
 const app = express()
 
@@ -88,6 +90,39 @@ app.get("/api/getEmployees", async(req, res) => {
     try{
         const data = await EmployeeModel.find({})
         res.send(data)
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
+
+// create calendar event
+
+app.post("/api/createEvent", async(req, res) => {
+    const { start, end, title } = req.body;
+
+    try{
+        const event = await new EventModel({
+            start: start,
+            end: end,
+            title: title
+        })
+
+        event.save()
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
+
+// get events
+
+app.get("/api/getEvenets", async(req, res) => {
+    const { start, end } = req.query
+
+    try{
+        const events = await EventModel.find({start: {$gte: moment(start).toDate()}, end: {$lte: moment(end).toDate()}})
+        res.send(events)
     } catch(err){
         console.log(err)
         res.send(err)

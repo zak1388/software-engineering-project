@@ -65,8 +65,7 @@ function Home() {
 }, [componentListState])
 
   return (
-    <>
-    {userId.length > 0 ? (
+
         <div className={styles.container}>
             <div className={styles.header}>
                 <div className={styles.filter}>
@@ -170,11 +169,6 @@ function Home() {
         </div>
     
         </div>
-    ) : (
-        <Login />
-    )}
-    
-    </>
     
   )
 }

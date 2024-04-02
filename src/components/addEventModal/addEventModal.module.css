@@ -1,0 +1,45 @@
+.container{
+    background-color: white;
+    z-index: 99999;
+    width: 40%;
+    height: 40%;
+    height: fit-content;
+    position: absolute;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+}
+
+.header{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.event_details{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.event_detail{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.event_detail input{
+    width: fit-content;
+    outline: none;
+    padding: 5px;
+}
+
+.dates{
+    display: flex;
+    gap: 50px;
+}
