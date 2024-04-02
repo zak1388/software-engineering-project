@@ -7,7 +7,10 @@ const EmployeeTeamModel = require("./models/EmployeeTeam.ts")
 const TeamModel = require("./models/Team.ts")
 const TeamChatMessageModel = require("./models/TeamChatMessage.ts");
 const DirectChatMessageModel = require("./models/DirectChatMessage.ts");
+const LeaveRequestModel = require("./models/LeaveRequest.ts");
+const LeaveResponseModel = require("./models/LeaveResponse.ts");
 
+require("dotenv").config();
 const app = express()
 
 mongoose.connect("mongodb+srv://zak:ECS506@cluster0.3ranwb2.mongodb.net/", {
@@ -22,7 +25,7 @@ app.use(cors())
 app.use(express.json());
 
 app.post("/api/login", async(req, res) => {
-    const { username, password } = req.body;
+    const { username, password } = req.body.params;
     if (!username) {
         res.status(400).json("Missing username");
         return;
@@ -40,7 +43,7 @@ app.post("/api/login", async(req, res) => {
             return;
         }
 
-        res.status(200).json({employeeId: user.id});
+        res.status(200).json(user);
     })
 });
 
@@ -117,7 +120,7 @@ app.post("/api/GetTeamMessages", async(req, res) => {
     const { teamId } = req.body;
 
     try {
-        const messages = TeamChatMessageModel.find({ team: teamId });
+        const messages = await TeamChatMessageModel.find({ team: teamId });
         res.json(messages);
     } catch (err) {
         console.log(err);
@@ -127,12 +130,76 @@ app.post("/api/GetTeamMessages", async(req, res) => {
 
 // get ALL direct messages
 app.post("/api/GetAllDirectMessages", async(req, res) => {
-    const { userId } = req.body;
+    const { id } = req.body;
 
     try {
-        const messages = DirectChatMessageModel.find({ from_employee: userId });
+        const employee = await EmployeeModel.findOne({ id });
+        const messages = await DirectChatMessageModel.find({ from_employee: employee });
         res.json(messages);
     } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
+// get all leave requests
+app.post("/api/GetLeaveRequests", async(req, res) => {
+    const { id } = req.body;
+
+    try {
+        const employee = await EmployeeModel.findOne({ id });
+        const leave_reqs = await LeaveRequestModel.find({ requestor: employee })
+        res.json(leave_reqs);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
+// get all responses for employee
+app.post("/api/GetLeaveResponses", async(req, res) => {
+    const { id } = req.body;
+
+    try {
+        const employee = await EmployeeModel.findOne({ id });
+        const leave_reqs = await LeaveRequestModel.find({ requestor: employee })
+        const leave_resps_promises = leave_reqs.map(leave_req => LeaveResponseModel.findOne({ request: leave_req }));
+        const leave_resps = await Promise.all(leave_resps_promises);
+        res.json(leave_resps);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
+// get response for leave request
+app.post("/api/GetLeaveResponseFor", async(req, res) => {
+    const { requestId } = req.body;
+
+    try {
+        const leave_resps = await LeaveResponseModel.find({ request: requestId });
+        res.json(leave_resps);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
+app.post("/api/GetHolidayDays", async(req, res) => {
+    try {
+        const holidayDays = process.env.HOLIDAY_DAYS;
+        res.json(holidayDays);
+    } catch (err) { 
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
+app.post("/api/GetSickDays", async(req, res) => {
+    try {
+        const sickDays = process.env.SICK_DAYS;
+        res.json(sickDays);
+    } catch (err) { 
         console.log(err);
         res.status(500).send(err);
     }
