@@ -25,6 +25,7 @@ function FilterComponentsModal({ setModal }) {
         console.log(e.target.checked)
         // let container = document.getElementsByClassName("c") as HTMLCollectionOf<HTMLElement>;
         let container: any = document.getElementById(`${component}`)
+
         if(e.target.checked == true){
             container.style.display = "block"
         } else{
