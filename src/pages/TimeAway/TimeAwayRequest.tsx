@@ -33,9 +33,29 @@ function TimeAwayRequest({ setCreatingRequest }) {
                 <h1>Comments:</h1>
                 <textarea className={styles.Comments} cols={113} rows={3}></textarea>
             </div>
-            <div className={styles.Buttons}>
-                <button className={styles.CancelButton} onClick={cancelFunction}>Cancel</button>
-                <button className={styles.SubmitButton}>Submit</button>
+            <div className={styles.HolidayRequestForum}>
+                <div className={styles.DatesForHoliday}>
+                    <div className={styles.FormField}>
+                        <h1>Start Date:</h1>
+                        <input className={styles.StartDate} type="date" id="StartDate" name="Start Date" />
+                    </div>
+                    <div className={styles.FormField}>
+                        <h1>End Date:</h1>
+                        <input className={styles.EndDate} type="date" id="EndDate" name="End Date" />
+                    </div>
+                    <div className={styles.FormField}>
+                        <h1>Reason:</h1>
+                        <input className={styles.Reason} type="text" id="Reason" name="Reason" />
+                    </div>
+                </div>  
+                <div>
+                    <h1>Comments:</h1>
+                    <textarea className={styles.Comments} cols={113} rows={3}></textarea>
+                </div>
+                <div>
+                    <button className={styles.CancelButton} onClick={cancelFunction}>Cancel</button>
+                    <button className={styles.SubmitButton}>Submit</button>
+                </div>
             </div>
         </div>
     );

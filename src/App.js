@@ -8,6 +8,8 @@ import TeamChat from './pages/dashboard/teamChat/TeamChat.tsx';
 import Calendar from './pages/dashboard/calendar/Calendar.tsx';
 import TimeAway from './pages/TimeAway/TimeAway.tsx';
 import TimeAwayRequest from './pages/TimeAway/TimeAwayRequest.tsx';
+import ManagerAnnouncement from './pages/ManagerNotice/ManagerAnnounce.tsx';
+import AdminAnnouncement from './pages/AdminNotice/AdminAnnounce.tsx';
 
 function App() {
   return (
@@ -21,8 +23,13 @@ function App() {
             <Route path ="/timeAwayRequest" element = {<TimeAwayRequest/>}/>
             <Route path="teamChat" element={<TeamChat />}/>
             <Route path="/calendar" element={<Calendar />}/>
+            <Route path="/issue" element= {<Issue/>}/>
+            <Route path="ManagerNotice" element={<ManagerAnnouncement/>}/>
+            <Route path="AdminNotice" element={<AdminAnnouncement/>}/>
           </Route>
           <Route path="/issue" element= {<Issue/>}/>
+          <Route path="ManagerNotice" element={<ManagerAnnouncement/>}/>
+          <Route path="AdminNotice" element={<AdminAnnouncement/>}/>
           <Route path ="/timeAway" element = {<TimeAway/>}/>
           <Route path ="/timeAwayRequest" element = {<TimeAwayRequest/>}/>
           <Route path="/login" element={<Login />}/>
