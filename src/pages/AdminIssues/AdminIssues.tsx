@@ -1,8 +1,5 @@
 import React, { useState } from 'react'
 import styles from "./AdminIssues.module.css"
-import { Outlet } from 'react-router-dom'
-import Sidebar from '../../components/sidebar/Sidebar.tsx'
-import Navbar from '../../components/navbar/Navbar.tsx'
 
 function AdminIssues () {
     const [showModal, setShowModal] = useState(false);
@@ -13,9 +10,6 @@ function AdminIssues () {
 
     return (
         <div className={styles.container}>
-            <Sidebar />
-            <Navbar />
-            <Outlet />
             <div className={styles.IssuesBundle}>
                 <h1>Employee Issues</h1>
                 <div className={styles.SingleIssue}>

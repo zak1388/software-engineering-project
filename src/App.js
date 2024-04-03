@@ -30,6 +30,7 @@ function App() {
             <Route path="/issue" element= {<Issue/>}/>
             <Route path="ManagerNotice" element={<ManagerAnnouncement/>}/>
             <Route path="AdminNotice" element={<AdminAnnouncement/>}/>
+            <Route path="/AdminIssues" element= {<AdminIssues/>}/>
           </Route>
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/issue" element= {<Issue/>}/>
@@ -39,7 +40,6 @@ function App() {
 
           <Route path ="/timeAwayRequest" element = {<TimeAwayRequest/>}/>
           <Route path="/login" element={<Login />}/>
-          <Route path="/AdminIssues" element= {<AdminIssues/>}/>
         </Routes>
       </Router>
     </div>
