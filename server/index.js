@@ -156,6 +156,27 @@ app.post("/api/GetLeaveRequests", async(req, res) => {
     }
 });
 
+app.post("/api/CreateLeaveRequest", async(req, res) => {
+    const { id, start, end, type, comments, proof } = req.body.params;
+
+    try {
+        const employee = await EmployeeModel.findOne({ _id: id });
+        new LeaveRequestModel({
+            start: start,
+            end: end,
+            comment: comments,
+            active: true,
+            proof: proof,
+            requestor: employee,
+            type: type,
+        }).save();
+        res.send("ok");
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
 // get all responses for employee
 app.post("/api/GetLeaveResponses", async(req, res) => {
     const { id } = req.body;

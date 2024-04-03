@@ -31,6 +31,7 @@
     font-style: normal;
     font-weight: 700;
     margin: 0 1em;
+    text-align: center;
 }
 
 .CancelButton {
@@ -70,10 +71,15 @@
     flex-shrink: 0;
     font-size: large;
 }
-.Reason{
+.Type{
     background: rgba(217, 217, 217, 0.75);
     width: 257px;
     height: 34px;
     flex-shrink: 0;
     font-size: large;
+}
+
+.Errors {
+    color: red;
+    margin: 0 1em;
 }

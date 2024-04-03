@@ -101,7 +101,7 @@ function TimeAway () {
                     type="Holiday"
                     grant={holidayDays}
                     approved={approvedHolidayDays}
-                    remaining={holidayDays - approvedHolidayDays}
+                    remaining={Math.max(holidayDays - approvedHolidayDays, 0)}
                 />
                 <HolidayInfoRow
                     type="Holiday Carrying Over"
@@ -113,7 +113,7 @@ function TimeAway () {
                     type="Sick Leave"
                     grant={sickDays}
                     approved={approvedSickLeave}
-                    remaining={sickDays - approvedSickLeave}
+                    remaining={Math.max(sickDays - approvedSickLeave, 0)}
                 />
             </div>
             {
