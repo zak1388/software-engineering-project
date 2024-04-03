@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import styles from "./adminViewRequests.module.css"
+import styles from "./managerViewRequests.module.css"
 
 import Sidebar from '../../components/sidebar/Sidebar.tsx'
 import Navbar from '../../components/navbar/Navbar.tsx'
@@ -9,47 +9,51 @@ import { AiOutlineEllipsis } from "react-icons/ai";
 import { FcOk } from "react-icons/fc";
 import { AiOutlineClose } from "react-icons/ai";
 
-function adminViewRequests() {
+function managerViewRequests() {
     return (
         <div className={styles.container}>
             <Sidebar />
             <div className={styles.wrapper}>
                 <Navbar />
             </div>
-            <h1>Personal Information Change Requests</h1>
+            <h1>Employee Holiday Requests</h1>
             <table>
                 <tr>
                     {/* Header Row */}
-                    <th>User ID</th>
-                    <th>Type</th>
-                    <th>Date Requested</th>
+                    <th>Employee</th>
+                    <th>Date Request Submitted</th>
+                    <th>Type of Leave Requested</th>
+                    <th>Start Date - End Date</th>
                     <th>Status</th>
                 </tr>
                 <tr>
-                    <td>67892</td>
-                    <td>Name</td>
-                    <td>01-04-24</td>
+                    <td>John Smith</td>
+                    <td>01/03/24</td>
+                    <td>Holiday</td>
+                    <td>10/03/24 - 30/03/24</td>
                     <td>
-                        <AiOutlineEllipsis />
-                        <p>Pending</p>
+                        <AiOutlineClose />
+                        <p>Rejected</p>
                     </td>
                 </tr>
                 <tr>
-                    <td>12345</td>
-                    <td>Address</td>
-                    <td>15-03-24</td>
+                    <td>John Smith</td>
+                    <td>10/03/24</td>
+                    <td>Sick Leave</td>
+                    <td>10/03/24 - 12/03/24</td>
                     <td>
                         <FcOk />
                         <p>Approved</p>
                     </td>
                 </tr>
                 <tr>
-                    <td>73947</td>
-                    <td>Date of Birth</td>
-                    <td>04-03-24</td>
+                    <td>Jane Doe</td>
+                    <td>28/03/24</td>
+                    <td>Holiday</td>
+                    <td>01/04/24 - 10/04/24</td>
                     <td>
-                        <AiOutlineClose />
-                        <p>Rejected</p>
+                        <AiOutlineEllipsis />
+                        <p>Pending</p>
                     </td>
                 </tr>
             </table>
@@ -57,4 +61,4 @@ function adminViewRequests() {
     )
 }
 
-export default adminViewRequests
+export
