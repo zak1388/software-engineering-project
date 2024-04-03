@@ -92,8 +92,16 @@ h1{
     width: 100%;
 }
 
+.request:first-child {
+    margin-top: 0;
+}
+
+.request:last-child {
+    margin-bottom: 0;
+}
+
 .request{
-    margin: auto;
+    margin: 1em auto;
     width: 84%;
     background-color: white;
     padding: 1em;

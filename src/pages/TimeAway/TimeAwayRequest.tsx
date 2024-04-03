@@ -80,7 +80,7 @@ function TimeAwayRequest({ setCreatingRequest }) {
                 comments: comments, 
                 proof: ""
             }
-        }).then(() => cancelFunction(), err => console.error("Failed to send CreateLeaveRequest post request", err));
+        }).then(() => window.location.reload(), err => console.error("Failed to send CreateLeaveRequest post request", err));
 
     }
 
