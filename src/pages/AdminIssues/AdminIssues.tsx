@@ -33,12 +33,12 @@ function AdminIssues () {
             ...issue
         }));
 
-        relevantEmployees.forEach(emp => {
-                let issue = issuesWithEmployee.find(issue => emp._id === issue.creator);
-                if (issue) {
-                    issue.employee = emp;
-                } 
-        })
+        issuesWithEmployee.forEach(issue => {
+            let emp = relevantEmployees.find(emp => emp._id === issue.creator);
+            if (emp) {
+                issue.employee = emp;
+            }
+        });
 
         setIssuesWithEmployee(issuesWithEmployee);
     }, [issues, relevantEmployees]);
@@ -57,20 +57,6 @@ function AdminIssues () {
                         setModalIssue={setModalIssue}
                     />))
                 }
-                {/*<Issue 
-                    name="Rochak Sharma"
-                    raisedOn="19th March 2024"
-                    brief="Cannot change emergency contact to a landline number"
-                    fullText="Inability to update emergency contacts to landline numbers poses a potential safety risk. Consider revising database settings to accommodate landline entries for comprehensive emergency preparedness and employee safety."
-                    setShowModal={setShowModal}
-                />
-                <Issue 
-                    name="Donald Trump" 
-                    raisedOn="30th January 2024" 
-                    brief="Cannot win an election with this thing."
-                    fullText=""
-                    setShowModal={setShowModal}
-                />*/}
             </div>    
         </div>
     )
@@ -122,7 +108,7 @@ function Issue({ issue, setModalIssue, setShowModal }) {
 
             <div className={styles.Brief}>
                 <h3>Brief</h3>
-                <h1>{issue.brief}</h1> {/*should have a word limit when uploading*/}
+                <h1>{issue.brief}</h1>
             </div>
 
             <div className={styles.Buttons}>

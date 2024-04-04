@@ -324,6 +324,24 @@ app.get("/api/getEvenets", async(req, res) => {
     }
 })
 
+app.post("/api/CreateIssue", async(req, res) => {
+    const { userId, brief, fullText } = req.body.params;
+
+    try {
+        await (new IssueTicketModel({
+            resolved: false,
+            brief,
+            fullText,
+            createdAt: new Date(),
+            creator: userId,
+        })).save();
+        res.send();
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
 app.post("/api/DeleteIssue", async(req, res) => {
     const { userdId, issueId } = req.body.params;
 
@@ -331,7 +349,6 @@ app.post("/api/DeleteIssue", async(req, res) => {
 
     try {
         await IssueTicketModel.deleteOne({ _id: issueId });
-        console.log("deleted " + issueId);
         res.send();
     } catch (err) {
         console.log(err);
