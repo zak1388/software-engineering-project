@@ -19,7 +19,7 @@ function Calendar() {
     <>
     <div className={styles.container}>
       <button onClick={() => setModal(true)}>Add event</button>
-      <div style={{ position: "relative", zIndex: 0 }}>
+      <div style={{ position: "relative", zIndex: 0 }} className={styles.cldr}>
         <FullCalendar
           ref={calendarRef}
           plugins={[ dayGridPlugin ]}
