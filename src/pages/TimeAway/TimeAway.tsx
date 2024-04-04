@@ -4,6 +4,7 @@ import styles from "./TimeAway.module.css"
 import { TiPlus } from "react-icons/ti";
 import { CiCircleCheck } from "react-icons/ci";
 import { CiCircleRemove } from "react-icons/ci";
+import { CiCircleQuestion } from "react-icons/ci";
 import TimeAwayRequest from "./TimeAwayRequest.tsx";
 
 function TimeAway () {
@@ -31,7 +32,7 @@ function TimeAway () {
 
     useEffect(() => {
         const r = requestsRaw.map(request => {
-                let response = responses.find(response => request._id === response.request);
+                let response = responses.filter(response => Boolean(response)).find(response => request._id === response.request);
                 if (response) {
                     request.accepted = response.approved;
                     request.response = response;
@@ -101,7 +102,7 @@ function TimeAway () {
                     type="Holiday"
                     grant={holidayDays}
                     approved={approvedHolidayDays}
-                    remaining={holidayDays - approvedHolidayDays}
+                    remaining={Math.max(holidayDays - approvedHolidayDays, 0)}
                 />
                 <HolidayInfoRow
                     type="Holiday Carrying Over"
@@ -113,7 +114,7 @@ function TimeAway () {
                     type="Sick Leave"
                     grant={sickDays}
                     approved={approvedSickLeave}
-                    remaining={sickDays - approvedSickLeave}
+                    remaining={Math.max(sickDays - approvedSickLeave, 0)}
                 />
             </div>
             {
@@ -136,6 +137,7 @@ function RequestList({requests}) {
                     start_date={dateFormatter.format(new Date(request.start))}
                     end_date={dateFormatter.format(new Date(request.end))}
                     accepted={request.accepted}
+                    active={request.active}
                 />
             ))
             }
@@ -154,7 +156,7 @@ function HolidayInfoRow({type, grant, approved, remaining}) {
     );
 }
 
-function Request({type, start_date, end_date, accepted}) {
+function Request({type, start_date, end_date, accepted, active}) {
     return (
             <div className={styles.request}>
                 <div>
@@ -175,12 +177,14 @@ function Request({type, start_date, end_date, accepted}) {
                     <span>
                         {
                             (accepted && <CiCircleCheck className={styles.AcceptedIcon}/>)
+                            || (active && <CiCircleQuestion className={styles.AcceptedIcon}/>)
                             || <CiCircleRemove className={styles.AcceptedIcon}/>
                         }
                     </span>
                     <h1>
                         {
                             (accepted && "Accepted")
+                            || (active && "Active")
                             || "Rejected"
                         }
                     </h1>

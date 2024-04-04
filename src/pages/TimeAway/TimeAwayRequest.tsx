@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from "./TimeAwayRequest.module.css";
 import { Form, Outlet } from 'react-router-dom';
 import Sidebar from '../../components/sidebar/Sidebar.tsx';
@@ -7,26 +7,107 @@ import { TiPlus } from "react-icons/ti";
 import { CiCircleCheck } from "react-icons/ci";
 import { CiCircleRemove } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
+import Axios from "axios";
 
 function TimeAwayRequest({ setCreatingRequest }) {
+    const [errors, setErrors] = useState([]);
+
     function cancelFunction() {
         setCreatingRequest(false);
     }
 
+    function verifyForm(form) {
+        const startDate = new Date(form.querySelector("." + styles.StartDate).value);
+        const endDate = new Date(form.querySelector("." + styles.EndDate).value);
+
+        let succeeded = true;
+        let errors = [];
+
+        // make sure fields arent empty
+        for (let field of form) {
+            if (field.nodeName === "BUTTON") {
+                continue;
+            } else if (field.className === styles.Comments) {
+                continue;
+            } else if (field.value === "") {
+                errors.push(field.name + " cannot be empty");
+                succeeded = false;
+            }
+        }
+        
+        // make sure dates aren't backwards or sth
+        const d = new Date();
+        const today = new Date(d.getFullYear(), d.getMonth(), d.getDay());
+        if (startDate.valueOf() < today.valueOf()) {
+            failed = true;
+            errors.push("Start date cannot be in the past");
+        }
+
+        if (endDate.valueOf() < today.valueOf()) {
+            succeeded = true;
+            errors.push("End date cannot be in the past");
+        }
+
+        if (endDate.valueOf() < startDate.valueOf()) {
+            succeeded = true;
+            errors.push("End date cannot be before start date");
+        } 
+
+        setErrors(errors);
+        return succeeded;
+    }
+
+    function submitFunction(event) {
+        event.preventDefault();
+
+        const form = event.target;
+        const startDate = new Date(form.querySelector("." + styles.StartDate).value);
+        const endDate = new Date(form.querySelector("." + styles.EndDate).value);
+        const comments = form.querySelector("." + styles.Comments).value;
+        const type = form.querySelector("." + styles.Type).value;
+
+        if (!verifyForm(form)) {
+            console.error("Failed to submit form");
+            return;
+        }
+
+        Axios.post("http://localhost:8000/api/CreateLeaveRequest", {
+            params: { 
+                id: localStorage.getItem("userId"), 
+                start: startDate, 
+                end: endDate, 
+                type: type, 
+                comments: comments, 
+                proof: ""
+            }
+        }).then(() => window.location.reload(), err => console.error("Failed to send CreateLeaveRequest post request", err));
+
+    }
+
     return (
-        <div className={styles.HolidayRequestForum}>
+        <form className={styles.HolidayRequestForum} onSubmit={submitFunction}>
+            <div className={styles.Errors}>
+                { errors.map((err, i) => <p key={i}>{err}</p>) }
+            </div>
             <div className={styles.DatesForHoliday}>
                 <div className={styles.FormField}>
                     <h1>Start Date:</h1>
-                    <input className={styles.StartDate} type="text" id="StartDate" name="Start Date" />
+                    <input className={styles.StartDate} type="date" id="StartDate" name="Start Date" />
                 </div>
                 <div className={styles.FormField}>
                     <h1>End Date:</h1>
-                    <input className={styles.EndDate} type="text" id="EndDate" name="End Date" />
+                    <input className={styles.EndDate} type="date" id="EndDate" name="End Date" />
                 </div>
                 <div className={styles.FormField}>
-                    <h1>Reason:</h1>
-                    <input className={styles.Reason} type="text" id="Reason" name="Reason" />
+                    <h1>Type:</h1>
+                    <select className={styles.Type}>
+                        <option default>Sick Leave</option>
+                        <option>Holiday</option>
+                        <option>Jury Duty</option>
+                        <option>Maternity/Paternity/Adoption Leave</option>
+                        <option>Dependent Leave</option>
+                        <option>Bereavement</option>
+                    </select>
                 </div>
             </div>  
             <div>
@@ -35,9 +116,9 @@ function TimeAwayRequest({ setCreatingRequest }) {
             </div>
             <div className={styles.Buttons}>
                 <button className={styles.CancelButton} onClick={cancelFunction}>Cancel</button>
-                <button className={styles.SubmitButton}>Submit</button>
+                <input type="submit" className={styles.SubmitButton} value="Submit" />
             </div>
-        </div>
+        </form>
     );
 }
 

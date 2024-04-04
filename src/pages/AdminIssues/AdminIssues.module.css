@@ -1,0 +1,163 @@
+.container{
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+.wrapper{
+    background-color: #EAEBEC;
+    flex: 5;
+    display: flex;
+    flex-direction: column;
+}
+
+.IssuesBundle{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    top: 12%;
+    left: 17%;
+    width: 77%;
+}
+
+.IssuesBundle > h1{
+    font-size: 2.5rem;
+    padding-bottom: 3%;
+}
+
+.SingleIssue{
+    height: 16%;
+    background-color: white;
+    padding: 1em 2em;
+    display: flex;
+    flex-direction:row;
+    border-radius: 1em;
+    box-shadow: 1px 0px 2px lightgray, 0px 1px 2px gray;
+    margin-bottom: 20px;
+}
+
+h3{
+    font-size: 15px;
+}
+
+h1{
+    margin-top: 15px;
+    font-size: 22px;
+}
+
+.Name h3{
+    width: 8rem;
+}
+.Name{
+    width: 15%
+}
+
+.Date h3{
+    width: 10rem;
+}
+
+.Date{
+    width: 20%;
+}
+
+.Brief{
+    width: 30%;
+}
+
+.Buttons {
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 1.2rem;
+}
+
+.DeleteButton{
+    background: linear-gradient(90deg, #982424 0%, #ed1905 100%);
+}
+
+.ReadMoreButton{
+    background: linear-gradient(90deg, #682CB7 0%, #1541C8 100%);
+}
+
+.Buttons > * {
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    width: 150px;
+    height: 46px;
+    border: none;
+    color: #FFF;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
+    margin: 0 1em;
+}
+
+.ReadMoreButton:hover{
+    background: linear-gradient(90deg, #1541C8 0%, #682CB7 100%);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.DeleteButton:hover{
+    background: linear-gradient(90deg, #ed1905 0%, #982424 100%);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.Modal{
+    display: block;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.ModalContent{
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 3%;
+    padding-top: 2%;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 1.5em;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+}
+.ModalContent h2{
+    padding-bottom: 2%;
+    font-size: 1.5rem;
+    padding-left: 3%;
+    font-weight: bold;
+}
+.ModalContent p{
+    width: 90%;
+    padding-left: 3%;
+    font-size: 1.15rem;
+    text-align: justify;
+}
+.ModalHeading{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 5%;
+}
+.ModalHeading h1{
+    font-size: 2rem;
+}
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
