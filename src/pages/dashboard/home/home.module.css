@@ -75,13 +75,14 @@
 
 .calendar{
     height: 60%;
+    overflow: auto;
 }
 
 .days_off{
     height: 40%;
 }
 
-
+/* Days Off Widget - Styling */
 .days_off_wrapper{
     height: 100%;
     width: 100%;
@@ -89,10 +90,30 @@
     gap: 15px;
 }
 
+.separate_balance{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15%;
+    font-size: large;
+
+}
+
+.balance_block h2{
+    font-size: 1.3rem;
+    margin-top: 15%;
+}
+
 
 .balance_block{
     width: 33%;
     height: 100%;
+}
+
+.days_off_icon{
+    width: 25%;
+    height: 25%;
 }
 
 /* Other Components - Styling */
@@ -164,9 +185,23 @@
 
 .calendar_event{
     background-color: #eef4fc;
-    border-radius: 10px;
+    border-radius: 6px;
     display: flex;
     flex-direction: row;
-    align-content: flex-start;
+    align-content: center;
     justify-content: center;
+    margin: 2%;
+    height: 4.5rem;
+    width: 20rem;
+    padding: 1rem;
+    text-align: center;
+    column-gap: 1rem;
+}
+
+.calendar_block{
+    display: flex;
+    margin-top: 5%;
+    align-items: center;
+    justify-content: center;
+
 }

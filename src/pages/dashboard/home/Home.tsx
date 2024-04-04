@@ -123,11 +123,26 @@ function Home() {
                                 <h2>Today</h2>
                                 <h2>, 02 April</h2>
                             </div>
-                            <div>
+                            {/* One Block of a Calendar Event */}
+                            <div className={styles.calendar_block}>
                                 <p>9:00am</p>
                                 <article className={styles.calendar_event}>
-                                    <h6>Video Call</h6>
+                                    <h4>Video Call</h4>
                                     <p>9:00 - 10:00 - Team Meeting</p>
+                                </article>
+                            </div>
+
+                            <div className={styles.calendar_block}>
+                                <p>10:00am</p>
+                                <article className={styles.calendar_event}>
+
+                                </article>
+                            </div>
+                            <div className={styles.calendar_block}>
+                                <p>11:00am</p>
+                                <article className={styles.calendar_event}>
+                                    <h4>Meeting</h4>
+                                    <p>Team Building Exercise</p>
                                 </article>
                             </div>
                         </div>
