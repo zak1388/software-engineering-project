@@ -31,12 +31,23 @@
 .submit {
     width: 75%;
     margin: auto;
-    background: linear-gradient(to right, #1541c8, #682cb7);
-    border: 0;
+    background: linear-gradient(90deg, #682CB7 0%, #1541C8 100%);
+    border: none;
     color: white;
     border-radius: 0.5em;
     padding: 4%;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
 }
+
+.submit:hover{
+    background: linear-gradient(90deg, #1541C8 0%, #682CB7 100%);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
+    transition: background 0.3s, box-shadow 0.3s;
+    border: none;
+}
+
 
 .background {
     width: 100vw;
