@@ -12,6 +12,9 @@ import TimeAwayRequest from './pages/TimeAway/TimeAwayRequest.tsx';
 
 import Profile from './pages/dashboard/profile/Profile.tsx';
 
+import AdminViewRequests from './pages/adminViewRequests/AdminViewRequests.tsx';
+import ManagerViewRequests from './pages/managerViewRequests/ManagerViewRequests.tsx';
+
 
 function App() {
 
@@ -33,6 +36,10 @@ function App() {
 
           <Route path ="/timeAwayRequest" element = {<TimeAwayRequest/>}/>
           <Route path="/login" element={<Login />}/>
+
+          <Route path="/AdminViewRequests" element={<AdminViewRequests/>}/>
+          <Route path="/ManagerViewRequests" element={<ManagerViewRequests/>}/>
+
 
         </Routes>
       </Router>
