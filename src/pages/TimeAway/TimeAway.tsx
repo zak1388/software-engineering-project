@@ -159,18 +159,20 @@ function HolidayInfoRow({type, grant, approved, remaining}) {
 function Request({type, start_date, end_date, accepted, active}) {
     return (
             <div className={styles.request}>
-                <div>
-                    <h3>Type</h3>
-                    <h1>{type}</h1>
-                </div>
-                <div>
-                    <h3>Start Date</h3>
-                    <h1>{start_date}</h1>
-                </div>
+                <div className={styles.req_text}>
+                    <div>
+                        <h3>Type</h3>
+                        <h1>{type}</h1>
+                    </div>
+                    <div>
+                        <h3>Start Date</h3>
+                        <h1>{start_date}</h1>
+                    </div>
 
-                <div>
-                    <h3>End Date</h3>
-                    <h1>{end_date}</h1>
+                    <div>
+                        <h3>End Date</h3>
+                        <h1>{end_date}</h1>
+                    </div>
                 </div>
 
                 <div className={styles.Accepted}>
