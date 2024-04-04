@@ -9,6 +9,7 @@ const TeamChatMessageModel = require("./models/TeamChatMessage.ts");
 const DirectChatMessageModel = require("./models/DirectChatMessage.ts");
 const LeaveRequestModel = require("./models/LeaveRequest.ts");
 const LeaveResponseModel = require("./models/LeaveResponse.ts");
+const IssueTicketModel = require("./models/IssueTicket.ts");
 
 const EventModel = require("./models/Event.ts")
 const moment = require("moment")
@@ -266,7 +267,6 @@ app.post("/api/GetSickDays", async(req, res) => {
 });
 
 // get employees
-
 app.get("/api/getEmployees", async(req, res) => {
     
     try{
@@ -277,6 +277,19 @@ app.get("/api/getEmployees", async(req, res) => {
         res.send(err)
     }
 })
+
+app.post("/api/GetEmployeeById", async(req, res) => {
+    const { userId } = req.body.params;
+
+    try {
+        const employee = await EmployeeModel.findOne({ _id: userId });
+        if (employee) res.json(employee);
+        else res.status(404).json({msg: "not found"});
+    } catch (err) { 
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
 
 // create calendar event
 
@@ -310,6 +323,35 @@ app.get("/api/getEvenets", async(req, res) => {
         res.send(err)
     }
 })
+
+app.post("/api/DeleteIssue", async(req, res) => {
+    const { userdId, issueId } = req.body.params;
+
+    // TODO: verify uid is an admin
+
+    try {
+        await IssueTicketModel.deleteOne({ _id: issueId });
+        console.log("deleted " + issueId);
+        res.send();
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
+app.post("/api/GetIssues", async(req, res) => {
+    const { userId } = req.body.params;
+
+    // TODO: verify uid is an admin
+
+    try {
+        const issues = await IssueTicketModel.find();
+        res.send(issues);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
 
 // get teams
 
