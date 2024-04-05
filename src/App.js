@@ -8,7 +8,7 @@ import TeamChat from './pages/dashboard/teamChat/TeamChat.tsx';
 import Calendar from './pages/dashboard/calendar/Calendar.tsx';
 import TimeAway from './pages/TimeAway/TimeAway.tsx';
 import AdminIssues from './pages/AdminIssues/AdminIssues.tsx';
-
+import AdminIssues from './pages/Signup/Signup.tsx';
 import TimeAwayRequest from './pages/TimeAway/TimeAwayRequest.tsx';
 import Profile from './pages/dashboard/profile/Profile.tsx';
 
@@ -34,6 +34,7 @@ function App() {
           <Route path ="/timeAwayRequest" element = {<TimeAwayRequest/>}/>
           <Route path="/login" element={<Login />}/>
           <Route path="/AdminIssues" element= {<AdminIssues/>}/>
+          <Route path="/Signup" element={<Signup/>}/>
         </Routes>
       </Router>
     </div>
