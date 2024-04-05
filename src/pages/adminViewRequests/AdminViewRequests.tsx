@@ -131,7 +131,7 @@ function AdminViewRequests() {
                         )}
                         <div className={styles.buttons}>
                             <button className={styles.read_more_button} onClick={() => handleReadMoreClick()}>Read More</button>
-                            <button className={styles.rejected_button}><AiOutlineCheck className={styles.button_icon}/>Rejected</button>
+                            <button className={styles.rejected_button}><AiOutlineClose className={styles.button_icon}/>Rejected</button>
                         </div>
                     </div>
                 </div>

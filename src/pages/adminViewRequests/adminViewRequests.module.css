@@ -19,12 +19,15 @@
     position: absolute;
     top: 12%;
     left: 17%;
-    width: 77%;
+    width: 80%;
     overflow: auto;
 }
 
-
 .request_block{
+    display: flex;
+    justify-content: baseline;
+    gap: 7%;
+    align-items: center;
     height: 16%;
     background-color: white;
     padding: 1em 2em;
@@ -33,6 +36,26 @@
     border-radius: 1em;
     box-shadow: 1px 0px 2px lightgray, 0px 1px 2px gray;
     margin-bottom: 20px;
+}
+
+.view_requests h1{
+    font-size: xx-large;
+    padding-bottom: 3%;
+}
+
+.employee_id h3, .info_type h3, .date_requested h3{
+    font-size: 90%;
+}
+
+.employee_id h2, .info_type h2, .date_requested h2{
+    font-size: 140%;
+    margin-top: 15%;
+    font-weight: bold;
+}
+
+.request_block > h2{
+    font-size: 5rem;
+    padding-bottom: 3%;
 }
 
 .employee_id{
@@ -148,13 +171,13 @@
 }
 
 .pending_button{
-    background: linear-gradient(90deg, #8DA9C4 0%, #6B90B3 100%);
+    background: linear-gradient(90deg, #6B90B3 0%, #8DA9C4 100%);
     text-align: center;
     display: flex;
 }
 
 .approved_button{
-    background: linear-gradient(90deg, #37BA5B 0%, #2B9348 100%);
+    background: linear-gradient(90deg, #2B9348 0%, #37BA5B 100%);
     text-align: center;
     display: flex;
 }
@@ -172,13 +195,13 @@
 }
 
 .pending_button:hover{
-    background: linear-gradient(90deg, #6B90B3 0%, #8DA9C4 100%);
+    background: linear-gradient(90deg, #8DA9C4 0%, #6B90B3 100%);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
     transition: background 0.3s, box-shadow 0.3s;
 }
 
 .approved_button:hover{
-    background: linear-gradient(90deg, #2B9348 0%, #37BA5B 100%);
+    background: linear-gradient(90deg, #37BA5B 0%, #2B9348 100%);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
     transition: background 0.3s, box-shadow 0.3s;
 }
