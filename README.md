@@ -1,6 +1,6 @@
 # FDMployee
 
-![FDMployee dashboard screenshot](/fdmployee dashboard.png)
+![FDMployee dashboard screenshot](/fdmployee%20dashboard.png)
 
 FDMployee is a employee dashboard created for [FDM](https://www.fdmgroup.com/).
 
