@@ -67,11 +67,12 @@ function IssueModal({ issue, setShowModal }) {
         <div className={styles.Modal}>
             <div className={styles.ModalContent}>
                 <div className={styles.ModalHeading}>
-                    <h1>{`${issue.employee.first_name} ${issue.employee.last_name} (${issue.employee._id})`}</h1>
+                    <h1>{`${issue.employee.first_name} ${issue.employee.last_name}`}</h1>
+                    <h2>{issue.employee._id}</h2>
                     <span className={styles.close} onClick={() => setShowModal(false)}>&times;</span>
                 </div>
                 <h2>{issue.brief}</h2>
-                <p>{issue.fullText}</p>
+                <p className={styles.FullText}>{issue.fullText}</p>
             </div>
         </div>
    );
