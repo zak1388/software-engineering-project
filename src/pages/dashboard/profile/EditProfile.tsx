@@ -3,7 +3,7 @@ import styles from "./editprofile.module.css"
 import Sidebar from '../../../components/sidebar/Sidebar.tsx'
 import Navbar from '../../../components/navbar/Navbar.tsx'
 import { CgProfile } from "react-icons/cg";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Axios from "axios"
 
 interface userDetails{
@@ -24,6 +24,8 @@ function Profile() {
     const [email, setEmail] = useState("")
     const [address, setAddress] = useState("")
 
+    const nav = useNavigate()
+
     useEffect(() => {
         const getProfile = async () => {
             const userId = id
@@ -31,7 +33,6 @@ function Profile() {
                 params: { userId }
             }).then((response) => {
                 //console.log(response)
-                console.log(`saved UID: ${savedUserId}  ID: ${userId}`)
                 setUserDetails(response.data)
             })
         }
@@ -48,6 +49,7 @@ function Profile() {
             email: email ? email : userDetails?.email,
             address: address ? address : userDetails?.address
         })
+        nav(`/profile/${id}`)
     }
 
     

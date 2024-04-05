@@ -5,6 +5,7 @@ import Navbar from '../../../components/navbar/Navbar.tsx'
 import { CgProfile } from "react-icons/cg";
 import { useNavigate, useParams } from 'react-router-dom';
 import Axios from "axios"
+import { FaPencilAlt } from 'react-icons/fa';
 
 interface userDetails{
     first_name: String,
@@ -19,10 +20,6 @@ function Profile() {
     const { id } = useParams()
 
     const [userDetails, setUserDetails] = useState<userDetails>()
-    const [firstName, setFirstName] = useState("")
-    const [lastName, setLastName] = useState("")
-    const [email, setEmail] = useState("")
-    const [address, setAddress] = useState("")
 
     const navigate = useNavigate();
 
@@ -45,8 +42,36 @@ function Profile() {
     }
 
     return (
-        <button onClick={gotoEdit}>Edit</button>
-        
+        <div className={styles.container}>
+            <div className={styles.wrapper}>
+                <div className={styles.info_panel}>
+                    <div className={styles.title}>
+                        <h1>Contact Information: </h1>
+                        <button onClick={gotoEdit} className={styles.edit_btn}>< FaPencilAlt size={20}/></button>
+                    </div>
+                    <div className={styles.name}>
+                        <p className={styles.ttl}>Name:</p>
+                        <p className={styles.data}>
+                            <p>{`First Name: ${userDetails?.first_name}`}</p>
+                            <p>{`Last Name: ${userDetails?.last_name}`}</p>
+                        </p>
+                    </div>
+                    <div className={styles.contact}>
+                        <p className={styles.ttl}>Contact:</p>
+                        <p className={styles.data}>
+                            <p>{`E-mail: ${userDetails?.email}`}</p>
+                        </p>
+                    </div>
+                    <div className={styles.address}>
+                        <p className={styles.ttl}>Address:</p>
+                        <p className={styles.data}>
+                            <p>{`${userDetails?.address}`}</p>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     )
 }
 
