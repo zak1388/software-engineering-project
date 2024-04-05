@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import styles from "./addEventModal.module.css"
 import { IoMdClose } from "react-icons/io";
 import Datetime from "react-datetime"
-import { Cursor } from 'mongoose';
 
 
 function AddEventModal({ setModal, onEventAdded }) {
@@ -18,6 +17,8 @@ function AddEventModal({ setModal, onEventAdded }) {
             start,
             end
         })
+
+
     }
 
   return (

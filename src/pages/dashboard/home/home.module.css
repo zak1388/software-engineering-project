@@ -60,6 +60,11 @@
     width: 60%;
 }
 
+.updatesHeader{
+    display: flex;
+    gap: 10px;
+}
+
 .next_leave_scheduled, .admin_updates{
     width: 100%;
     height: 50%;
@@ -120,7 +125,7 @@
 .new_updates{
     background-color: #07bcf8;
     border-radius: 5pt;
-    padding: 0.5% 1.5% 0.5% 1.5%;
+    padding: 5px;
     width: fit-content;
 }
 

@@ -79,8 +79,8 @@ function Home() {
                 <div className={styles.top} id="top">
                     {/* Company Updates Widget */}
     
-                    <div className={styles.company_updates}>
-                        <div className={styles.updates_header}>
+                    {/* <div className={styles.company_updates}>
+                        <div className={styles.updates_header}> */}
                             <div className={styles.company_updates} id="company_updates">
                                 <div className={styles.updatesHeader}>
     
@@ -91,9 +91,9 @@ function Home() {
                                 <p className={styles.update_block}>Example Update</p>
                                 <p className={styles.update_block}>Another Update</p>
                             </div>
-                        </div>
+                        {/* </div>
                     </div>
-    
+     */}
                     <div className={styles.top_right}>
                         {/* Next Leave Widget */}
                         <div className={styles.next_leave_scheduled} id="next_leave_scheduled">

@@ -1,0 +1,117 @@
+.container{
+    flex: 9;
+    padding: 20px;
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.information{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    gap: 20px;
+}
+
+.stats{
+    width: 50%;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.statBox{
+    padding-left: 10px;
+    width: 40%;
+    height: 100px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.statBox .content{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.statBox .content h5{
+    font-weight: 200;
+}
+
+.statBox .content p{
+    font-weight: bold;
+}
+
+.pendingRequests{
+    width: 50%;
+}
+
+.users{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.usersHeader{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.usersHeader .search{
+    background-color: white;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding-left: 5px;
+}
+
+.usersHeader input{
+    background-color: none;
+    outline: none;
+    border: none;
+    padding: 5px;
+}
+
+.usersTable{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+}
+
+table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  table td, table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  td .employee{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  table tr:nth-child(even){background-color: #f2f2f2;}
+  
+  table tr:hover {background-color: #ddd;}
+  
+  table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: black;
+    color: white;
+  }

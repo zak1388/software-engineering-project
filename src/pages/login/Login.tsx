@@ -71,7 +71,7 @@ function Login() {
   return (
     <div className={styles.background}>
       <div className={styles.header}>
-        <img src={fdmlogo} alt="FDMLogo"/>
+        <img src={fdmlogo} alt="FDMLogo" className={styles.loginLogo}/>
       </div>
         <form onSubmit={attemptLogin}  className={styles.loginForm}>
             {error && <div className={styles.errorDiv}> {error.toString()} </div>}

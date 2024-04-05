@@ -122,18 +122,24 @@ app.post("/api/GetTeams", async(req, res) => {
 // create message - zak
 // Team Chat
 app.post("/api/CreateTeamMessage", async(req, res) => {
-    const { userId, teamId, message } = req.body;
+    const { firstName, lastName, sent_at, message, userId, teamId } = req.body;
+    // console.log(req.body)
 
     try {
-        const message = new TeamChatMessageModel({
-            sent_at:  Date.now(), // TODO: should this be done on the server, no spoofing but might mismatch client
+        const newMessage = await new TeamChatMessageModel({
+            first_name: firstName,
+            last_name: lastName,
+            sent_at:  sent_at,
             message: message,
             sender: userId,
             team: teamId
         });
+        // console.log(newMessage)
+        newMessage.save()
+        res.send(newMessage)
     } catch (err) {
         console.log(err);
-        res.status(500).send(err);
+        res.send(err);
     }
 })
 // Direct Chat Message
@@ -155,15 +161,17 @@ app.post("/api/CreateDirectMessage", async(req, res) => {
 
 // get messages - zak
 // get team messages
-app.post("/api/GetTeamMessages", async(req, res) => {
-    const { teamId } = req.body;
+app.get("/api/GetTeamMessages", async(req, res) => {
+    const { teamId } = req.query;
+    // console.log(teamId)
 
     try {
         const messages = await TeamChatMessageModel.find({ team: teamId });
-        res.json(messages);
+        res.send(messages);
+        // console.log(messages)
     } catch (err) {
         console.log(err);
-        res.status(500).send(err);
+        res.send(err);
     }
 });
 
@@ -260,16 +268,19 @@ app.get("/api/getEmployees", async(req, res) => {
 // create calendar event
 
 app.post("/api/createEvent", async(req, res) => {
-    const { start, end, title } = req.body;
+    const { userId, start, end, title } = req.body;
+    console.log(req.body)
 
     try{
         const event = await new EventModel({
+            userId: userId,
             start: start,
             end: end,
             title: title
         })
 
         event.save()
+        res.send(event)
     } catch(err){
         console.log(err)
         res.send(err)
@@ -278,11 +289,11 @@ app.post("/api/createEvent", async(req, res) => {
 
 // get events
 
-app.get("/api/getEvenets", async(req, res) => {
-    const { start, end } = req.query
+app.get("/api/getEvents", async(req, res) => {
+    const { userId, start, end } = req.query
 
     try{
-        const events = await EventModel.find({start: {$gte: moment(start).toDate()}, end: {$lte: moment(end).toDate()}})
+        const events = await EventModel.find({userId: userId, start: {$gte: moment(start).toDate()}, end: {$lte: moment(end).toDate()}})
         res.send(events)
     } catch(err){
         console.log(err)
@@ -291,6 +302,18 @@ app.get("/api/getEvenets", async(req, res) => {
 })
 
 // get teams
+
+app.get("/api/getTeams", async(req, res) => {
+    const { userId } = req.query;
+
+    try{
+        const teams = await EmployeeTeamModel.find({ employee_id: userId })
+        res.send(teams)
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
 
 
 // create message
