@@ -46,7 +46,7 @@ function Profile() {
             <div className={styles.wrapper}>
                 <div className={styles.info_panel}>
                     <div className={styles.title}>
-                        <h1>Contact Information: </h1>
+                        <h1>Personal Information: </h1>
                         <button onClick={gotoEdit} className={styles.edit_btn}>< FaPencilAlt size={20}/></button>
                     </div>
                     <div className={styles.name}>
