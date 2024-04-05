@@ -77,25 +77,8 @@ function AdminViewRequests() {
                             <h3>Date Requested</h3>
                             <h2>15 March 2024</h2>
                         </div>
-                        {showModal && (
-                            <div className={styles.popup}>
-                                <div className={styles.popup_content}>
-                                    <div className={styles.popup_heading}>
-                                        <h1>Jane Doe (67892)</h1>
-                                        <IoCloseSharp className={styles.close_button} onClick={() => setShowModal(false)}/>
-                                    </div>
-                                    <h2>Request to Change Address</h2>
-                                    <div className={styles.popup_description}>
-                                        <p>11, 123 Street, NW9 6AJ</p>
-                                        <FaArrowRight />
-                                        <p>5B, ...</p>
-                                    </div>
-                                    <div>Proof Submitted...</div>
-                                </div>
-                            </div>
-                        )}
                         <div className={styles.buttons}>
-                            <button className={styles.read_more_button} onClick={() => handleReadMoreClick()}>Read More</button>
+                            <button className={styles.read_more_button}>Read More</button>
                             <button className={styles.approved_button}><AiOutlineCheck className={styles.button_icon}/>Approved</button>
                         </div>
                     </div>
@@ -112,25 +95,8 @@ function AdminViewRequests() {
                             <h3>Date Requested</h3>
                             <h2>4 March 2024</h2>
                         </div>
-                        {showModal && (
-                            <div className={styles.popup}>
-                                <div className={styles.popup_content}>
-                                    <div className={styles.popup_heading}>
-                                        <h1>Joel Johnson (73947)</h1>
-                                        <IoCloseSharp className={styles.close_button} onClick={() => setShowModal(false)}/>
-                                    </div>
-                                    <h2>Request to Change Date of Birth</h2>
-                                    <div className={styles.popup_description}>
-                                        <p>20 June 1958</p>
-                                        <FaArrowRight />
-                                        <p>20 June 1962</p>
-                                    </div>
-                                    <div>Proof Submitted...</div>
-                                </div>
-                            </div>
-                        )}
                         <div className={styles.buttons}>
-                            <button className={styles.read_more_button} onClick={() => handleReadMoreClick()}>Read More</button>
+                            <button className={styles.read_more_button}>Read More</button>
                             <button className={styles.rejected_button}><AiOutlineClose className={styles.button_icon}/>Rejected</button>
                         </div>
                     </div>
