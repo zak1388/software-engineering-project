@@ -12,7 +12,182 @@
     flex-direction: column;
 }
 
+.view_requests{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    top: 12%;
+    left: 17%;
+    width: 77%;
+    overflow: auto;
+}
 
+
+.request_block{
+    height: 16%;
+    background-color: white;
+    padding: 1em 2em;
+    display: flex;
+    flex-direction: row;
+    border-radius: 1em;
+    box-shadow: 1px 0px 2px lightgray, 0px 1px 2px gray;
+    margin-bottom: 20px;
+}
+
+.employee_id{
+    width: 15%;
+    margin: 2 rem;
+}
+
+.info_type{
+    width: 15%;
+    margin: 2 rem;
+}
+
+.date_requested{
+    width: 10 rem;
+    margin: 2 rem;
+}
+
+/* Popup */
+
+.popup{
+    display: block;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup_content{
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 3%;
+    padding-top: 2%;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 1.5em;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.popup_content h2{
+    padding-bottom: 2%;
+    font-size: 1.5rem;
+    padding-left: 3%;
+    font-weight: bold;
+}
+
+.popup_description{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    padding-left: 3%;
+    font-size: 1.15rem;
+    text-align: justify;
+}
+
+.popup_heading{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 5%;
+}
+
+.popup_heading h1{
+    font-size: 2rem;
+}
+
+.close_button{
+    color: #aaa;
+    float: right;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.close_button:hover,
+.close_button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Buttons */
+
+.buttons{
+    display: flex;
+    justify-content: center;
+    margin-top: 1.2rem;
+}
+
+.buttons > * {
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    border: none;
+    color: #FFF;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
+    margin: 0 1em;
+}
+.read_more_button{
+    background: linear-gradient(90deg, #682CB7 0%, #1541C8 100%);
+}
+
+.rejected_button{
+    background: linear-gradient(90deg, #982424 0%, #ed1905 100%);
+    text-align: center;
+    display: flex;
+}
+
+.pending_button{
+    background: linear-gradient(90deg, #8DA9C4 0%, #6B90B3 100%);
+    text-align: center;
+    display: flex;
+}
+
+.approved_button{
+    background: linear-gradient(90deg, #37BA5B 0%, #2B9348 100%);
+    text-align: center;
+    display: flex;
+}
+
+.read_more_button:hover{
+    background: linear-gradient(90deg, #1541C8 0%, #682CB7 100%);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.rejected_button:hover{
+    background: linear-gradient(90deg, #ed1905 0%, #982424 100%);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.pending_button:hover{
+    background: linear-gradient(90deg, #6B90B3 0%, #8DA9C4 100%);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.approved_button:hover{
+    background: linear-gradient(90deg, #2B9348 0%, #37BA5B 100%);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.button_icon{
+    width: 2rem;
+    height: 1.75rem;
+    margin-right: 5%;
+}
 
 /* Mobile - styling */
 @media screen and (max-width: 768px) {
