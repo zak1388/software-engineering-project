@@ -32,7 +32,6 @@ function Profile() {
             await Axios.get("http://localhost:8000/api/getProfile", {
                 params: { userId }
             }).then((response) => {
-                //console.log(response)
                 setUserDetails(response.data)
             })
         }
