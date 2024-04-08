@@ -13,6 +13,7 @@ function TimeAway () {
     const [requests, setRequests] = useState([]);
     const [holidayDays, setHolidayDays] = useState(0);
     const [sickDays, setSickDays] = useState(0);
+    const [approvedHolidayDays, setApprovedHolidayDays] = useState([]);
 
     useEffect(() => {
         Axios.post("http://localhost:8000/api/GetLeaveRequests", {
@@ -61,12 +62,14 @@ function TimeAway () {
         .then((holidayDays) => setHolidayDays(holidayDays));
     });
 
-    const approvedHolidayDays = (requests.reduce((acc, req) => {
-        if (req.accepted && req.type === "Holiday") {
-            return acc + (new Date(req.end) - new Date(req.start));
-        } else 
-            return 0;
-    }, 0) / (24 * 60 * 60 * 1000)).toFixed(0);
+    useEffect(() => {
+        const acceptedHolidayRequests = requests.filter(req => req && req.accepted && req.type === "Holiday");
+        const acceptedHolidayPeriods = acceptedHolidayRequests.map(req => new Date(req.end) - new Date(req.start));
+        const allHolidayPeriods = requests.reduce((acc, req) => acceptedHolidayPeriods, 0);
+        const allHolidayDays = allHolidayPeriods / (24 * 60 * 60 * 1000);
+        const noDecimal = allHolidayDays.toFixed(0);
+        setApprovedHolidayDays(noDecimal);
+    }, [requests]);
 
     const approvedSickLeave = (requests.reduce((acc, req) => {
         if (req.accepted && req.type === "Sick") {
