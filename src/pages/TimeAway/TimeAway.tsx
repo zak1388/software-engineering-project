@@ -32,7 +32,7 @@ function TimeAway () {
 
     useEffect(() => {
         const r = requestsRaw.map(request => {
-                let response = responses.filter(response => Boolean(response)).find(response => request._id === response.request);
+                let response = responses.find(response => response && request._id === response.request);
                 if (response) {
                     request.accepted = response.approved;
                     request.response = response;
@@ -45,16 +45,18 @@ function TimeAway () {
 
     useEffect(() => {
         Axios.post("http://localhost:8000/api/GetSickDays")
-        .then((response) => {
-            return response.data;
+        .then((response) => response.data, err => { 
+            console.error(err);
+            return -1;
         })
         .then((sickDays) => setSickDays(sickDays));
     }, []);
 
     useEffect(() => {
         Axios.post("http://localhost:8000/api/GetHolidayDays")
-        .then((response) => {
-            return response.data;
+        .then((response) => response.data, err => { 
+            console.error(err);
+            return -1;
         })
         .then((holidayDays) => setHolidayDays(holidayDays));
     });
@@ -168,7 +170,6 @@ function Request({type, start_date, end_date, accepted, active}) {
                         <h3>Start Date</h3>
                         <h1>{start_date}</h1>
                     </div>
-
                     <div>
                         <h3>End Date</h3>
                         <h1>{end_date}</h1>
