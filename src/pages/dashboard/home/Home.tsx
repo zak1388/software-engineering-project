@@ -84,8 +84,7 @@ function Home() {
                     {/* Company Updates Widget */}
 
                     <div className={styles.company_updates} id="company_updates">
-                        <div className={styles.updatesHeader}>
-
+                        <div className={styles.updates_header}>
                             <h2>Company Updates</h2>
                             <h5 className={styles.new_updates}>2 new</h5>
                         </div>
@@ -103,7 +102,9 @@ function Home() {
     
                         {/* Admin Updates Widget */}
                         <div className={styles.admin_updates} id="admin_updates">
-                            <h2>Admin Updates</h2>
+                            <div className={styles.updates_header}>
+                                <h2>Admin Updates</h2>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -189,7 +190,7 @@ function Home() {
                         <div className={styles.updates_header}> */}
     
                     <div className={styles.team_updates} id="team_updates">
-                        <div className={styles.updatesHeader}>
+                        <div className={styles.updates_header}>
     
                             <h2>Team Updates</h2>
                             <h5 className={styles.new_updates}>1 new</h5>
