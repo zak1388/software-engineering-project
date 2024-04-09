@@ -39,4 +39,13 @@
     outline: none;
     background: linear-gradient(to right, #1541C8, #682CB7);
     color: white;
+    font-weight: semi-bold;
+    border-radius: 8pt;
+}
+
+/* Mobile - styling */
+@media screen and (max-width: 768px) {
+    .container{
+        width: 40%;
+    }
 }
