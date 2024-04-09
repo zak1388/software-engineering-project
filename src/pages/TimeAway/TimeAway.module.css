@@ -1,8 +1,12 @@
 .container{
     display: flex;
-    height: 100vh;
+    flex-direction: column;
     width: 100%;
     overflow: auto;
+}
+
+.container > * {
+    margin: 1em auto;
 }
 
 .wrapper{
@@ -14,59 +18,10 @@
 
 .HolidayInfo{
     width: 84%;
-    height: 38%;
-    position: absolute;
-    top: 22%;
-    left: 14%;
     background-color: white;
     padding: 2em 2em;
     display: flex;
     flex-direction: column;
-    border-radius: 1em;
-    box-shadow: 1px 0px 2px lightgray, 0px 1px 2px gray;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-}
-
-.request2{
-    width: 84%;
-    height: 15%;
-    position: absolute;
-    top: 64%;
-    left: 14%;
-    background-color: white;
-    padding: 1em 2em;
-    display: flex;
-    flex-direction:row;
-    border-radius: 1em;
-    box-shadow: 1px 0px 2px lightgray, 0px 1px 2px gray;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-}
-
-.request3{
-    width: 84%;
-    height: 15%;
-    position: absolute;
-    top: 81%;
-    left: 14%;
-    background-color: white;
-    padding: 1em 2em;
-    display: flex;
-    flex-direction:row;
-    border-radius: 1em;
-    box-shadow: 1px 0px 2px lightgray, 0px 1px 2px gray;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-}
-
-.request4{
-    width: 84%;
-    height: 15%;
-    position: absolute;
-    top: 98%;
-    left: 14%;
-    background-color: white;
-    padding: 1em 2em;
-    display: flex;
-    flex-direction:row;
     border-radius: 1em;
     box-shadow: 1px 0px 2px lightgray, 0px 1px 2px gray;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
@@ -81,59 +36,24 @@ h1{
     font-size: 22px;
 }
 
-.StartDate{
-    margin-left: 3rem;
-}
-
-.EndDate{
-    margin-left: 5rem;
-}
-.Accept {
+.Accepted {
     display: flex;
     align-items: center; 
+    justify-content: center;
     background: linear-gradient(to right, #1541c8, #682cb7);
-    margin-left: 15rem;
     color: white;
     border-radius: 1em;
-    padding: 9pt 45pt 50pt 30pt; 
+    gap: 1em;
+    padding: 1em;
+    width: 15rem;
 }
 
-.Tick {
+.AcceptedIcon {
     font-size: 40px;
-    margin-right: 18px; 
-    margin-bottom: -8px; 
 }
 
-.Accept h1 {
-    margin-top: 50px;
-    margin-bottom: 0; 
-    display: flex; 
-    align-items: center; 
-}
-
-
-
-.Reject {
-    display: flex;
-    align-items: center; 
-    background: linear-gradient(to right, #1541c8, #682cb7);
-    margin-left: 15rem;
-    color: white;
-    border-radius: 1em;
-    padding: 9pt 50pt 50pt 30pt; 
-}
-
-.cross {
-    font-size: 40px;
-    margin-right: 18px; 
-    margin-bottom: -8px; 
-}
-
-.Reject h1 {
-    margin-top: 50px;
-    margin-bottom: 0; 
-    display: flex; 
-    align-items: center; 
+.Accepted h1 {
+    margin: 0;
 }
 
 .titles{
@@ -145,78 +65,62 @@ h1{
     border-radius: 1rem;
 }
 
-.title0{
+.title{
+    width: calc(100% / 4);
     font-size: 25px;
-    margin-left: 50px;
-}
-.title1{
-    font-size: 25px;
-    margin-left: 190px;
+    text-align: center;
 }
 
-.data0{
-    margin-left: 50px;
-
-}
-.data1{
-    margin-left: 220px;
-}
-.data2{
-    margin-left: 272px;
-}
-.data3{
-    margin-left: 285px;
+.data:first-child {
+    margin-left: 1em;
 }
 
-.data4{
-
-    margin-left: 7px;
+.data:last-child {
+    margin-right: 1em;
 }
 
-.data5{
-    margin-left: 125px;
-}
-.data6{
-    margin-left: 280px;
-}
-.data7{
-    margin-left: 290px;
+.data{
+    width: calc(100% / 4);
+    text-align: center;
+    margin: 0.5rem;
 }
 
-
-
-.dataset1{
+.dataset{
     display: flex;
     flex-direction: row;
 }
 
-.dataset2{
-    margin-top: 20px;
+.RequestList {
+    width: 100%;
+}
+
+.request:first-child {
+    margin-top: 0;
+}
+
+.request:last-child {
+    margin-bottom: 0;
+}
+
+.request {
+    margin: 1em auto;
+    width: 84%;
+    background-color: white;
+    padding: 1em;
     display: flex;
     flex-direction: row;
+    border-radius: 1em;
+    box-shadow: 1px 0px 2px lightgray, 0px 1px 2px gray;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
-.dataset3{
-    margin-top: 20px;
+.req_text {
+    width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
 }
 
-.data8{
-    margin-left: 40px;
-}
-
-.data9{
-    margin-left: 205px;
-}
-
-.data10{
-    margin-left: 277px;
-}
-
-.data11{
-    margin-left: 290px;
-}
 .newRequest {
     border-radius: 10px;
     background: linear-gradient(90deg, #682CB7 0%, #1541C8 100%);
@@ -241,6 +145,18 @@ h1{
     margin-left: 27px;
     display: flex;
     align-items: center;
+}
+
+.plus {
+    margin-left: 5px;
+    font-size: 29px;
+}
+
+.NewButton {
+    position: relative;
+    margin: 0;
+    top: 0;
+    left: 0;
 }
 
 .newRequest:hover{
