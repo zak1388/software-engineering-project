@@ -1,0 +1,11 @@
+.Errors {
+    color: red;
+    margin: 0 1em;
+}
+
+.Form {
+    margin-left: auto;
+    margin-right: auto;
+    background: white;
+    border-radius: 1em;
+}

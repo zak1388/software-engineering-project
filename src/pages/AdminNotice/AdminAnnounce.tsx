@@ -1,23 +1,39 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
 import styles from './AdminNotice.module.css'
-import Sidebar from '../../components/sidebar/Sidebar.tsx'
-import Navbar from '../../components/navbar/Navbar.tsx'
+import Form from "../../components/form/Form.tsx";
+import Axios from "axios";
 
 function AdminAnnouncement() {
+    const submitHandler = (event) => {
+        event.preventDefault();
+
+        let title = event.target.title.value;
+        let notice = event.target.notice.value;
+        let urgent = event.target.urgent.value;
+
+        Axios.post("http://localhost:8000/api/AdminPostNotice", {
+            params: {
+                userId: localStorage.getItem("userId"),
+                title,
+                notice,
+                urgent,
+            }
+        }).then(() => window.location.pathname = "/", console.error);
+    };
+
     return (
-          <div className={styles.container}>
-              <form className={styles.AdminPost}>
-                <div>
-                      <textarea className='Title' cols={70} rows={2} placeholder='Enter Title'></textarea>
-                  </div>
-                  <div>
-                      <textarea className='Notice' cols={70} rows={10} placeholder='Enter Announcement'></textarea>
-                  </div>
-                  <input className={styles.submit} type="submit" value="Post Announcement" />
-              </form>
-          </div>
-    )
-  }
+            <div className={styles.container}>
+                <Form onSubmit={submitHandler} className={styles.AdminPost}>
+                    <textarea className='Title' name="title" cols={70} rows={2} placeholder='Enter Title' required></textarea>
+                    <select name="urgent">
+                        <option value="false" default>Non-urgent</option>
+                        <option value="true">Urgent</option>
+                    </select>
+                    <textarea className='Notice' name="notice" cols={70} rows={10} placeholder='Enter Announcement' required></textarea>
+                    <input className={styles.submit} type="submit" value="Post Announcement" />
+                </Form>
+            </div>
+    );
+}
   
   export default AdminAnnouncement

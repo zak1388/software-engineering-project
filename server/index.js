@@ -11,6 +11,8 @@ const LeaveRequestModel = require("./models/LeaveRequest.ts");
 const LeaveResponseModel = require("./models/LeaveResponse.ts");
 const IssueTicketModel = require("./models/IssueTicket.ts");
 const ChangeRequestModel = require("./models/ChangeRequest.ts");
+const AdminNoticeModel = require("./models/AdminNotice.ts");
+const ManagerNoticeModel = require("./models/ManagerNotice.ts");
 
 const EventModel = require("./models/Event.ts")
 const moment = require("moment")
@@ -394,6 +396,28 @@ app.post("/api/UpdateChangeRequest", async(req, res) => {
         const changeReq = await ChangeRequestModel.findOne({ _id: requestId });
         changeReq.state = newState;
         await changeReq.save();
+        res.json();
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+
+});
+
+app.post("/api/AdminPostNotice", async(req, res) => {
+    const { userId, title, notice, urgent } = req.body.params;
+
+    // TODO: verify uid admin
+
+    try {
+        const adminNotice = new AdminNoticeModel({
+            title, 
+            notice, 
+            urgent, 
+            creator: userId,
+            createdAt: Date.now(),
+        });
+        await adminNotice.save();
         res.json();
     } catch (err) {
         console.log(err);
