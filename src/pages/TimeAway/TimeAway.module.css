@@ -39,14 +39,13 @@ h1{
 .Accepted {
     display: flex;
     align-items: center; 
+    justify-content: center;
     background: linear-gradient(to right, #1541c8, #682cb7);
     color: white;
     border-radius: 1em;
     gap: 1em;
     padding: 1em;
-    margin-left: auto;
-    margin-right: 0;
-    width: fit-content;
+    width: 15rem;
 }
 
 .AcceptedIcon {
@@ -110,17 +109,16 @@ h1{
     padding: 1em;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
     border-radius: 1em;
     box-shadow: 1px 0px 2px lightgray, 0px 1px 2px gray;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
 .req_text {
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    gap: 5%;
 }
 
 .newRequest {
@@ -135,6 +133,12 @@ h1{
     font-size: 22px;
     font-style: normal;
     font-weight: 700;
+}
+
+.newRequest:hover{
+    background: linear-gradient(90deg, #1541C8 0%, #682CB7 100%);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
+    transition: background 0.3s, box-shadow 0.3s;
 }
 
 .newRequest span {

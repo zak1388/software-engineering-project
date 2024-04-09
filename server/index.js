@@ -9,8 +9,8 @@ const TeamChatMessageModel = require("./models/TeamChatMessage.ts");
 const DirectChatMessageModel = require("./models/DirectChatMessage.ts");
 const LeaveRequestModel = require("./models/LeaveRequest.ts");
 const LeaveResponseModel = require("./models/LeaveResponse.ts");
+const NoticeModel = require("./models/Notice.ts")
 const IssueTicketModel = require("./models/IssueTicket.ts");
-
 const EventModel = require("./models/Event.ts")
 const moment = require("moment")
 
@@ -125,18 +125,24 @@ app.post("/api/GetTeams", async(req, res) => {
 // create message - zak
 // Team Chat
 app.post("/api/CreateTeamMessage", async(req, res) => {
-    const { userId, teamId, message } = req.body;
+    const { firstName, lastName, sent_at, message, userId, teamId } = req.body;
+    // console.log(req.body)
 
     try {
-        const message = new TeamChatMessageModel({
-            sent_at:  Date.now(), // TODO: should this be done on the server, no spoofing but might mismatch client
+        const newMessage = await new TeamChatMessageModel({
+            first_name: firstName,
+            last_name: lastName,
+            sent_at:  sent_at,
             message: message,
             sender: userId,
             team: teamId
         });
+        // console.log(newMessage)
+        newMessage.save()
+        res.send(newMessage)
     } catch (err) {
         console.log(err);
-        res.status(500).send(err);
+        res.send(err);
     }
 })
 // Direct Chat Message
@@ -158,15 +164,17 @@ app.post("/api/CreateDirectMessage", async(req, res) => {
 
 // get messages - zak
 // get team messages
-app.post("/api/GetTeamMessages", async(req, res) => {
-    const { teamId } = req.body;
+app.get("/api/GetTeamMessages", async(req, res) => {
+    const { teamId } = req.query;
+    // console.log(teamId)
 
     try {
         const messages = await TeamChatMessageModel.find({ team: teamId });
-        res.json(messages);
+        res.send(messages);
+        // console.log(messages)
     } catch (err) {
         console.log(err);
-        res.status(500).send(err);
+        res.send(err);
     }
 });
 
@@ -280,6 +288,62 @@ app.get("/api/getEmployees", async(req, res) => {
     }
 })
 
+// add employee
+
+app.post("/api/addEmployee", async(req, res) => {
+    const { 
+        firstName, 
+        lastName, 
+        username, 
+        password, 
+        email, 
+        dateOfBirth, 
+        gender, 
+        officeLocation, 
+        personalNumber, 
+        emergencyNumber, 
+        position, 
+        address, 
+        holidayDays } = req.body;
+
+    try{
+        const employee = await new EmployeeModel({
+            first_name: firstName,
+            last_name: lastName,
+            username: username,
+            password: password,
+            email: email,
+            date_Of_birth: dateOfBirth,
+            gender: gender,
+            office_location: officeLocation,
+            personal_number: personalNumber,
+            emergency_number: emergencyNumber,
+            position: position,
+            address: address,
+            holiday_days: holidayDays,
+            dashboard_model: {
+                components_list: {
+                    company_updates: true,
+                    next_leave_scheduled: true,
+                    admin_updates: true,
+                    team_chat: true,
+                    calendar: true,
+                    days_off: true,
+                    team_updates: true
+                }
+            }
+
+        })
+
+        employee.save()
+        res.send(employee)
+
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
+
 app.post("/api/GetEmployeeById", async(req, res) => {
     const { userId } = req.body.params;
 
@@ -296,16 +360,19 @@ app.post("/api/GetEmployeeById", async(req, res) => {
 // create calendar event
 
 app.post("/api/createEvent", async(req, res) => {
-    const { start, end, title } = req.body;
+    const { userId, start, end, title } = req.body;
+    console.log(req.body)
 
     try{
         const event = await new EventModel({
+            userId: userId,
             start: start,
             end: end,
             title: title
         })
 
         event.save()
+        res.send(event)
     } catch(err){
         console.log(err)
         res.send(err)
@@ -314,17 +381,35 @@ app.post("/api/createEvent", async(req, res) => {
 
 // get events
 
-app.get("/api/getEvenets", async(req, res) => {
-    const { start, end } = req.query
+app.get("/api/getEvents", async(req, res) => {
+    const { userId, start, end } = req.query
 
     try{
-        const events = await EventModel.find({start: {$gte: moment(start).toDate()}, end: {$lte: moment(end).toDate()}})
+        const events = await EventModel.find({userId: userId, start: {$gte: moment(start).toDate()}, end: {$lte: moment(end).toDate()}})
         res.send(events)
     } catch(err){
         console.log(err)
         res.send(err)
     }
 })
+
+app.post("/api/CreateIssue", async(req, res) => {
+    const { userId, brief, fullText } = req.body.params;
+
+    try {
+        await (new IssueTicketModel({
+            resolved: false,
+            brief,
+            fullText,
+            createdAt: new Date(),
+            creator: userId,
+        })).save();
+        res.send();
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
 
 app.post("/api/DeleteIssue", async(req, res) => {
     const { userdId, issueId } = req.body.params;
@@ -333,7 +418,6 @@ app.post("/api/DeleteIssue", async(req, res) => {
 
     try {
         await IssueTicketModel.deleteOne({ _id: issueId });
-        console.log("deleted " + issueId);
         res.send();
     } catch (err) {
         console.log(err);
@@ -357,12 +441,141 @@ app.post("/api/GetIssues", async(req, res) => {
 
 // get teams
 
+app.get("/api/getUsersTeams", async(req, res) => {
+    const { userId } = req.query;
+
+    try{
+        const teams = await EmployeeTeamModel.find({ employee_id: userId })
+        res.send(teams)
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
+
+// create team
+
+app.post("/api/createTeam", async(req, res) => {
+    const { name } = req.body;
+
+    try{
+        const team = await new TeamModel({
+            name: name
+        })
+
+        team.save()
+        res.send(team)
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
+
+//get all teams
+
+app.get("/api/getTeams", async(req, res) => {
+
+    try{
+        const teams = await TeamModel.find({})
+        res.send(teams)
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
+
+// add member to team
+
+app.post("/api/addMember", async(req, res) => {
+    const { employeeId, teamId } = req.body;
+
+    try{
+        const teamMember = await new EmployeeTeamModel({
+            team_id: teamId,
+            employee_id: employeeId
+        })
+
+        teamMember.save()
+        res.send(teamMember)
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
+
+// check if member is added
+
+app.get("/api/checkMemberAdded", async(req, res) => {
+    const { employeeId, teamId } = req.query;
+
+    try{
+        const response = await EmployeeTeamModel.find({ employee_id: employeeId, team_id: teamId })
+        res.send(response)
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+
+})
+
+// get members from team
+
+app.get("/api/getTeamMembers", async(req, res) => {
+    const { teamId } = req.query;
+
+    
+    try{
+        const response = await EmployeeTeamModel.find({ team_id: teamId })
+        res.send(response)
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
+
+// remove member from team
 
 // create message
 
-// get messages in team
+// Create notice
 
-// get messages from manager
+app.post("/api/createNotice", async(req, res) => {
+    const { type, title, mainText, urgent, date, creator, team } = req.body;
+
+    try{
+        const notice = await new NoticeModel({
+            type: type,
+            title: title,
+            main_text: mainText,
+            urgent: urgent,
+            daate: date,
+            creator: creator,
+            team: team
+        })
+
+        notice.save()
+        res.send(notice)
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
+
+// Get notices
+
+app.get("/api/getNotices", async(req, res) => {
+    const { teamId } = req.query;
+
+    try{
+        const adminNotices = await NoticeModel.find({ type: "admin" })
+        const managerNotices = await NoticeModel.find({ type: "manager", team: teamId })
+
+        res.send({adminNotices, managerNotices})
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
 
 
 app.listen(8000, () => {

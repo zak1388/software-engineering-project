@@ -1,0 +1,26 @@
+.employee{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.employee .left{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.employee .left span{
+    background-color: lightgray;
+    font-weight: 300;
+    font-size: 10px;
+    padding: 3px;
+}
+
+.employee .addButton{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}

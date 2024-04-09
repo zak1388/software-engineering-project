@@ -77,7 +77,6 @@ function Profile() {
                         </p>
                     </div>
                 </div>
-
                 <div className={styles.contact_panel}>
                     <div className={styles.title}>
                         <h1>Contact Information: </h1>
@@ -102,6 +101,7 @@ function Profile() {
                             <p>{`Personal Tele: ${userDetails?.personal_number}`}</p>
                         </p>
                     </div>
+
                 </div>
             </div>
         </div>

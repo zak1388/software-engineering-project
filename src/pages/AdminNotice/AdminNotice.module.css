@@ -40,17 +40,21 @@
   
   
   .submit {
+    background: linear-gradient(90deg, #682CB7 0%, #1541C8 100%);
     width: 75%;
     margin: auto;
-    background: linear-gradient(to right, #1541c8, #682cb7);
     border: 0;
     color: white;
     border-radius: 0.5em;
     padding: 2%;
     margin-top: 40px;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
   }
   .submit:hover{
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-    color:#1DADED;
+      background: linear-gradient(90deg, #1541C8 0%, #682CB7 100%);
+      box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
+      transition: background 0.3s, box-shadow 0.3s;
   }
   

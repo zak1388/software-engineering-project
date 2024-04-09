@@ -1,0 +1,110 @@
+.container{
+    background-color: white;
+    z-index: 99999;
+    width: 40%;
+    height: 40%;
+    height: fit-content;
+    position: absolute;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    border: 1px solid black;
+
+}
+
+.header{
+    width: 100%;
+    display: flex;
+    justify-content: space-between
+}
+
+.editName, .removeMember{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.editName input{
+    width: 100%;
+    padding: 5px;
+    outline: none;
+}
+
+.saveButton{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.saveButton button{
+    width: fit-content;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    outline: none;
+    background: linear-gradient(to right, #1541C8, #682CB7);
+    color: white;
+}
+
+.members{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.memberInput{
+    width: 100%;
+    background-color: white;
+    border: 1px solid lightgray;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px;
+}
+
+.memberInput .inputBox{
+    width: 100%;
+    border: none;
+    outline: none;
+}
+
+.employee{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.employee .left{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.employee .left span{
+    background-color: lightgray;
+    font-weight: 300;
+    font-size: 10px;
+    padding: 3px;
+}
+
+.employee .removeButton{
+    display: flex;
+    align-items: center;
+}
+
+.removeButton button{
+    background-color: red;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: white;
+    padding: 5px;
+}

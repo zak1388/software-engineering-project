@@ -52,6 +52,7 @@
     display: flex;
     align-items: center;
     gap: 20px;
+    position: relative;
 }
 
 .profile h5{
@@ -74,4 +75,14 @@
     color: white;
 }
 
+.hamburger{
+    display: none;
+    cursor: pointer;
+    font-size: 30px;
+}
 
+@media screen and (max-width: 768px) {
+    .hamburger{
+        display: block;
+    }
+}

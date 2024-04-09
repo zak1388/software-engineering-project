@@ -7,19 +7,18 @@
     height: auto;
     display: flex;
     flex-direction: column;
-    row-gap: 5%;
-    padding: 1%;
+    gap: 50px;
+    padding: 20px;
     min-height: 100%;
 }
 .mainLogo{
-    flex: 15%;
-    /* margin: 1em; */
-    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.img{
+.mainLogo .logoImage{
     color: white;
-    margin: auto;
-    width: 1 vw;
+    width: 100px;
 }
 
 .links{
@@ -65,10 +64,39 @@ h2{
     text-align: left;
 }
 
+.header{
+    width: 100%;
+    display: none;
+    justify-content: flex-end;
+}
+
+.closeSidebar{
+    cursor: pointer;
+    font-size: 30px;
+    color: white;
+}
+
+.mobileFlexContainer{
+    background-color: black;
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    padding: 20px;
+    min-height: 100%;
+    display: none;
+
+}
+
 
 /* mobile */
-@media screen and (max-width: 768px) {
-    .container{
+@media all and (max-width: 768px) {
+    .flexContainer{
         display: none;
+    }
+  
+    .header{
+        display: flex;
     }
 }
