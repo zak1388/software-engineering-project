@@ -139,16 +139,16 @@ function AddUserModal({ setModal }) {
                 <>
                   <div>
                     <label className={styles.label} htmlFor="firstName">First Name: </label>
-                    <input className={styles.input} type="text" id="firstName" name="firstName" defaultValue={firstName.toString()}/>
+                    <input className={styles.input} type="text" id="firstName" name="firstName" defaultValue={firstName.toString()} required />
                   </div>
                   <div>
                     <label className={styles.label} htmlFor="lastName">Last Name: </label>
-                    <input className={styles.input} type="text" id="lastName" name="lastName" defaultValue={lastName.toString()}/>
+                    <input className={styles.input} type="text" id="lastName" name="lastName" defaultValue={lastName.toString()} required />
                   </div>
                   <div>
                     <label className={styles.label} htmlFor="gender">Gender: </label>
-                    <select className={styles.dropdown} name="gender" id="gender" defaultValue={gender.toString()}>
-                      <option disabled selected value="">Select an option&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x25BC;</option>
+                    <select className={styles.dropdown} name="gender" id="gender" defaultValue={gender.toString()} required>
+                      <option disabled selected value="">Select an option</option>
                       <option value="M">Male</option>
                       <option value="F">Female</option>
                     </select>
@@ -165,15 +165,15 @@ function AddUserModal({ setModal }) {
                 <>
                   <div className={styles.field}>
                       <label className={styles.label} htmlFor="email">Email: </label>
-                      <input className={styles.input} type="email" id="email" name="email" defaultValue={email.toString()}/>
+                      <input className={styles.input} type="email" id="email" name="email" defaultValue={email.toString()} required />
                   </div>
                   <div className={styles.field}>
                       <label className={styles.label} htmlFor="username">Username: </label>
-                      <input className={styles.input} type="text" id="username" name="username" defaultValue={username.toString()}/>
+                      <input className={styles.input} type="text" id="username" name="username" defaultValue={username.toString()} required />
                   </div>
                   <div className={styles.field}>
                       <label className={styles.label} htmlFor="password">Password: </label>
-                      <input className={styles.input} type="text" id="password" name="password" defaultValue={password.toString()}/>
+                      <input className={styles.input} type="text" id="password" name="password" defaultValue={password.toString()} required />
                   </div>
                   <div className={styles.progressBox}>
                     <div className={styles.progress2}>&nbsp;</div>
@@ -188,15 +188,15 @@ function AddUserModal({ setModal }) {
                 <>
                   <div>
                     <label className={styles.label} htmlFor="dateOfBirth">Date Of Birth: </label>
-                    <input className={styles.input} type="date" id="dateOfBirth" name="dateOfBirth" defaultValue={dateOfBirth ? dateOfBirth.toISOString().split('T')[0] : new Date().toISOString().split('T')[0]}/>
+                    <input className={styles.input} type="date" id="dateOfBirth" name="dateOfBirth" defaultValue={dateOfBirth ? dateOfBirth.toISOString().split('T')[0] : new Date().toISOString().split('T')[0]} required />
                   </div>
                   <div>
                     <label className={styles.label} htmlFor="personalNumber">Personal Number: </label>
-                    <input className={styles.input} type="tel" id="personalNumber" name="personalNumber" defaultValue={personalNumber.toString()}/>
+                    <input className={styles.input} type="tel" id="personalNumber" name="personalNumber" defaultValue={personalNumber.toString()} required />
                   </div>
                   <div>
                     <label className={styles.label} htmlFor="emergencyNumber">Emergency Number: </label>
-                    <input className={styles.input} type="tel" id="emergencyNumber" name="emergencyNumber" defaultValue={emergencyNumber.toString()}/>
+                    <input className={styles.input} type="tel" id="emergencyNumber" name="emergencyNumber" defaultValue={emergencyNumber.toString()} required />
                   </div>
                   <div className={styles.progressBox}>
                     <div className={styles.progress3}>&nbsp;</div>
@@ -211,20 +211,20 @@ function AddUserModal({ setModal }) {
                 <>
                   <div>
                     <label className={styles.label} htmlFor="address">Address: </label>
-                    <input className={styles.input} type="text" id="address" name="address" defaultValue={address.toString()} onChange={((e) => setAddress(e.target.value))}/>
+                    <input className={styles.input} type="text" id="address" name="address" defaultValue={address.toString()} onChange={((e) => setAddress(e.target.value))} required />
                   </div>
                   <div>
                     <label className={styles.label} htmlFor="officeLocation">Office Location: </label>
-                    <input className={styles.input} type="text" id="officeLocation" name="officeLocation" defaultValue={officeLocation.toString()} onChange={((e) => setOfficeLocation(e.target.value))}/>
+                    <input className={styles.input} type="text" id="officeLocation" name="officeLocation" defaultValue={officeLocation.toString()} onChange={((e) => setOfficeLocation(e.target.value))} required />
                   </div>
                   <div>
                     <label className={styles.label} htmlFor="holidayDays">Holiday days: </label>
-                    <input className={styles.input} type="number" id="holidayDays" name="holidayDays" defaultValue={holidayDays.toString()} onChange={((e) => setHolidayDays(e.target.value))}/>
+                    <input className={styles.input} type="number" id="holidayDays" name="holidayDays" defaultValue={holidayDays.toString()} onChange={((e) => setHolidayDays(e.target.value))} reqiured />
                   </div>
                   <div>
                     <label className={styles.label} htmlFor="position">Position: </label>
-                    <select className={styles.dropdown} name="position" id="position" defaultValue={position.toString()} onChange={((e) => setPosition(e.target.value))}>
-                      <option className={styles.default} disabled selected value="">Select an option&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x25BC;</option>
+                    <select className={styles.dropdown} name="position" id="position" defaultValue={position.toString()} onChange={((e) => setPosition(e.target.value))} required>
+                      <option className={styles.default} disabled selected value="">Select an option</option>
                       <optgroup label='Internal Staff'>
                         <option value="Internal Staff - Employee">Internal Staff - Employee</option>
                         <option value="Internal Staff - Manager">Internal Staff - Manager</option>
