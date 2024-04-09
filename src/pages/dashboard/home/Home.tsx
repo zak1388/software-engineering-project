@@ -8,6 +8,7 @@ import { GiIsland } from "react-icons/gi";
 import { PiFirstAidKitBold } from "react-icons/pi";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
+import { FaPlaneDeparture } from "react-icons/fa";
 
 import FilterComponentsModal from '../../../components/filterComponentsModal/FilterComponentsModal.tsx';
 import Axios from "axios"
@@ -98,6 +99,10 @@ function Home() {
                         {/* Next Leave Widget */}
                         <div className={styles.next_leave_scheduled} id="next_leave_scheduled">
                             <h2>Next Scheduled Leave</h2>
+                            <div className={styles.leave_detail}>
+                                <FaPlaneDeparture className={styles.next_leave_icon} />
+                                <p className={styles.leave_date}>Monday, 15 April</p>
+                            </div>
                         </div>
     
                         {/* Admin Updates Widget */}

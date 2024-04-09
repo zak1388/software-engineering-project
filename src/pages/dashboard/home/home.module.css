@@ -169,6 +169,26 @@ h2{
     font-weight: bold;
 }
 
+.leave_detail{
+    display: flex;
+    gap: 5%;
+    padding-top: 6%;
+    justify-content: center;
+    align-items: center;
+}
+
+.leave_date{
+    font-weight: semi-bold;
+    font-style: italic;
+    font-size: x-large;
+}
+
+
+.next_leave_icon{
+    width: 8%;
+    height: 8%;
+}
+
 /* Calendar Widget */
 
 .calendar_header{
