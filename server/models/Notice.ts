@@ -2,9 +2,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const NoticeSchema = new Schema({
+    type: String,
     title: String,
     main_text: String,
     urgent: Boolean,
+    date: Date,
     creator: {type: Schema.Types.ObjectId, ref: "Employee"},
     team: {type: Schema.Types.ObjectId, ref: "Team"},
 })

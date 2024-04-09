@@ -4,8 +4,8 @@
     flex: 9;
     overflow: auto;
     padding: 2%;
-    flex-direction: column;
-    justify-content: space-between;
+    /* flex-direction: column;
+    justify-content: space-between; */
 }
 
 /* Grid for Widgets */

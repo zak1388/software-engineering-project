@@ -50,7 +50,7 @@ function Calendar() {
 
   return (
     <div className={styles.container}>
-      <button onClick={() => setModal(true)}>Add event</button>
+      <button onClick={() => setModal(true)} className={styles.addEvent}>Add event</button>
         <FullCalendar
           ref={calendarRef}
           events={events}

@@ -1,0 +1,75 @@
+.container{
+    background-color: white;
+    z-index: 99999;
+    width: 40%;
+    height: 40%;
+    height: fit-content;
+    position: absolute;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+}
+
+.header{
+    width: 100%;
+    display: flex;
+    justify-content: space-between
+}
+
+.teamNameInput{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.teamNameInput input{
+    width: 100%;
+    padding: 5px;
+    outline: none;
+    border: 1px solid lightgray;
+}
+
+.memberInput{
+    width: 100%;
+    background-color: white;
+    border: 1px solid lightgray;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px;
+}
+
+.memberInput .inputBox{
+    width: 100%;
+    border: none;
+    outline: none;
+}
+
+.buttons{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttons p{
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.buttons button{
+    width: fit-content;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    outline: none;
+    background: linear-gradient(to right, #1541C8, #682CB7);
+    color: white;
+}

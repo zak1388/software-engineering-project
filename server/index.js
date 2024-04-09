@@ -9,6 +9,7 @@ const TeamChatMessageModel = require("./models/TeamChatMessage.ts");
 const DirectChatMessageModel = require("./models/DirectChatMessage.ts");
 const LeaveRequestModel = require("./models/LeaveRequest.ts");
 const LeaveResponseModel = require("./models/LeaveResponse.ts");
+const NoticeModel = require("./models/Notice.ts")
 
 const EventModel = require("./models/Event.ts")
 const moment = require("moment")
@@ -265,6 +266,62 @@ app.get("/api/getEmployees", async(req, res) => {
     }
 })
 
+// add employee
+
+app.post("/api/addEmployee", async(req, res) => {
+    const { 
+        firstName, 
+        lastName, 
+        username, 
+        password, 
+        email, 
+        dateOfBirth, 
+        gender, 
+        officeLocation, 
+        personalNumber, 
+        emergencyNumber, 
+        position, 
+        address, 
+        holidayDays } = req.body;
+
+    try{
+        const employee = await new EmployeeModel({
+            first_name: firstName,
+            last_name: lastName,
+            username: username,
+            password: password,
+            email: email,
+            date_Of_birth: dateOfBirth,
+            gender: gender,
+            office_location: officeLocation,
+            personal_number: personalNumber,
+            emergency_number: emergencyNumber,
+            position: position,
+            address: address,
+            holiday_days: holidayDays,
+            dashboard_model: {
+                components_list: {
+                    company_updates: true,
+                    next_leave_scheduled: true,
+                    admin_updates: true,
+                    team_chat: true,
+                    calendar: true,
+                    days_off: true,
+                    team_updates: true
+                }
+            }
+
+        })
+
+        employee.save()
+        res.send(employee)
+
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
+
 // create calendar event
 
 app.post("/api/createEvent", async(req, res) => {
@@ -303,7 +360,7 @@ app.get("/api/getEvents", async(req, res) => {
 
 // get teams
 
-app.get("/api/getTeams", async(req, res) => {
+app.get("/api/getUsersTeams", async(req, res) => {
     const { userId } = req.query;
 
     try{
@@ -315,12 +372,129 @@ app.get("/api/getTeams", async(req, res) => {
     }
 })
 
+// create team
+
+app.post("/api/createTeam", async(req, res) => {
+    const { name } = req.body;
+
+    try{
+        const team = await new TeamModel({
+            name: name
+        })
+
+        team.save()
+        res.send(team)
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
+
+//get all teams
+
+app.get("/api/getTeams", async(req, res) => {
+
+    try{
+        const teams = await TeamModel.find({})
+        res.send(teams)
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
+
+// add member to team
+
+app.post("/api/addMember", async(req, res) => {
+    const { employeeId, teamId } = req.body;
+
+    try{
+        const teamMember = await new EmployeeTeamModel({
+            team_id: teamId,
+            employee_id: employeeId
+        })
+
+        teamMember.save()
+        res.send(teamMember)
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
+
+// check if member is added
+
+app.get("/api/checkMemberAdded", async(req, res) => {
+    const { employeeId, teamId } = req.query;
+
+    try{
+        const response = await EmployeeTeamModel.find({ employee_id: employeeId, team_id: teamId })
+        res.send(response)
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+
+})
+
+// get members from team
+
+app.get("/api/getTeamMembers", async(req, res) => {
+    const { teamId } = req.query;
+
+    
+    try{
+        const response = await EmployeeTeamModel.find({ team_id: teamId })
+        res.send(response)
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
+
+// remove member from team
 
 // create message
 
-// get messages in team
+// Create notice
 
-// get messages from manager
+app.post("/api/createNotice", async(req, res) => {
+    const { type, title, mainText, urgent, date, creator, team } = req.body;
+
+    try{
+        const notice = await new NoticeModel({
+            type: type,
+            title: title,
+            main_text: mainText,
+            urgent: urgent,
+            daate: date,
+            creator: creator,
+            team: team
+        })
+
+        notice.save()
+        res.send(notice)
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
+
+// Get notices
+
+app.get("/api/getNotices", async(req, res) => {
+    const { teamId } = req.query;
+
+    try{
+        const adminNotices = await NoticeModel.find({ type: "admin" })
+        const managerNotices = await NoticeModel.find({ type: "manager", team: teamId })
+
+        res.send({adminNotices, managerNotices})
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
 
 
 app.listen(8000, () => {

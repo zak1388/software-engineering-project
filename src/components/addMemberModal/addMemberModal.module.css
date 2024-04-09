@@ -1,0 +1,92 @@
+.container{
+    background-color: white;
+    z-index: 99999;
+    width: 40%;
+    height: 40%;
+    height: fit-content;
+    position: absolute;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    border: 1px solid black;
+
+}
+
+.header{
+    width: 100%;
+    display: flex;
+    justify-content: space-between
+}
+
+.memberInput{
+    width: 100%;
+    background-color: white;
+    border: 1px solid lightgray;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px;
+}
+
+.memberInput .inputBox{
+    width: 100%;
+    border: none;
+    outline: none;
+}
+
+.button{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.button button{
+    cursor: pointer;
+    border: none;
+    padding: 5px;
+}
+
+.members{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.employees{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.employee{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.employee .left{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.employee .left span{
+    background-color: lightgray;
+    font-weight: 300;
+    font-size: 10px;
+    padding: 3px;
+}
+
+.employee .addButton{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}

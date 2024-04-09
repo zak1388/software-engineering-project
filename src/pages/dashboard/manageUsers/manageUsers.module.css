@@ -1,12 +1,15 @@
 .container{
     flex: 9;
     padding: 20px;
-    overflow: auto;
-    height: 100%;
-    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    height: 100%;
+}
+
+.wrapper{
+    height: 100%;
+    overflow: auto;
 }
 
 .information{
@@ -56,6 +59,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+
 }
 
 .usersHeader{
@@ -113,5 +117,24 @@ table {
     padding-bottom: 12px;
     text-align: left;
     background-color: black;
+    color: white;
+  }
+
+  .addUser{
+    width: fit-content;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    outline: none;
+    background: linear-gradient(to right, #1541C8, #682CB7);
+    color: white;
+  }
+
+  .deleteButton{
+    background-color: red;
+    padding: 5px;
+    outline: none;
+    cursor: pointer;
+    border: none;
     color: white;
   }

@@ -4,6 +4,7 @@ import { FaUsers } from "react-icons/fa";
 import { CiSearch } from "react-icons/ci";
 import { CgProfile } from "react-icons/cg";
 import Axios from "axios"
+import AddUserModal from '../../../components/addUserModal/AddUserModal.tsx';
 
 interface Employee{
     first_name: String,
@@ -16,6 +17,8 @@ function ManageUsers() {
     const [employees, setEmployees] = useState([])
     const [filteredEmployees, setFilteredEmployees] = useState([])
     const [employeeCount, setEmployeeCount] = useState(0)
+
+    const [modal, setModal] = useState(false)
 
     useEffect(() => {
         const getEmployees = async () => {
@@ -87,7 +90,7 @@ function ManageUsers() {
                     <CiSearch />
                     <input type="text" placeholder='filter user by name' onChange={filterEmployees}/>
                 </div>
-                <button>Add user</button>
+                <button onClick={() => setModal(true)} className={styles.addUser}>Add user</button>
             </div>
             <div className={styles.usersTable}>
                 <table>
@@ -111,7 +114,9 @@ function ManageUsers() {
                                         </td>
                                         <td>{employee.position}</td>
                                         <td>test</td>
-                                        <td>test</td>
+                                        <td>
+                                            <button className={styles.deleteButton}>Delete</button>
+                                        </td>
                                     </tr>
                                 )
                             })}
@@ -130,7 +135,9 @@ function ManageUsers() {
                                         </td>
                                         <td>{employee.position}</td>
                                         <td>test</td>
-                                        <td>test</td>
+                                        <td>
+                                            <button className={styles.deleteButton}>Delete</button>
+                                        </td>
                                     </tr>
                                 )
                             })}
@@ -139,6 +146,7 @@ function ManageUsers() {
                 </table>
             </div>
         </div>
+        {modal && <AddUserModal setModal={setModal}/>}
     </div>
   )
 }

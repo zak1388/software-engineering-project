@@ -12,6 +12,7 @@ import TimeAwayRequest from './pages/TimeAway/TimeAwayRequest.tsx';
 
 import Profile from './pages/dashboard/profile/Profile.tsx';
 import ManageUsers from './pages/dashboard/manageUsers/ManageUsers.tsx';
+import ManageTeams from './pages/dashboard/manageTeams/ManageTeams.tsx';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
             <Route path="teamChat" element={<TeamChat />}/>
             <Route path="/calendar" element={<Calendar />}/>
             <Route path="/manageUsers" element={<ManageUsers />} />
+            <Route path="/manageTeams" element={<ManageTeams />} />
           </Route>
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/issue" element= {<Issue/>}/>

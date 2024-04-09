@@ -11,6 +11,7 @@ import { RiAdminLine } from "react-icons/ri";
 import { IoMdClose } from "react-icons/io";
 import { FaCodePullRequest } from "react-icons/fa6";
 import { FaUsers } from "react-icons/fa";
+import { RiTeamFill } from "react-icons/ri";
 
 
 function Sidebar() {
@@ -78,6 +79,10 @@ function Sidebar() {
                         <FaUsers className={styles.linkIcon}/>
                         <h2>Users</h2>
                     </div>
+                    <div className={styles.separateLink} onClick={() => routePage("manageTeams")}>
+                        <RiTeamFill className={styles.linkIcon}/>
+                        <h2>Teams</h2>
+                    </div>
                     <div className={styles.separateLink} onClick={() => routePage("")}>
                         <FaCodePullRequest className={styles.linkIcon}/>
                         <h2>Requests</h2>
@@ -128,9 +133,13 @@ function Sidebar() {
 
             {(position == "admin") && (
                 <>
-                    <div className={styles.separateLink} onClick={() => routePage("")}>
+                    <div className={styles.separateLink} onClick={() => routePage("manageUsers")}>
                         <FaUsers className={styles.linkIcon}/>
                         <h2>Users</h2>
+                    </div>
+                    <div className={styles.separateLink} onClick={() => routePage("manageTeams")}>
+                        <RiTeamFill className={styles.linkIcon}/>
+                        <h2>Teams</h2>
                     </div>
                     <div className={styles.separateLink} onClick={() => routePage("")}>
                         <FaCodePullRequest className={styles.linkIcon}/>
