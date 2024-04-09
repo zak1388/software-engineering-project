@@ -160,7 +160,6 @@ function Request({request}) {
     const dateFormatter = new Intl.DateTimeFormat("en-GB", {weekday: "long", year: 'numeric', month: "long", day: "numeric"});
     return (
             <div className={styles.request}>
-                {console.log(request)}
                 <div className={styles.req_text}>
                     <div>
                         <h3>Type</h3>
