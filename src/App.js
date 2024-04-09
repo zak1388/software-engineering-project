@@ -10,9 +10,11 @@ import TimeAway from './pages/TimeAway/TimeAway.tsx';
 import UserInfo from './pages/userInfo/userInfo.tsx';
 import AdminIssues from './pages/AdminIssues/AdminIssues.tsx';
 import TimeAwayRequest from './pages/TimeAway/TimeAwayRequest.tsx';
+import Profile from './pages/dashboard/profile/Profile.tsx';
+import ManageUsers from './pages/dashboard/manageUsers/ManageUsers.tsx';
+import ManageTeams from './pages/dashboard/manageTeams/ManageTeams.tsx';
 import ManagerAnnouncement from './pages/ManagerNotice/ManagerAnnounce.tsx';
 import AdminAnnouncement from './pages/AdminNotice/AdminAnnounce.tsx';
-import Profile from './pages/dashboard/profile/Profile.tsx';
 import AdminViewRequests from './pages/adminViewRequests/AdminViewRequests.tsx';
 import ManagerViewRequests from './pages/managerViewRequests/ManagerViewRequests.tsx';
 
@@ -29,6 +31,8 @@ function App() {
             <Route path ="/timeAwayRequest" element = {<TimeAwayRequest/>}/>
             <Route path="teamChat" element={<TeamChat />}/>
             <Route path="/calendar" element={<Calendar />}/>
+            <Route path="/manageUsers" element={<ManageUsers />} />
+            <Route path="/manageTeams" element={<ManageTeams />} />
             <Route path="/userInfo" element={<UserInfo />} />
             <Route path="/issue" element= {<Issue/>}/>
             <Route path="ManagerNotice" element={<ManagerAnnouncement/>}/>

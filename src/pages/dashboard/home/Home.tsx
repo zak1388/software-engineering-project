@@ -82,18 +82,22 @@ function Home() {
             <div className={styles.widgets_grid}>
                 <div className={styles.top} id="top">
                     {/* Company Updates Widget */}
-
-                    <div className={styles.company_updates} id="company_updates">
-                        <div className={styles.updates_header}>
-                            <h2>Company Updates</h2>
-                            <h5 className={styles.new_updates}>2 new</h5>
-                        </div>
-                        <p className={styles.date}>25 March</p>
-                        <p className={styles.update_block}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a varius ante, ut sagittis ipsum. Ut vitae porta lectus. Sed.</p>
-                        <p className={styles.update_block}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at eleifend leo. Praesent interdum ut dolor et auctor. Nunc rutrum congue lacus vel ornare. Sed nisi risus, gravida eu odio.</p>
-                    </div>
-
+                  
+                    {/* <div className={styles.company_updates}>
+                        <div className={styles.updates_header}> */}
+                            <div className={styles.company_updates} id="company_updates">
+                                <div className={styles.updatesHeader}>
     
+                                    <h2>Company Updates</h2>
+                                    <h5 className={styles.new_updates}>2 new</h5>
+                                </div>
+                                <p className={styles.date}>25 March</p>
+                                <p className={styles.update_block}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a varius ante, ut sagittis ipsum. Ut vitae porta lectus. Sed.</p>
+                                <p className={styles.update_block}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at eleifend leo. Praesent interdum ut dolor et auctor. Nunc rutrum congue lacus vel ornare. Sed nisi risus, gravida eu odio.</p>
+                            </div>
+                        {/* </div>
+                    </div>
+     */}
                     <div className={styles.top_right}>
                         {/* Next Leave Widget */}
                         <div className={styles.next_leave_scheduled} id="next_leave_scheduled">
