@@ -13,6 +13,7 @@ function TimeAway () {
     const [requests, setRequests] = useState([]);
     const [holidayDays, setHolidayDays] = useState(0);
     const [sickDays, setSickDays] = useState(0);
+    const [approvedHolidayDays, setApprovedHolidayDays] = useState([]);
 
     useEffect(() => {
         Axios.post("http://localhost:8000/api/GetLeaveRequests", {
@@ -32,7 +33,7 @@ function TimeAway () {
 
     useEffect(() => {
         const r = requestsRaw.map(request => {
-                let response = responses.filter(response => Boolean(response)).find(response => request._id === response.request);
+                let response = responses.find(response => response && request._id === response.request);
                 if (response) {
                     request.accepted = response.approved;
                     request.response = response;
@@ -45,26 +46,30 @@ function TimeAway () {
 
     useEffect(() => {
         Axios.post("http://localhost:8000/api/GetSickDays")
-        .then((response) => {
-            return response.data;
+        .then((response) => response.data, err => { 
+            console.error(err);
+            return -1;
         })
         .then((sickDays) => setSickDays(sickDays));
     }, []);
 
     useEffect(() => {
         Axios.post("http://localhost:8000/api/GetHolidayDays")
-        .then((response) => {
-            return response.data;
+        .then((response) => response.data, err => { 
+            console.error(err);
+            return -1;
         })
         .then((holidayDays) => setHolidayDays(holidayDays));
     });
 
-    const approvedHolidayDays = (requests.reduce((acc, req) => {
-        if (req.accepted && req.type === "Holiday") {
-            return acc + (new Date(req.end) - new Date(req.start));
-        } else 
-            return 0;
-    }, 0) / (24 * 60 * 60 * 1000)).toFixed(0);
+    useEffect(() => {
+        const acceptedHolidayRequests = requests.filter(req => req && req.accepted && req.type === "Holiday");
+        const acceptedHolidayPeriods = acceptedHolidayRequests.map(req => new Date(req.end) - new Date(req.start));
+        const allHolidayPeriods = requests.reduce((acc, req) => acceptedHolidayPeriods, 0);
+        const allHolidayDays = allHolidayPeriods / (24 * 60 * 60 * 1000);
+        const noDecimal = allHolidayDays.toFixed(0);
+        setApprovedHolidayDays(noDecimal);
+    }, [requests]);
 
     const approvedSickLeave = (requests.reduce((acc, req) => {
         if (req.accepted && req.type === "Sick") {
@@ -168,7 +173,6 @@ function Request({type, start_date, end_date, accepted, active}) {
                         <h3>Start Date</h3>
                         <h1>{start_date}</h1>
                     </div>
-
                     <div>
                         <h3>End Date</h3>
                         <h1>{end_date}</h1>

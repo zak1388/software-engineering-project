@@ -62,7 +62,7 @@ function Profile() {
                     <CgProfile className={styles.profilePicIcon}/>
                 </div>
                 <div className={styles.userDetails}>
-                    {savedUserId == id ? (
+                    {savedUserId === id ? (
                         <div className={styles.inputs}>
                             <input type="text" placeholder={userDetails?.first_name} value={firstName} onChange={((e) => setFirstName(e.target.value))} />
                             <input type="text" placeholder={userDetails?.last_name}  value={lastName} onChange={((e) => setLastName(e.target.value))} />
