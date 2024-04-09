@@ -279,5 +279,13 @@ h2{
         text-align: center;
     }
 
+    .company_updates, .next_leave_scheduled, .admin_updates, .team_chat,
+    .calendar, .days_off, .team_updates{
+        height: fit-content;
+    }
+
+    .next_leave_scheduled{
+        padding-bottom: 10%;
+    }
 
 }
