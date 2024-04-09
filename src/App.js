@@ -15,6 +15,7 @@ import ManageUsers from './pages/dashboard/manageUsers/ManageUsers.tsx';
 import ManageTeams from './pages/dashboard/manageTeams/ManageTeams.tsx';
 import ManagerAnnouncement from './pages/ManagerNotice/ManagerAnnounce.tsx';
 import AdminAnnouncement from './pages/AdminNotice/AdminAnnounce.tsx';
+import EditProfile from './pages/dashboard/profile/EditProfile.tsx';
 import AdminViewRequests from './pages/adminViewRequests/AdminViewRequests.tsx';
 import ManagerViewRequests from './pages/managerViewRequests/ManagerViewRequests.tsx';
 
@@ -38,8 +39,9 @@ function App() {
             <Route path="ManagerNotice" element={<ManagerAnnouncement/>}/>
             <Route path="AdminNotice" element={<AdminAnnouncement/>}/>
             <Route path="/AdminIssues" element= {<AdminIssues/>}/>
+            <Route path="/profile/:id" element={<Profile />} />
           </Route>
-          <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/editprofile/:id" element={<EditProfile />} />
           <Route path="/issue" element= {<Issue/>}/>
           <Route path="ManagerNotice" element={<ManagerAnnouncement/>}/>
           <Route path="AdminNotice" element={<AdminAnnouncement/>}/>

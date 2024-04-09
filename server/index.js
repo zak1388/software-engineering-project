@@ -66,14 +66,16 @@ app.get("/api/getProfile", async(req, res) => {
 })
 
 app.post("/api/updateProfile", async(req, res) => {
-    const { userId, first_name, last_name, email, address } = req.body;
+    const { userId, first_name, last_name, email, address, personal_number, emergency_number } = req.body;
 
     try{
         const response = await EmployeeModel.updateOne({_id: userId}, {
             first_name: first_name,
             last_name: last_name,
             email: email,
-            address: address
+            address: address,
+            personal_number: personal_number,
+            emergency_number: emergency_number
         })
 
         res.send(response)
