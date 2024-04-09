@@ -16,11 +16,13 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    position: absolute;
-    top: 12%;
-    left: 17%;
-    width: 80%;
-    overflow: auto;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.title {
+    margin-left: 1em;
 }
 
 .request_block{
@@ -49,7 +51,7 @@
 
 .employee_id h2, .info_type h2, .date_requested h2{
     font-size: 140%;
-    margin-top: 15%;
+    margin-top: 1rem;
     font-weight: bold;
 }
 
@@ -59,19 +61,15 @@
 }
 
 .employee_id{
-    width: 15%;
     margin: 2 rem;
 }
 
 .info_type{
-    width: 15%;
     margin: 2 rem;
 }
 
 .date_requested{
-    width: 10 rem;
-    margin: 2 rem;
-}
+    margin: 2 rem; }
 
 /* Popup */
 
@@ -84,6 +82,17 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+
+
+}
+
+.popup img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: auto;
+    margin-top: 0;
 }
 
 .popup_content{
@@ -144,7 +153,6 @@
 .buttons{
     display: flex;
     justify-content: center;
-    margin-top: 1.2rem;
 }
 
 .buttons > * {
@@ -218,4 +226,40 @@
 }
 
 h1{
+}
+
+.dropdown {
+    width: auto;
+    position: absolute;
+    background: white;
+    color: black;
+    border-radius: 1em;
+    padding: 0.5em;
+}
+
+.dropdown > * {
+    border-top: thin solid gray;
+    border-bottom: thin solid gray;
+    border-collapse: collapse;
+    padding: 0.25em;
+}
+
+.dropdown > *:hover {
+    background-color: lightgray;
+}
+
+.dropdown > *:hover:first-child {
+    border-radius: 1em 1em 0 0;
+}
+
+.dropdown > *:hover:last-child {
+    border-radius: 0 0 1em 1em;
+}
+
+.dropdown > *:first-child {
+    border-top: 0;
+}
+
+.dropdown > *:last-child {
+    border-bottom: 0;
 }

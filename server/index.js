@@ -10,6 +10,7 @@ const DirectChatMessageModel = require("./models/DirectChatMessage.ts");
 const LeaveRequestModel = require("./models/LeaveRequest.ts");
 const LeaveResponseModel = require("./models/LeaveResponse.ts");
 const IssueTicketModel = require("./models/IssueTicket.ts");
+const ChangeRequestModel = require("./models/ChangeRequest.ts");
 
 const EventModel = require("./models/Event.ts")
 const moment = require("moment")
@@ -370,15 +371,36 @@ app.post("/api/GetIssues", async(req, res) => {
     }
 });
 
-// get teams
+app.post("/api/GetChangeRequests", async(req, res) => {
+    const { userId } = req.body.params;
 
+    // TODO: verify uid is an admin
 
-// create message
+    try {
+        const changeReqs = await ChangeRequestModel.find() || [];
+        res.send(changeReqs);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
 
-// get messages in team
+app.post("/api/UpdateChangeRequest", async(req, res) => {
+    const { userId, requestId, newState } = req.body.params;
 
-// get messages from manager
+    // TODO: verify uid admin
 
+    try {
+        const changeReq = await ChangeRequestModel.findOne({ _id: requestId });
+        changeReq.state = newState;
+        await changeReq.save();
+        res.json();
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+
+});
 
 app.listen(8000, () => {
     console.log("server started")
