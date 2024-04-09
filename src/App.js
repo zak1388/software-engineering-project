@@ -39,8 +39,8 @@ function App() {
             <Route path="ManagerNotice" element={<ManagerAnnouncement/>}/>
             <Route path="AdminNotice" element={<AdminAnnouncement/>}/>
             <Route path="/AdminIssues" element= {<AdminIssues/>}/>
-            <Route path="/profile/:id" element={<Profile />} />
           </Route>
+          <Route path="/profile/:id" element={<EditProfile />} />
           <Route path="/editprofile/:id" element={<EditProfile />} />
           <Route path="/issue" element= {<Issue/>}/>
           <Route path="ManagerNotice" element={<ManagerAnnouncement/>}/>
