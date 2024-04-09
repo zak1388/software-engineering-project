@@ -5,7 +5,8 @@ import { TiPlus } from "react-icons/ti";
 import { CiCircleCheck } from "react-icons/ci";
 import { CiCircleRemove } from "react-icons/ci";
 import { CiCircleQuestion } from "react-icons/ci";
-import TimeAwayRequest from "./TimeAwayRequest.tsx";
+import TimeAwayRequestForm from "./TimeAwayRequest.tsx";
+import Request from "../../components/request/Request.tsx";
 
 function TimeAway () {
     const [requestsRaw, setRequestsRaw] = useState([]);
@@ -14,6 +15,7 @@ function TimeAway () {
     const [holidayDays, setHolidayDays] = useState(0);
     const [sickDays, setSickDays] = useState(0);
     const [approvedHolidayDays, setApprovedHolidayDays] = useState([]);
+    const [approvedSickDays, setApprovedSickDays] = useState([]);
 
     useEffect(() => {
         Axios.post("http://localhost:8000/api/GetLeaveRequests", {
@@ -71,13 +73,14 @@ function TimeAway () {
         setApprovedHolidayDays(noDecimal);
     }, [requests]);
 
-    const approvedSickLeave = (requests.reduce((acc, req) => {
-        if (req.accepted && req.type === "Sick") {
-            return acc + (new Date(req.end) - new Date(req.start));
-        } else 
-            return 0;
-    }, 0)).toFixed(0);
-
+    useEffect(() => {
+        const acceptedSickRequests = requests.filter(req => req && req.accepted && req.type === "Sick");
+        const acceptedSickPeriods = acceptedSickRequests.map(req => new Date(req.end) - new Date(req.start));
+        const allSickPeriods = requests.reduce((acc, req) => acceptedSickPeriods, 0);
+        const allSickDays = allSickPeriods / (24 * 60 * 60 * 1000);
+        const noDecimal = allSickDays.toFixed(0);
+        setApprovedSickDays(noDecimal);
+    }, [requests]);
     let [creatingRequest, setCreatingRequest] = useState(false);
 
     function createRequest() {
@@ -118,12 +121,12 @@ function TimeAway () {
                 <HolidayInfoRow
                     type="Sick Leave"
                     grant={sickDays}
-                    approved={approvedSickLeave}
-                    remaining={Math.max(sickDays - approvedSickLeave, 0)}
+                    approved={approvedSickDays}
+                    remaining={Math.max(sickDays - approvedSickDays, 0)}
                 />
             </div>
             {
-                (creatingRequest && <TimeAwayRequest setCreatingRequest={setCreatingRequest} />) ||
+                (creatingRequest && <TimeAwayRequestForm setCreatingRequest={setCreatingRequest} />) ||
                 <RequestList requests={requests} />
             }
         </div>
@@ -135,7 +138,7 @@ function RequestList({requests}) {
         <div className={styles.RequestList}>
             {
             requests.map((request) => (
-                <Request 
+                <TimeAwayRequest 
                     key={request._id}
                     request={request}
                 />
@@ -156,10 +159,10 @@ function HolidayInfoRow({type, grant, approved, remaining}) {
     );
 }
 
-function Request({request}) {
+function TimeAwayRequest({request}) {
     const dateFormatter = new Intl.DateTimeFormat("en-GB", {weekday: "long", year: 'numeric', month: "long", day: "numeric"});
     return (
-            <div className={styles.request}>
+            <Request>
                 <div className={styles.req_text}>
                     <div>
                         <h3>Type</h3>
@@ -191,7 +194,7 @@ function Request({request}) {
                         }
                     </h1>
                 </div>
-            </div>
+            </Request>
     );
 }
 

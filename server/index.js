@@ -9,8 +9,10 @@ const TeamChatMessageModel = require("./models/TeamChatMessage.ts");
 const DirectChatMessageModel = require("./models/DirectChatMessage.ts");
 const LeaveRequestModel = require("./models/LeaveRequest.ts");
 const LeaveResponseModel = require("./models/LeaveResponse.ts");
-const NoticeModel = require("./models/Notice.ts")
 const IssueTicketModel = require("./models/IssueTicket.ts");
+const ChangeRequestModel = require("./models/ChangeRequest.ts");
+const AdminNoticeModel = require("./models/AdminNotice.ts");
+const ManagerNoticeModel = require("./models/ManagerNotice.ts");
 const EventModel = require("./models/Event.ts")
 const moment = require("moment")
 
@@ -439,7 +441,19 @@ app.post("/api/GetIssues", async(req, res) => {
     }
 });
 
-// get teams
+app.post("/api/GetChangeRequests", async(req, res) => {
+    const { userId } = req.body.params;
+
+    // TODO: verify uid is an admin
+
+    try {
+        const changeReqs = await ChangeRequestModel.find() || [];
+        res.send(changeReqs);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
 
 app.get("/api/getUsersTeams", async(req, res) => {
     const { userId } = req.query;
@@ -534,9 +548,6 @@ app.get("/api/getTeamMembers", async(req, res) => {
 })
 
 // remove member from team
-
-// create message
-
 // Create notice
 
 app.post("/api/createNotice", async(req, res) => {
@@ -577,6 +588,44 @@ app.get("/api/getNotices", async(req, res) => {
     }
 })
 
+app.post("/api/UpdateChangeRequest", async(req, res) => {
+    const { userId, requestId, newState } = req.body.params;
+
+    // TODO: verify uid admin
+
+    try {
+        const changeReq = await ChangeRequestModel.findOne({ _id: requestId });
+        changeReq.state = newState;
+        await changeReq.save();
+        res.json();
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+
+});
+
+app.post("/api/AdminPostNotice", async(req, res) => {
+    const { userId, title, notice, urgent } = req.body.params;
+
+    // TODO: verify uid admin
+
+    try {
+        const adminNotice = new AdminNoticeModel({
+            title, 
+            notice, 
+            urgent, 
+            creator: userId,
+            createdAt: Date.now(),
+        });
+        await adminNotice.save();
+        res.json();
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+
+});
 
 app.listen(8000, () => {
     console.log("server started")
