@@ -16,6 +16,7 @@ interface Employee{
 function Navbar() {
 
   const navigate = useNavigate()
+  
   const userId = localStorage.getItem("userId")
 
   const first_name = localStorage.getItem("first_name")

@@ -18,3 +18,8 @@
     background: linear-gradient(to right, #1541C8, #682CB7);
     color: white;
 }
+
+.cldr h2 {
+    width: fit-content;
+}
+

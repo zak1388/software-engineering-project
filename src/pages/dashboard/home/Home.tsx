@@ -82,7 +82,7 @@ function Home() {
             <div className={styles.widgets_grid}>
                 <div className={styles.top} id="top">
                     {/* Company Updates Widget */}
-    
+                  
                     {/* <div className={styles.company_updates}>
                         <div className={styles.updates_header}> */}
                             <div className={styles.company_updates} id="company_updates">
@@ -106,7 +106,9 @@ function Home() {
     
                         {/* Admin Updates Widget */}
                         <div className={styles.admin_updates} id="admin_updates">
-                            <h2>Admin Updates</h2>
+                            <div className={styles.updates_header}>
+                                <h2>Admin Updates</h2>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -126,11 +128,26 @@ function Home() {
                                 <h2>Today</h2>
                                 <h2>, 02 April</h2>
                             </div>
-                            <div>
+                            {/* One Block of a Calendar Event */}
+                            <div className={styles.calendar_block}>
                                 <p>9:00am</p>
                                 <article className={styles.calendar_event}>
-                                    <h6>Video Call</h6>
+                                    <h4>Video Call</h4>
                                     <p>9:00 - 10:00 - Team Meeting</p>
+                                </article>
+                            </div>
+
+                            <div className={styles.calendar_block}>
+                                <p>10:00am</p>
+                                <article className={styles.calendar_event}>
+
+                                </article>
+                            </div>
+                            <div className={styles.calendar_block}>
+                                <p>11:00am</p>
+                                <article className={styles.calendar_event}>
+                                    <h4>Meeting</h4>
+                                    <p>Team Building Exercise</p>
                                 </article>
                             </div>
                         </div>
@@ -177,7 +194,7 @@ function Home() {
                         <div className={styles.updates_header}> */}
     
                     <div className={styles.team_updates} id="team_updates">
-                        <div className={styles.updatesHeader}>
+                        <div className={styles.updates_header}>
     
                             <h2>Team Updates</h2>
                             <h5 className={styles.new_updates}>1 new</h5>

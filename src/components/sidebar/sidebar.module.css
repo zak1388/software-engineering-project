@@ -15,7 +15,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
 }
 .mainLogo .logoImage{
     color: white;
@@ -96,10 +95,8 @@ h2{
     .flexContainer{
         display: none;
     }
-
+  
     .header{
         display: flex;
     }
-
-
 }
