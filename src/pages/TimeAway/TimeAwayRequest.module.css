@@ -44,7 +44,19 @@
     transition: background 0.3s, box-shadow 0.3s;
 }
 
+.CancelButton:hover{
+    background: linear-gradient(90deg, #1541C8 0%, #682CB7 100%);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
 .SubmitButton {
+}
+
+.SubmitButton:hover{
+    background: linear-gradient(90deg, #1541C8 0%, #682CB7 100%);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
+    transition: background 0.3s, box-shadow 0.3s;
 }
 
 .SubmitButton:hover{
