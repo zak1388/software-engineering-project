@@ -194,10 +194,10 @@ app.post("/api/GetAllDirectMessages", async(req, res) => {
 
 // get all leave requests
 app.post("/api/GetLeaveRequests", async(req, res) => {
-    const { id } = req.body;
+    const { userId } = req.body.params;
 
     try {
-        const employee = await EmployeeModel.findOne({ id });
+        const employee = await EmployeeModel.findOne({ _id: userId });
         const leave_reqs = await LeaveRequestModel.find({ requestor: employee })
         res.json(leave_reqs);
     } catch (err) {

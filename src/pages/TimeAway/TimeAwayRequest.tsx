@@ -39,17 +39,17 @@ function TimeAwayRequest({ setCreatingRequest }) {
         const d = new Date();
         const today = new Date(d.getFullYear(), d.getMonth(), d.getDay());
         if (startDate.valueOf() < today.valueOf()) {
-            failed = true;
+            succeeded = false;
             errors.push("Start date cannot be in the past");
         }
 
         if (endDate.valueOf() < today.valueOf()) {
-            succeeded = true;
+            succeeded = false;
             errors.push("End date cannot be in the past");
         }
 
         if (endDate.valueOf() < startDate.valueOf()) {
-            succeeded = true;
+            succeeded = false;
             errors.push("End date cannot be before start date");
         } 
 
@@ -68,7 +68,7 @@ function TimeAwayRequest({ setCreatingRequest }) {
 
         if (!verifyForm(form)) {
             console.error("Failed to submit form");
-            return;
+            return false;
         }
 
         Axios.post("http://localhost:8000/api/CreateLeaveRequest", {
@@ -92,15 +92,15 @@ function TimeAwayRequest({ setCreatingRequest }) {
             <div className={styles.DatesForHoliday}>
                 <div className={styles.FormField}>
                     <h1>Start Date:</h1>
-                    <input className={styles.StartDate} type="date" id="StartDate" name="Start Date" />
+                    <input className={styles.StartDate} type="date" id="StartDate" name="Start Date" required />
                 </div>
                 <div className={styles.FormField}>
                     <h1>End Date:</h1>
-                    <input className={styles.EndDate} type="date" id="EndDate" name="End Date" />
+                    <input className={styles.EndDate} type="date" id="EndDate" name="End Date" required />
                 </div>
                 <div className={styles.FormField}>
                     <h1>Type:</h1>
-                    <select className={styles.Type}>
+                    <select className={styles.Type} required>
                         <option default>Sick Leave</option>
                         <option>Holiday</option>
                         <option>Jury Duty</option>

@@ -131,18 +131,13 @@ function TimeAway () {
 }
 
 function RequestList({requests}) {
-    const dateFormatter = new Intl.DateTimeFormat("en-GB", {weekday: "long", year: 'numeric', month: "long", day: "numeric"});
     return (
         <div className={styles.RequestList}>
             {
             requests.map((request) => (
                 <Request 
                     key={request._id}
-                    type={request.type}
-                    start_date={dateFormatter.format(new Date(request.start))}
-                    end_date={dateFormatter.format(new Date(request.end))}
-                    accepted={request.accepted}
-                    active={request.active}
+                    request={request}
                 />
             ))
             }
@@ -161,36 +156,38 @@ function HolidayInfoRow({type, grant, approved, remaining}) {
     );
 }
 
-function Request({type, start_date, end_date, accepted, active}) {
+function Request({request}) {
+    const dateFormatter = new Intl.DateTimeFormat("en-GB", {weekday: "long", year: 'numeric', month: "long", day: "numeric"});
     return (
             <div className={styles.request}>
+                {console.log(request)}
                 <div className={styles.req_text}>
                     <div>
                         <h3>Type</h3>
-                        <h1>{type}</h1>
+                        <h1>{request.type}</h1>
                     </div>
                     <div>
                         <h3>Start Date</h3>
-                        <h1>{start_date}</h1>
+                        <h1>{dateFormatter.format(new Date(request.start))}</h1>
                     </div>
                     <div>
                         <h3>End Date</h3>
-                        <h1>{end_date}</h1>
+                        <h1>{dateFormatter.format(new Date(request.end))}</h1>
                     </div>
                 </div>
 
-                <div className={styles.Accepted}>
+                <div onClick={() => alert(request._id)} className={styles.Accepted}>
                     <span>
                         {
-                            (accepted && <CiCircleCheck className={styles.AcceptedIcon}/>)
-                            || (active && <CiCircleQuestion className={styles.AcceptedIcon}/>)
+                            (request.accepted && <CiCircleCheck className={styles.AcceptedIcon}/>)
+                            || (request.active && <CiCircleQuestion className={styles.AcceptedIcon}/>)
                             || <CiCircleRemove className={styles.AcceptedIcon}/>
                         }
                     </span>
                     <h1>
                         {
-                            (accepted && "Accepted")
-                            || (active && "Active")
+                            (request.accepted && "Accepted")
+                            || (request.active && "Active")
                             || "Rejected"
                         }
                     </h1>
