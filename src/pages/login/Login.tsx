@@ -21,6 +21,7 @@ import { useNavigate } from 'react-router-dom';
 function Login() {
   const [username, setUsername] = useState<String>("")
   const [password, setPassword] = useState<String>("")
+  const [error, setError] = useState<String>("");
 
   const navigate = useNavigate()
 
@@ -29,7 +30,7 @@ function Login() {
     console.log(username)
     console.log(password)
 
-    await Axios.get("http://localhost:8000/api/login", {
+    await Axios.post("http://localhost:8000/api/login", {
       params: { username, password }
     }).then((response) => {
       console.log(response)
@@ -47,17 +48,24 @@ function Login() {
         localStorage.setItem("personal_number", user.personal_number)
         localStorage.setItem("emergency_number", user.emergency_number)
         localStorage.setItem("address", user.address)
-        localStorage.setItem("component_list", user.dashboard_model.component_list)
+
+        localStorage.setItem("component_list", JSON.stringify(user.dashboard_model.components_list))
 
 
 
 
       } else{
-        alert("username or password is incorrect")
+        alert("username or password is incorrect");
       }
+    }, (err) => {
+        if (err.response) {
+            setError(err.response.data);
+        } else {
+            setError(err);
+        }
+        console.error("Request failed! ", err);
     })
   }
-
 
 
   return (
@@ -66,6 +74,7 @@ function Login() {
         <img src={fdmlogo} alt="FDMLogo"/>
       </div>
         <form onSubmit={attemptLogin}  className={styles.loginForm}>
+            {error && <div className={styles.errorDiv}> {error.toString()} </div>}
             <div className={styles.field}>
                 <label className={styles.label} htmlFor="username">Username: </label>
                 <input className={styles.input} type="text" id="username" name="username" onChange={((e) => setUsername(e.target.value))} required/>

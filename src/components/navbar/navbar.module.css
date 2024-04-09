@@ -1,7 +1,6 @@
 /* desktop - styling */
 
 .container{
-    flex: 1;
     width: 100%;
     /* margin: 1em;
     padding: 1em; */
@@ -13,6 +12,11 @@
 }
 
 .search{
+
+
+}
+
+.searchWrapper{
     height: 100%;
     display: flex;
     align-items: center;
@@ -24,14 +28,24 @@
     /* margin-top: auto;
     margin-bottom: auto; */
     border-radius: 8px;
-
 }
+
 
 .search input{
     outline: none;
     border: none;
     /* width: 250px; */
     padding: 5px;
+}
+
+.searchResult{
+    position: absolute;
+    background-color: white;
+    overflow: auto;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .profile{
@@ -48,8 +62,16 @@
 .profilePic{
     width: 30px;
     height: 30px;
+    cursor: pointer;
 }
 
+.employee{
+    cursor: pointer;
+}
 
+.employee:hover{
+    background-color: black;
+    color: white;
+}
 
 

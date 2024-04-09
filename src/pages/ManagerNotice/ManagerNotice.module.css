@@ -1,16 +1,18 @@
 .container{
-    display: flex;
-    width: 100%;
+  display: flex;
+  height: 100vh;
+  width: 100%;
 }
 
 .wrapper{
-    background-color: #EAEBEC;
-    flex: 5;
-    display: flex;
-    flex-direction: column;
+  background-color: #EAEBEC;
+  flex: 5;
+  display: flex;
+  flex-direction: column;
 }
 
-.issueForm {
+.ManagerPost {
+  margin-top: 30px;
   margin-left: 90px;
   width: fit-content;
   position: absolute;
@@ -18,7 +20,7 @@
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
   background-color: white;
-  padding: 4em 2em;
+  padding: 4em 2em ;
   display: flex;
   flex-direction: column;
   gap: 1em;
@@ -26,36 +28,32 @@
   box-shadow: 1px 0px 2px lightgray, 0px 1px 2px gray;
 }
 
-.Feedback {
+textarea{
   font-size: 20px;
   background: rgba(217, 217, 217, 0.75);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  resize: none;
-  min-width: 30em;
-  height: 40vh;
 }
 
 ::placeholder{
   font-weight: bold;
 }
 
+
 .submit {
+  background: linear-gradient(90deg, #682CB7 0%, #1541C8 100%);
   width: 75%;
   margin: auto;
-  background: linear-gradient(to right, #1541c8, #682cb7);
   border: 0;
   color: white;
   border-radius: 0.5em;
   padding: 2%;
   margin-top: 40px;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
 }
-
-.Brief {
-  font-size: 20px;
-  background: rgba(217, 217, 217, 0.75);
-}
-
-.Errors {
-    color: red;
-    margin: 0 1em;
+.submit:hover{
+    background: linear-gradient(90deg, #1541C8 0%, #682CB7 100%);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
+    transition: background 0.3s, box-shadow 0.3s;
 }

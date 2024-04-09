@@ -3,7 +3,9 @@ const Schema = mongoose.Schema;
 
 const IssueTicketSchema = new Schema({
     resolved: Boolean,
-    description: String,
+    brief: String,
+    fullText: String,
+    createdAt: Date,
     creator: {type: Schema.Types.ObjectId, ref: "User"},
 })
 
