@@ -46,6 +46,7 @@ function App() {
           <Route path ="/timeAway" element = {<TimeAway/>}/>
           <Route path ="/timeAwayRequest" element = {<TimeAwayRequest/>}/>
           <Route path="/login" element={<Login />}/>
+          <Route path="/AdminIssues" element= {<AdminIssues/>}/>
           <Route path="/AdminViewRequests" element={<AdminViewRequests/>}/>
           <Route path="/ManagerViewRequests" element={<ManagerViewRequests/>}/>
         </Routes>
