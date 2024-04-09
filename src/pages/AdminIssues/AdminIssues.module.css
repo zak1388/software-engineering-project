@@ -1,24 +1,15 @@
 .container{
     display: flex;
-    height: 100vh;
     width: 100%;
-}
 
-.wrapper{
-    background-color: #EAEBEC;
-    flex: 5;
-    display: flex;
-    flex-direction: column;
 }
 
 .IssuesBundle{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    position: absolute;
-    top: 12%;
-    left: 17%;
-    width: 77%;
+    margin: 0 auto;
+    width: 90%;
 }
 
 .IssuesBundle > h1{
@@ -41,8 +32,7 @@ h3{
     font-size: 15px;
 }
 
-h1{
-    margin-top: 15px;
+h1, h2{
     font-size: 22px;
 }
 
@@ -58,15 +48,15 @@ h1{
 }
 
 .Date{
-    margin-left: 2rem;
     width: 20%;
 }
 
 .Brief{
-    margin-left: 2rem;
+    width: 30%;
 }
 
 .Buttons {
+    margin-left: auto;
     display: flex;
     justify-content: center;
     margin-top: 1.2rem;
@@ -117,25 +107,27 @@ h1{
 }
 
 .ModalContent{
+    display: flex;
+    flex-direction: column;
     background-color: #fefefe;
-    margin: 15% auto;
+    margin: 50vh auto;
+    transform: translateY(-50%);
     padding: 3%;
     padding-top: 2%;
     border: 1px solid #888;
     width: 80%;
     max-width: 600px;
+    min-height: min-content;
+    max-height: 80%;
     border-radius: 1.5em;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
 }
 .ModalContent h2{
     padding-bottom: 2%;
     font-size: 1.5rem;
-    padding-left: 3%;
     font-weight: bold;
 }
 .ModalContent p{
-    width: 90%;
-    padding-left: 3%;
     font-size: 1.15rem;
     text-align: justify;
 }
@@ -145,9 +137,17 @@ h1{
     justify-content: space-between;
     padding-bottom: 5%;
 }
-.ModalHeading h1{
+.ModalHeading h1, .ModalHeading h2{
+    margin-top: auto;
     font-size: 2rem;
+    display: inline;
 }
+
+.ModalHeading h2 {
+    font-size: 1rem;
+    color: darkgray;
+}
+
 .close {
     color: #aaa;
     float: right;
@@ -160,4 +160,9 @@ h1{
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+.FullText {
+    white-space: pre-line;
+    overflow-y: scroll;
 }
