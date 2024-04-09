@@ -17,7 +17,7 @@
 }
 
 .HolidayInfo{
-    width: 84%;
+    width: 95%;
     background-color: white;
     padding: 2em 2em;
     display: flex;
@@ -104,7 +104,7 @@ h1{
 
 .request {
     margin: 1em auto;
-    width: 84%;
+    width: 95%;
     background-color: white;
     padding: 1em;
     display: flex;
