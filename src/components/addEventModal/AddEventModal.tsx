@@ -11,12 +11,15 @@ function AddEventModal({ setModal, onEventAdded }) {
 
     const confirmEvent = (event) => {
         event.preventDefault()
+        console.log(start, end)
 
         onEventAdded({
             title,
             start,
             end
         })
+
+        setModal(false)
 
 
     }

@@ -7,6 +7,7 @@ import Axios from "axios"
 import AddUserModal from '../../../components/addUserModal/AddUserModal.tsx';
 
 interface Employee{
+    _id: String,
     first_name: String,
     last_name: String,
     position: String
@@ -20,16 +21,24 @@ function ManageUsers() {
 
     const [modal, setModal] = useState(false)
 
+    const deleteUser = async (userId) => {
+        await Axios.post("http://localhost:8000/api/deleteUser", {
+            userId: userId
+        }).then((response) => {
+            console.log(response)
+        })
+    }
+
     useEffect(() => {
         const getEmployees = async () => {
             await Axios.get("http://localhost:8000/api/getEmployees").then((response) => {
-                console.log(response)
+                // console.log(response)
                 setEmployees(response.data)
               })
         }
 
         getEmployees()
-    }, [])
+    }, [deleteUser])
 
     const filterEmployees = (e) => {
         let wordEntered = e.target.value
@@ -49,7 +58,7 @@ function ManageUsers() {
         <div className={styles.header}>
             <h1>Manage employees</h1>
         </div>
-        <div className={styles.information}>
+        {/* <div className={styles.information}>
             <div className={styles.stats}>
                 <div className={styles.statBox}>
                     <FaUsers style={{ fontSize: "30px" }}/>
@@ -83,7 +92,7 @@ function ManageUsers() {
             <div className={styles.pendingRequests}>
 
             </div>
-        </div>
+        </div> */}
         <div className={styles.users}>
             <div className={styles.usersHeader}>
                 <div className={styles.search}>
@@ -115,7 +124,7 @@ function ManageUsers() {
                                         <td>{employee.position}</td>
                                         <td>test</td>
                                         <td>
-                                            <button className={styles.deleteButton}>Delete</button>
+                                            <button className={styles.deleteButton} onClick={() => deleteUser(employee._id)}>Delete</button>
                                         </td>
                                     </tr>
                                 )
@@ -136,7 +145,7 @@ function ManageUsers() {
                                         <td>{employee.position}</td>
                                         <td>test</td>
                                         <td>
-                                            <button className={styles.deleteButton}>Delete</button>
+                                            <button className={styles.deleteButton} onClick={() => deleteUser(employee._id)}>Delete</button>
                                         </td>
                                     </tr>
                                 )

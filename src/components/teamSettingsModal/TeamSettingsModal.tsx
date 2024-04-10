@@ -7,6 +7,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import Axios from "axios"
 
 interface Employee{
+    _id: String,
     first_name: String,
     last_name: String,
     position: String,
@@ -16,6 +17,7 @@ interface Employee{
 function TeamSettingsModal({ setTeamSettingsModal, teamClicked }) {
     const [memberIds, setMemberIds] = useState([])
     const [members, setMembers] = useState([])
+    const [name, setName] = useState("")
 
     const getEmployee = async (employeeId) => {
         const userId = employeeId
@@ -26,8 +28,22 @@ function TeamSettingsModal({ setTeamSettingsModal, teamClicked }) {
         })
     }
 
-    const removeMember = () => {
+    const removeMember = async (employeeId) => {
+        await Axios.post("http://localhost:8000/api/removeFromTeam", {
+            teamId: teamClicked._id,
+            employeeId: employeeId
+        }).then((response) => {
+            console.log(response)
+        })
+    }
 
+    const editTeamName = async () => {
+        await Axios.post("http://localhost:8000/api/editTeamName", {
+            teamId: teamClicked._id,
+            name: name
+        }).then((response) => {
+            console.log(response)
+        })
     }
 
 
@@ -55,10 +71,10 @@ function TeamSettingsModal({ setTeamSettingsModal, teamClicked }) {
         </div>
         <div className={styles.editName}>
             <h3>Edit team name</h3>
-            <input type="text" placeholder={teamClicked.name} />
+            <input type="text" placeholder={teamClicked.name} onChange={((e) => setName(e.target.value))}/>
         </div>
         <div className={styles.saveButton}>
-                <button>Save</button>
+                <button onClick={editTeamName}>Save</button>
             </div>
         <div className={styles.removeMember}>
             <h3>Find member to remove</h3>
@@ -78,7 +94,7 @@ function TeamSettingsModal({ setTeamSettingsModal, teamClicked }) {
                                         <span>{member.position}</span>
                                     </div>
                                     <div className={styles.removeButton} onClick={removeMember}>
-                                        <button>Remove</button>
+                                        <button onClick={() => removeMember(member._id)}>Remove</button>
                                     </div>
                                 </div>
                             )

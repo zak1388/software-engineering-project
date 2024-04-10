@@ -13,6 +13,7 @@ import { FaPlaneDeparture } from "react-icons/fa";
 import FilterComponentsModal from '../../../components/filterComponentsModal/FilterComponentsModal.tsx';
 import Axios from "axios"
 import Login from './../../login/Login.tsx';
+import moment from 'moment';
 
 
 function Home() {
@@ -21,13 +22,21 @@ function Home() {
 
   const [modal, setModal] = useState(false)
   const [componentListState, setComponentListState] = useState({})
+
+  const [adminUpdates, setAdminUpdates] = useState([])
+  const [managerUpdates, setManagerUpdates] = useState([])
+  const [teams, setTeams] = useState([])
+
+  const [issues, setIssues] = useState([])
+
+  const [todayEvents, setTodayEvents] = useState([])
   
   useEffect(() => {
     const fetch_components = async () => {
         await Axios.get("http://localhost:8000/api/getProfile", {
             params: { userId }
         }).then((response) => {
-            // console.log(response)
+            console.log(response)
             setComponentListState(response.data.dashboard_model.components_list)
         })
     }
@@ -67,7 +76,55 @@ function Home() {
 
     update_components()
 
-}, [componentListState])
+    const getTeams = async () => {
+        await Axios.get("http://localhost:8000/api/getUsersTeams", {
+          params: { userId }
+        }).then((response) => {
+          // console.log(response)
+          setTeams(response.data)
+          getNotices(response.data)
+
+        })
+      }
+  
+      getTeams()
+
+    const getNotices = async ( teams ) => {
+        console.log(teams)
+        await Axios.get("http://localhost:8000/api/getNotices", {
+            params: { teams }
+        }).then((response) => {
+            console.log(response.data)
+            setAdminUpdates(response.data.adminNotices)
+            setManagerUpdates(response.data.managerNotices)
+        })
+    }
+
+    const getIssues = async () => {
+        await Axios.get("http://localhost:8000/api/getIssues").then((response) => {
+            // console.log(response)
+            setIssues(response.data)
+        })
+    }
+
+    getIssues()
+
+    const getTodayEvents = async () => {
+        const start = moment(Date()).startOf('day').toISOString()
+        const end = moment(Date()).endOf('day').toISOString()
+        console.log("this runs")
+        await Axios.get("http://localhost:8000/api/getEvents", {
+            params: { userId, start, end }
+        }).then((response) => {
+            console.log(response)
+            setTodayEvents(response.data)
+        })
+    }
+
+    getTodayEvents()
+
+
+}, [])
 
   return (
 
@@ -92,9 +149,15 @@ function Home() {
                                     <h2>Company Updates</h2>
                                     <h5 className={styles.new_updates}>2 new</h5>
                                 </div>
-                                <p className={styles.date}>25 March</p>
-                                <p className={styles.update_block}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a varius ante, ut sagittis ipsum. Ut vitae porta lectus. Sed.</p>
-                                <p className={styles.update_block}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at eleifend leo. Praesent interdum ut dolor et auctor. Nunc rutrum congue lacus vel ornare. Sed nisi risus, gravida eu odio.</p>
+                                {adminUpdates.map((update, idx) => {
+                                    return (
+                                        <div className={styles.update_block}>
+                                           <p>{update.date}</p>
+                                           <p>{update.title}</p>
+                                           <p>{update.main_text}</p>
+                                        </div>
+                                    )
+                                })}
                             </div>
                         {/* </div>
                     </div>
@@ -114,6 +177,15 @@ function Home() {
                             <div className={styles.updates_header}>
                                 <h2>Admin Updates</h2>
                             </div>
+                                {issues.map((issue, idx) => {
+                                return (
+                                    <div className={styles.update_block}>
+                                        <p style={{ fontWeight: "bold", fontSize: "12px" }}>{issue.createdAt}</p>
+                                        <p style={{ fontWeight: "bold" }}>{issue.brief}</p>
+                                        <p>{issue.fullText}</p>
+                                    </div>
+                                )
+                            })}
                         </div>
                     </div>
                 </div>
@@ -128,33 +200,28 @@ function Home() {
                         {/* Calendar Widget */}
                         <div className={styles.calendar} id="calendar">
                             <div className={styles.calendar_header}>
-                                <IoIosArrowBack className={styles.calendar_icon}/>
-                                <IoIosArrowForward className={styles.calendar_icon}/>
+                                {/* <IoIosArrowBack className={styles.calendar_icon}/>
+                                <IoIosArrowForward className={styles.calendar_icon}/> */}
                                 <h2>Today</h2>
                                 <h2>, 02 April</h2>
                             </div>
-                            {/* One Block of a Calendar Event */}
-                            <div className={styles.calendar_block}>
-                                <p>9:00am</p>
-                                <article className={styles.calendar_event}>
-                                    <h4>Video Call</h4>
-                                    <p>9:00 - 10:00 - Team Meeting</p>
-                                </article>
-                            </div>
-
-                            <div className={styles.calendar_block}>
-                                <p>10:00am</p>
-                                <article className={styles.calendar_event}>
-
-                                </article>
-                            </div>
-                            <div className={styles.calendar_block}>
-                                <p>11:00am</p>
-                                <article className={styles.calendar_event}>
-                                    <h4>Meeting</h4>
-                                    <p>Team Building Exercise</p>
-                                </article>
-                            </div>
+                            {todayEvents.length > 0 ? (
+                                <>
+                                    {todayEvents.map((event, idx) => {
+                                        return (
+                                        <div className={styles.calendar_block}>
+                                            <p>{event.start.slice(11, 19)}</p>
+                                            <article className={styles.calendar_event}>
+                                                <h4>{event.title}</h4>
+                                                <p>{event.start.slice(11, 19)} - {event.end.slice(11, 19)}</p>
+                                            </article>
+                                        </div>
+                                        )
+                                    })}
+                                </>
+                            ) : (
+                                <p>You have no events for today!</p>
+                            )}
                         </div>
     
     
@@ -204,7 +271,26 @@ function Home() {
                             <h2>Team Updates</h2>
                             <h5 className={styles.new_updates}>1 new</h5>
                         </div>
-                        <p className={styles.update_block}>lectus quam id leo in vitae turpis massa sed elementum tempus egestas sed sed risus pretium quam vulputate dignissim suspendisse</p>
+                        {managerUpdates.length > 0 ? (
+                            <>
+                                {managerUpdates.map((content, idx) => {
+
+                                    return (
+                                        <div className={styles.update_block}>
+                                            <p style={{ fontWeight: "bold", fontSize: "12px" }}>{content.team}</p>
+                                            <p style={{ fontWeight: "bold" }}>{content.title}</p>
+                                            <p>{content.main_text}</p>
+                                        </div>
+                                    )
+                                })}
+                            </>
+                        ) : (
+                            <p>There are no updates from your managers</p>
+                        )}
+
+
+
+                        {/* <p className={styles.update_block}>lectus quam id leo in vitae turpis massa sed elementum tempus egestas sed sed risus pretium quam vulputate dignissim suspendisse</p> */}
                     </div>
                     {/* </div> */}
                     {/* </div> */}

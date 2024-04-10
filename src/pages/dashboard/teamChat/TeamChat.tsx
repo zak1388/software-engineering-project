@@ -20,11 +20,12 @@ function TeamChat() {
   const lastName = localStorage.getItem("last_name")
 
   const [teams, setTeams] = useState([])
-  const [currentChat, setCurrentChat] = useState<CurrentChat>([])
+  const [currentChat, setCurrentChat] = useState([])
+  const [chosenTeam, setChosenTeam] = useState("")
   const [message, setMessage] = useState("")
 
   const sendMessage = async () => {
-    const teamId = currentChat[0].team
+    const teamId = chosenTeam
     // console.log(teamId)
     await Axios.post("http://localhost:8000/api/CreateTeamMessage", {
       firstName: firstName,
@@ -34,12 +35,14 @@ function TeamChat() {
       userId: userId,
       teamId: teamId
     }).then((response) => {
-      // console.log(response)
+      console.log(response)
     })
   }
 
   
   const fetchMessages = async (teamId) => {
+    // console.log(teamId)
+    setChosenTeam(teamId)
     await Axios.get("http://localhost:8000/api/GetTeamMessages", {
       params: { teamId }
     }).then((response) => {
@@ -64,7 +67,7 @@ function TeamChat() {
 
 
   // useEffect(() => {
-  //   fetchMessages(currentChat[0]?.team_id)
+  //   fetchMessages(chosenTeam)
   // }, [sendMessage])
 
   return (
@@ -95,45 +98,97 @@ function TeamChat() {
              </div>
            </div>
            <div className={styles.chat_wrapper}>
-             <div className={styles.header}>
-               <h2>{currentChat[0]?.team}</h2>
-             </div>
-             <div className={styles.chat_messages}>
-               {currentChat?.map((message, idx) => {
-                 return (
-                   <>
-                     {(message.sender == userId) ? (
-                       <div className={styles.own_message}>
-                         <div className={styles.own_message_content}>
-                         <div className={styles.user_details}>
-                             <p>You</p>
-                             <p>{message.sent_at}</p>
-                           </div>
-                           <p>{message.message}</p>
-                         </div>
-                         <CgProfile style={{ fontSize: "30px" }}/>
-                       </div>
-                     ) : (
-                     <div className={styles.message}>
-                         <CgProfile style={{ fontSize: "30px" }}/>
-                         <div className={styles.message_content}>
-                           <div className={styles.user_details}>
-                             <p>{message.first_name} {message.last_name}</p>
-                             <p>{message.sent_at}</p>
-                           </div>
-                           <p>{message.message}</p>
-                         </div>
-                     </div>
-                     )}
-                   
-                   </>
-                 )
-               })}
-             </div>
-             <div className={styles.send_message}>
-               <input type="text" placeholder='Type a message...' onChange={((e) => setMessage(e.target.value))}/>
-               <button onClick={sendMessage}>Send</button>
-             </div>
+               {chosenTeam ? (
+                <>
+                  <div className={styles.header}>
+                    <h2>{chosenTeam}</h2>
+                  </div>
+                    
+                   {currentChat?.map((message, idx) => {
+                  return (
+                    <>
+                    <div className={styles.chat_messages}>
+                      {(message.sender == userId) ? (
+                        <div className={styles.own_message}>
+                          <div className={styles.own_message_content}>
+                          <div className={styles.user_details}>
+                              <p>You</p>
+                              <p>{message.sent_at}</p>
+                            </div>
+                            <p>{message.message}</p>
+                          </div>
+                          <CgProfile style={{ fontSize: "30px" }}/>
+                        </div>
+                      ) : (
+                      <div className={styles.message}>
+                          <CgProfile style={{ fontSize: "30px" }}/>
+                          <div className={styles.message_content}>
+                            <div className={styles.user_details}>
+                              <p>{message.first_name} {message.last_name}</p>
+                              <p>{message.sent_at}</p>
+                            </div>
+                            <p>{message.message}</p>
+                          </div>
+                      </div>
+                      
+                      )}
+                      </div>
+                    
+                     </>
+                  )
+                })}
+                      <div className={styles.send_message}>
+                        <input type="text" placeholder='Type a message...' onChange={((e) => setMessage(e.target.value))}/>
+                        <button onClick={sendMessage}>Send</button>
+                      </div>
+                </>
+               ) : (
+                <p>Pick a chat</p>
+               )}
+                {/* {currentChat ? (
+                  <>
+                {currentChat?.map((message, idx) => {
+                  return (
+                    <>
+                    <div className={styles.chat_messages}>
+                      {(message.sender == userId) ? (
+                        <div className={styles.own_message}>
+                          <div className={styles.own_message_content}>
+                          <div className={styles.user_details}>
+                              <p>You</p>
+                              <p>{message.sent_at}</p>
+                            </div>
+                            <p>{message.message}</p>
+                          </div>
+                          <CgProfile style={{ fontSize: "30px" }}/>
+                        </div>
+                      ) : (
+                      <div className={styles.message}>
+                          <CgProfile style={{ fontSize: "30px" }}/>
+                          <div className={styles.message_content}>
+                            <div className={styles.user_details}>
+                              <p>{message.first_name} {message.last_name}</p>
+                              <p>{message.sent_at}</p>
+                            </div>
+                            <p>{message.message}</p>
+                          </div>
+                      </div>
+                      
+                      )}
+                      </div>
+                      <div className={styles.send_message}>
+                        <input type="text" placeholder='Type a message...' onChange={((e) => setMessage(e.target.value))}/>
+                        <button onClick={sendMessage}>Send</button>
+                      </div>
+                    
+                     </>
+                  )
+                })}
+                </>
+              ) : (
+                <p>Pick a chat</p>
+              )} */}
+
            </div>
          </div>
       ) : (

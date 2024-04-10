@@ -2,10 +2,11 @@
 
 .container{
     flex: 9;
-    overflow: auto;
+    /* overflow: auto; */
     padding: 2%;
     /* flex-direction: column;
     justify-content: space-between; */
+    overflow: auto;
 }
 
 /* Grid for Widgets */
@@ -270,6 +271,7 @@ h2{
     .team_updates{
         width: 100%;
         height: 20%;
+        overflow: auto;
     }
 
     .separate_balance{

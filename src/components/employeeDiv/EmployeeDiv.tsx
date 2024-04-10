@@ -11,34 +11,38 @@ function EmployeeDiv({ employee, teamClicked }) {
 
     const [added, setAdded] = useState(false)
 
+    const checkMemberAdded = async () => {
+        const employeeId = employee._id
+        const teamId = teamClicked._id
+        await Axios.get("http://localhost:8000/api/checkMemberAdded", {
+            params: { employeeId, teamId }
+        }).then((response) => {
+            // console.log(response)
+            if(response.data.length > 0){
+                setAdded(true)
+                console.log("true")
+            } else{
+                setAdded(false)
+                console.log("false")
+            }
+        })
+    }
+
     const addMember = async (employee) => {
         await Axios.post("http://localhost:8000/api/addMember", {
             employeeId: employee._id,
             teamId: teamClicked._id
         }).then((response) => {
             console.log(response)
+            checkMemberAdded()
         })
     }
 
 
     useEffect(() => {
-        const checkMemberAdded = async () => {
-            const employeeId = employee._id
-            const teamId = teamClicked._id
-            await Axios.get("http://localhost:8000/api/checkMemberAdded", {
-                params: { employeeId, teamId }
-            }).then((response) => {
-                // console.log(response)
-                if(response.data.length > 0){
-                    setAdded(true)
-                } else{
-                    setAdded(false)
-                }
-            })
-        }
 
         checkMemberAdded()
-    }, [addMember])
+    }, [])
 
   return (
     <div className={styles.employee}>
@@ -47,18 +51,16 @@ function EmployeeDiv({ employee, teamClicked }) {
             <p>{employee.email}</p>
             <span>{employee.position}</span>
         </div>
-        <div className={styles.addButton}>
-            {(added == true) ? (
+            {(added === true) ? (
                 <>
                     <p>added</p>
                 </>
             ) : (
-                <>
+                <div className={styles.addButton} onClick={() => addMember(employee)}>
                     <IoIosAddCircle />
-                    <p onClick={() => addMember(employee)}>add</p>
-                </>
+                    <p>add</p>
+                </div>
             )}
-        </div>
     </div>
   )
 }
