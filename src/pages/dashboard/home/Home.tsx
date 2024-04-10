@@ -9,6 +9,7 @@ import { PiFirstAidKitBold } from "react-icons/pi";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { FaPlaneDeparture } from "react-icons/fa";
+import { CgProfile } from "react-icons/cg";
 import ClipLoader from "react-spinners/ClipLoader";
 
 import FilterComponentsModal from '../../../components/filterComponentsModal/FilterComponentsModal.tsx';
@@ -24,6 +25,7 @@ function Home() {
   const [managerNoticeSpinner, setManagerNoticeSpinner] = useState(false)
   const [issueSpinner, setIssueSpinner] = useState(false)
   const [calendarSpinner, setCalendarSpinner] = useState(false)
+  const [chatSpinner, setChatSpinner] = useState(false)
 
   const [modal, setModal] = useState(false)
   const [componentListState, setComponentListState] = useState({})
@@ -35,51 +37,59 @@ function Home() {
   const [issues, setIssues] = useState([])
 
   const [todayEvents, setTodayEvents] = useState([])
+
+  const [messages, setMessages] = useState([])
+
+  const update_components = () => {
+    // console.log("update components")
+    // console.log(componentListState)
+    if(modal == false){
+      for (let [key, value] of Object.entries(componentListState)){
+          // console.log(key, value)
+          let container: any = document.getElementById(`${key}`)
+          if(value === false){
+            container.style.display = "none"
+          } else{
+            container.style.display = "block"
+          }
+        }
+    }
+
+    
+    let top: any = document.getElementById("top")
+    let bottom_middle: any = document.getElementById("bottom_middle")
+    let calendar: any = document.getElementById("calendar")
+    let days_off: any = document.getElementById("days_off")
+    let next_leave_scheduled: any = document.getElementById("next_leave_scheduled")
+    let admin_updates: any = document.getElementById("admin_updates")
+
+
+    if(calendar.style.display === "none" && days_off.style.display === "none"){
+        bottom_middle.style.display = "none"
+    } else{
+        bottom_middle.style.display = "flex"
+    }
+
+  }
   
   useEffect(() => {
-    const fetch_components = async () => {
-        await Axios.get("http://localhost:8000/api/getProfile", {
-            params: { userId }
-        }).then((response) => {
-            console.log(response)
-            setComponentListState(response.data.dashboard_model.components_list)
-        })
-    }
+    // const fetch_components = async () => {
+    //     await Axios.get("http://localhost:8000/api/getProfile", {
+    //         params: { userId }
+    //     }).then((response) => {
+    //         console.log(response)
+    //         setComponentListState(response.data.dashboard_model.components_list)
+    //     })
+    // }
 
-    fetch_components()
-
-    const update_components = () => {
-      // console.log("update components")
-      if(modal == false){
-        for (let [key, value] of Object.entries(componentListState)){
-            // console.log(key, value)
-            let container: any = document.getElementById(`${key}`)
-            if(value === false){
-              container.style.display = "none"
-            } else{
-              container.style.display = "block"
-            }
-          }
-      }
+    // fetch_components()
+    // update_components()
 
 
-      let top: any = document.getElementById("top")
-      let bottom_middle: any = document.getElementById("bottom_middle")
-      let calendar: any = document.getElementById("calendar")
-      let days_off: any = document.getElementById("days_off")
-      let next_leave_scheduled: any = document.getElementById("next_leave_scheduled")
-      let admin_updates: any = document.getElementById("admin_updates")
 
 
-      if(calendar.style.display === "none" && days_off.style.display === "none"){
-          bottom_middle.style.display = "none"
-      } else{
-          bottom_middle.style.display = "flex"
-      }
 
-    }
-
-    update_components()
+    // update_components()
 
     const getTeams = async () => {
         await Axios.get("http://localhost:8000/api/getUsersTeams", {
@@ -88,6 +98,7 @@ function Home() {
           // console.log(response)
           setTeams(response.data)
           getNotices(response.data)
+          getRecentMessages(response.data[response.data.length-1].team_id)
 
         })
       }
@@ -101,11 +112,22 @@ function Home() {
         await Axios.get("http://localhost:8000/api/getNotices", {
             params: { teams }
         }).then((response) => {
-            console.log(response.data)
+            // console.log(response.data)
             setAdminUpdates(response.data.adminNotices)
             setAdminNoticeSpinner(false)
             setManagerUpdates(response.data.managerNotices)
             setManagerNoticeSpinner(false)
+        })
+    }
+
+    const getRecentMessages = async (teamId) => {
+        setChatSpinner(true)
+        await Axios.get("http://localhost:8000/api/GetTeamMessages", {
+            params: { teamId }
+        }).then((response) => {
+            // console.log(response)
+            setMessages(response.data)
+            setChatSpinner(false)
         })
     }
 
@@ -128,7 +150,7 @@ function Home() {
         await Axios.get("http://localhost:8000/api/getEvents", {
             params: { userId, start, end }
         }).then((response) => {
-            console.log(response)
+            // console.log(response)
             setTodayEvents(response.data)
             setCalendarSpinner(false)
         })
@@ -139,13 +161,27 @@ function Home() {
 
 }, [])
 
+useEffect(() => {
+    const fetch_components = async () => {
+        await Axios.get("http://localhost:8000/api/getProfile", {
+            params: { userId }
+        }).then((response) => {
+            console.log(response)
+            setComponentListState(response.data.dashboard_model.components_list)
+        })
+    }
+
+    fetch_components()
+    update_components()
+}, [componentListState])
+
   return (
 
         <div className={styles.container}>
             <div className={styles.header}>
                 <div className={styles.filter}>
-                <HiMiniAdjustmentsHorizontal className={styles.filterIcon} onClick={() => setModal(true)}/>
-                {modal && <FilterComponentsModal setModal={setModal}/>}
+                    <HiMiniAdjustmentsHorizontal className={styles.filterIcon} onClick={() => setModal(true)}/>
+                    {modal && <FilterComponentsModal setModal={setModal}/>}
                 </div>
             </div>
     
@@ -233,7 +269,44 @@ function Home() {
                 <div className={styles.bottom} id="bottom">
                     {/* Team Chat Widget */}
                     <div className={styles.team_chat} id="team_chat">
-                        <h2>Team Chat</h2>
+                        <h2>Recent Team Chat</h2>
+                        {chatSpinner ? (
+                            <ClipLoader color="#36d7b7" />
+                        ) : (
+                            <div className={styles.chat_wrapper}>
+                            {messages?.map((message, idx) => {
+                                return (
+                                <>
+                                    {(message.sender == userId) ? (
+                                    <div className={styles.own_message}>
+                                        <div className={styles.own_message_content}>
+                                        <div className={styles.user_details}>
+                                            <p>You</p>
+                                            <p>{message.sent_at}</p>
+                                        </div>
+                                        <p>{message.message}</p>
+                                        </div>
+                                        <CgProfile style={{ fontSize: "30px" }}/>
+                                    </div>
+                                    ) : (
+                                    <div className={styles.message}>
+                                        <CgProfile style={{ fontSize: "30px" }}/>
+                                        <div className={styles.message_content}>
+                                        <div className={styles.user_details}>
+                                            <p>{message.first_name} {message.last_name}</p>
+                                            <p>{message.sent_at}</p>
+                                        </div>
+                                        <p>{message.message}</p>
+                                        </div>
+                                    </div>
+                                    
+                                    )}
+                                
+                                </>
+                                )
+                            })} 
+                            </div>
+                        )}
                     </div>
     
                     <div className={styles.bottom_middle} id="bottom_middle">

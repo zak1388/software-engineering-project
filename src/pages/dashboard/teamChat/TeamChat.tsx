@@ -114,6 +114,7 @@ function TeamChat() {
                   <div className={styles.header}>
                     <h2>{chosenTeam}</h2>
                   </div>
+                  <div className={styles.chat_messages}>
                     {chatSpinner ? (
                       <ClipLoader color="#36d7b7" />
                     ) : (
@@ -121,7 +122,6 @@ function TeamChat() {
                       {currentChat?.map((message, idx) => {
                         return (
                           <>
-                          <div className={styles.chat_messages}>
                             {(message.sender == userId) ? (
                               <div className={styles.own_message}>
                                 <div className={styles.own_message_content}>
@@ -146,13 +146,14 @@ function TeamChat() {
                             </div>
                             
                             )}
-                            </div>
                           
                           </>
                         )
                       })}
                       </>
                     )}
+                      </div>
+
                       <div className={styles.send_message}>
                         <input type="text" placeholder='Type a message...' onChange={((e) => setMessage(e.target.value))}/>
                         <button onClick={sendMessage}>Send</button>
