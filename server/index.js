@@ -9,8 +9,9 @@ const TeamChatMessageModel = require("./models/TeamChatMessage.ts");
 const DirectChatMessageModel = require("./models/DirectChatMessage.ts");
 const LeaveRequestModel = require("./models/LeaveRequest.ts");
 const LeaveResponseModel = require("./models/LeaveResponse.ts");
-const NoticeModel = require("./models/Notice.ts")
 const IssueTicketModel = require("./models/IssueTicket.ts");
+const ChangeRequestModel = require("./models/ChangeRequest.ts");
+const NoticeModel = require("./models/Notice.ts");
 const EventModel = require("./models/Event.ts")
 const moment = require("moment")
 
@@ -194,11 +195,28 @@ app.post("/api/GetAllDirectMessages", async(req, res) => {
 
 // get all leave requests
 app.post("/api/GetLeaveRequests", async(req, res) => {
-    const { id } = req.body;
+    const { userId } = req.body.params;
 
     try {
-        const employee = await EmployeeModel.findOne({ id });
+        const employee = await EmployeeModel.findOne({ _id: userId });
         const leave_reqs = await LeaveRequestModel.find({ requestor: employee })
+        res.json(leave_reqs);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
+app.post("/api/GetLeaveRequestsForTeam", async(req, res) => {
+    const { userId, teamIds } = req.body.params;
+
+    // TODO: validation
+
+    try {
+        const employees_teams = (await Promise.all(teamIds.map(teamId => EmployeeTeamModel.find({ team_id: teamId })))).flat();
+        const employeeIds = employees_teams.map(empteam => empteam.employee_id);
+        const nested_leave_reqs = await Promise.all(employeeIds.map(empId => LeaveRequestModel.find({ requestor: empId })));
+        const leave_reqs = nested_leave_reqs.flat();
         res.json(leave_reqs);
     } catch (err) {
         console.log(err);
@@ -215,7 +233,7 @@ app.post("/api/CreateLeaveRequest", async(req, res) => {
             start: start,
             end: end,
             comment: comments,
-            active: true,
+            state: "Active",
             proof: proof,
             requestor: employee,
             type: type,
@@ -440,7 +458,35 @@ app.post("/api/DeleteIssue", async(req, res) => {
     }
 });
 
+app.post("/api/DeleteLeaveRequest", async(req, res) => {
+    const { userdId, requestId } = req.body.params;
+
+    // TODO: verify uid is requst owner
+
+    try {
+        await LeaveRequestModel.deleteOne({ _id: requestId });
+        res.send();
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
 app.get("/api/getIssues", async(req, res) => {
+    // TODO: verify uid is an admin
+
+    try {
+        const issues = await IssueTicketModel.find();
+        // console.log(issues)
+        res.send(issues);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
+app.post("/api/GetIssues", async(req, res) => {
+    const { userId } = req.body.params;
 
     // TODO: verify uid is an admin
 
@@ -454,7 +500,19 @@ app.get("/api/getIssues", async(req, res) => {
     }
 });
 
-// get teams
+app.post("/api/GetChangeRequests", async(req, res) => {
+    const { userId } = req.body.params;
+
+    // TODO: verify uid is an admin
+
+    try {
+        const changeReqs = await ChangeRequestModel.find() || [];
+        res.send(changeReqs);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
 
 app.get("/api/getUsersTeams", async(req, res) => {
     const { userId } = req.query;
@@ -563,7 +621,6 @@ app.get("/api/getTeamMembers", async(req, res) => {
 })
 
 // remove member from team
-
 app.delete("/api/removeFromTeam", async(req, res) => {
     const { teamId, employeeId } = req.query;
     // console.log(req.body)
@@ -592,7 +649,6 @@ app.post("/api/editTeamName", async(req, res) => {
 })
 
 // Create notice
-
 app.post("/api/createNotice", async(req, res) => {
     const { type, title, mainText, date, creator, team } = req.body;
     console.log(req.body)
@@ -645,7 +701,6 @@ app.get("/api/getNotices", async(req, res) => {
 })
 
 // delete user from system
-
 app.post("/api/deleteUser", async(req, res) => {
     const { userId } = req.body;
 
@@ -658,6 +713,39 @@ app.post("/api/deleteUser", async(req, res) => {
     }
 })
 
+app.post("/api/UpdateChangeRequest", async(req, res) => {
+    const { userId, requestId, newState } = req.body.params;
+
+    // TODO: verify uid admin
+
+    try {
+        const changeReq = await ChangeRequestModel.findOne({ _id: requestId });
+        changeReq.state = newState;
+        await changeReq.save();
+        res.json();
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+
+});
+
+app.post("/api/UpdateLeaveRequest", async(req, res) => {
+    const { userId, requestId, newState } = req.body.params;
+
+    // TODO: verify uid manager
+
+    try {
+        const LeaveReq = await LeaveRequestModel.findOne({ _id: requestId });
+        LeaveReq.state = newState;
+        await LeaveReq.save();
+        res.json();
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+
+});
 
 app.listen(8000, () => {
     console.log("server started")

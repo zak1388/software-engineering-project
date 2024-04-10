@@ -5,7 +5,9 @@ import { TiPlus } from "react-icons/ti";
 import { CiCircleCheck } from "react-icons/ci";
 import { CiCircleRemove } from "react-icons/ci";
 import { CiCircleQuestion } from "react-icons/ci";
-import TimeAwayRequest from "./TimeAwayRequest.tsx";
+import { AiOutlineEllipsis, AiOutlineClose, AiOutlineCheck } from "react-icons/ai";
+import TimeAwayRequestForm from "./TimeAwayRequest.tsx";
+import Request from "../../components/request/Request.tsx";
 
 function TimeAway () {
     const [requestsRaw, setRequestsRaw] = useState([]);
@@ -14,6 +16,7 @@ function TimeAway () {
     const [holidayDays, setHolidayDays] = useState(0);
     const [sickDays, setSickDays] = useState(0);
     const [approvedHolidayDays, setApprovedHolidayDays] = useState([]);
+    const [approvedSickDays, setApprovedSickDays] = useState([]);
 
     useEffect(() => {
         Axios.post("http://localhost:8000/api/GetLeaveRequests", {
@@ -71,17 +74,28 @@ function TimeAway () {
         setApprovedHolidayDays(noDecimal);
     }, [requests]);
 
-    const approvedSickLeave = (requests.reduce((acc, req) => {
-        if (req.accepted && req.type === "Sick") {
-            return acc + (new Date(req.end) - new Date(req.start));
-        } else 
-            return 0;
-    }, 0)).toFixed(0);
-
+    useEffect(() => {
+        const acceptedSickRequests = requests.filter(req => req && req.accepted && req.type === "Sick");
+        const acceptedSickPeriods = acceptedSickRequests.map(req => new Date(req.end) - new Date(req.start));
+        const allSickPeriods = requests.reduce((acc, req) => acceptedSickPeriods, 0);
+        const allSickDays = allSickPeriods / (24 * 60 * 60 * 1000);
+        const noDecimal = allSickDays.toFixed(0);
+        setApprovedSickDays(noDecimal);
+    }, [requests]);
     let [creatingRequest, setCreatingRequest] = useState(false);
 
     function createRequest() {
         setCreatingRequest(true);
+    }
+
+    function deleteRequest(request) {
+        Axios.post("http://localhost:8000/api/DeleteLeaveRequest", {
+            params: {
+                userId: localStorage.getItem("userId"),
+                requestId: request._id
+            }
+        }).catch(console.error);
+        setRequests(requests.filter(req => req._id !== request._id));
     }
 
     return (
@@ -118,31 +132,27 @@ function TimeAway () {
                 <HolidayInfoRow
                     type="Sick Leave"
                     grant={sickDays}
-                    approved={approvedSickLeave}
-                    remaining={Math.max(sickDays - approvedSickLeave, 0)}
+                    approved={approvedSickDays}
+                    remaining={Math.max(sickDays - approvedSickDays, 0)}
                 />
             </div>
             {
-                (creatingRequest && <TimeAwayRequest setCreatingRequest={setCreatingRequest} />) ||
-                <RequestList requests={requests} />
+                (creatingRequest && <TimeAwayRequestForm setCreatingRequest={setCreatingRequest} />) ||
+                <RequestList requests={requests} deleteRequest={deleteRequest} />
             }
         </div>
     )
 }
 
-function RequestList({requests}) {
-    const dateFormatter = new Intl.DateTimeFormat("en-GB", {weekday: "long", year: 'numeric', month: "long", day: "numeric"});
+function RequestList({requests, deleteRequest}) {
     return (
         <div className={styles.RequestList}>
             {
             requests.map((request) => (
-                <Request 
+                <TimeAwayRequest 
                     key={request._id}
-                    type={request.type}
-                    start_date={dateFormatter.format(new Date(request.start))}
-                    end_date={dateFormatter.format(new Date(request.end))}
-                    accepted={request.accepted}
-                    active={request.active}
+                    request={request}
+                    deleteRequest={deleteRequest}
                 />
             ))
             }
@@ -161,41 +171,75 @@ function HolidayInfoRow({type, grant, approved, remaining}) {
     );
 }
 
-function Request({type, start_date, end_date, accepted, active}) {
+function TimeAwayRequest({request, deleteRequest}) {
+    const dateFormatter = new Intl.DateTimeFormat("en-GB", {weekday: "long", year: 'numeric', month: "long", day: "numeric"});
     return (
-            <div className={styles.request}>
+            <Request>
                 <div className={styles.req_text}>
                     <div>
                         <h3>Type</h3>
-                        <h1>{type}</h1>
+                        <h1>{request.type}</h1>
                     </div>
                     <div>
                         <h3>Start Date</h3>
-                        <h1>{start_date}</h1>
+                        <h1>{dateFormatter.format(new Date(request.start))}</h1>
                     </div>
                     <div>
                         <h3>End Date</h3>
-                        <h1>{end_date}</h1>
+                        <h1>{dateFormatter.format(new Date(request.end))}</h1>
                     </div>
                 </div>
 
-                <div className={styles.Accepted}>
-                    <span>
-                        {
-                            (accepted && <CiCircleCheck className={styles.AcceptedIcon}/>)
-                            || (active && <CiCircleQuestion className={styles.AcceptedIcon}/>)
-                            || <CiCircleRemove className={styles.AcceptedIcon}/>
-                        }
-                    </span>
-                    <h1>
-                        {
-                            (accepted && "Accepted")
-                            || (active && "Active")
-                            || "Rejected"
-                        }
-                    </h1>
+                <StateButton request={request} deleteRequest={deleteRequest} />
+            </Request>
+    );
+}
+
+function StateButton({request, deleteRequest}) {
+    let [dropdown, setDropdown] = useState();
+
+    let icon = (<></>);
+    let text = request.state;
+
+    if (request.state === "Approved") {
+        icon = (<AiOutlineCheck className={styles.button_icon}/>);
+    } else if (request.state === "Rejected") {
+        icon = (<AiOutlineClose className={styles.button_icon}/>);
+    } else if (request.state === "Pending") {
+        icon = (<AiOutlineEllipsis className={styles.button_icon}/>);
+    }
+
+    const addDropdown = () => {
+        if (request.state !== "Pending" && request.state !== "Rejected") {
+            return;
+        }
+
+        setDropdown(
+                <div className={styles.dropdown}>
+                    <p onClick={() => deleteRequest(request)}>Delete</p>
                 </div>
-            </div>
+        );
+        setTimeout(() => document.addEventListener("click", removeDropdown, { once: true }));
+    };
+
+    const removeDropdown = (event) => {
+        if (event.target !== document.querySelector("#StateButton") && request.state !== "Approved") 
+            setDropdown();
+    }
+
+    const clickHandler = (event) => {
+        addDropdown();
+    };
+
+
+    return (
+        <>
+            <button id="StateButton" onClick={clickHandler} className={styles.Accepted}>
+                {dropdown}
+                {icon}
+                {text}
+            </button>
+        </>
     );
 }
 

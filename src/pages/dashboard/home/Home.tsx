@@ -100,7 +100,7 @@ function Home() {
           getNotices(response.data)
           getRecentMessages(response.data[response.data.length-1].team_id)
 
-        })
+        }, console.error)
       }
   
       getTeams()
@@ -117,7 +117,7 @@ function Home() {
             setAdminNoticeSpinner(false)
             setManagerUpdates(response.data.managerNotices)
             setManagerNoticeSpinner(false)
-        })
+        }, console.error)
     }
 
     const getRecentMessages = async (teamId) => {
@@ -128,7 +128,7 @@ function Home() {
             // console.log(response)
             setMessages(response.data)
             setChatSpinner(false)
-        })
+        }, console.error)
     }
 
     const getIssues = async () => {
@@ -137,7 +137,7 @@ function Home() {
             // console.log(response)
             setIssueSpinner(false)
             setIssues(response.data)
-        })
+        }, console.error)
     }
 
     getIssues()
@@ -153,7 +153,7 @@ function Home() {
             // console.log(response)
             setTodayEvents(response.data)
             setCalendarSpinner(false)
-        })
+        }, console.error)
     }
 
     getTodayEvents()
@@ -168,7 +168,7 @@ useEffect(() => {
         }).then((response) => {
             console.log(response)
             setComponentListState(response.data.dashboard_model.components_list)
-        })
+        }, console.error)
     }
 
     fetch_components()

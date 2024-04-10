@@ -7,7 +7,7 @@ import Home from './pages/dashboard/home/Home.tsx';
 import TeamChat from './pages/dashboard/teamChat/TeamChat.tsx';
 import Calendar from './pages/dashboard/calendar/Calendar.tsx';
 import TimeAway from './pages/TimeAway/TimeAway.tsx';
-import UserInfo from './pages/UserInfo/UserInfo.tsx';
+import UserInfo from './pages/userInfo/userInfo.tsx';
 import AdminIssues from './pages/AdminIssues/AdminIssues.tsx';
 import TimeAwayRequest from './pages/TimeAway/TimeAwayRequest.tsx';
 import Profile from './pages/dashboard/profile/Profile.tsx';
@@ -36,12 +36,15 @@ function App() {
             <Route path="/manageTeams" element={<ManageTeams />} />
             <Route path="/userInfo" element={<UserInfo />} />
             <Route path="/issue" element= {<Issue/>}/>
-            <Route path="/managerNotice" element={<ManagerAnnouncement/>}/>
             <Route path="/adminNotice" element={<AdminAnnouncement/>}/>
             <Route path="/adminIssues" element= {<AdminIssues/>}/>
             <Route path="/profile/:id" element={<Profile />} />
-
+            <Route path="ManagerNotice" element={<ManagerAnnouncement/>}/>
+            <Route path="AdminNotice" element={<AdminAnnouncement/>}/>
+            <Route path="/AdminIssues" element= {<AdminIssues/>}/>
+          <Route path="/ManagerViewRequests" element={<ManagerViewRequests/>}/>
           </Route>
+          <Route path="/profile/:id" element={<EditProfile />} />
           <Route path="/editprofile/:id" element={<EditProfile />} />
           <Route path="/issue" element= {<Issue/>}/>
           <Route path="ManagerNotice" element={<ManagerAnnouncement/>}/>
@@ -51,7 +54,6 @@ function App() {
           <Route path="/login" element={<Login />}/>
           <Route path="/AdminIssues" element= {<AdminIssues/>}/>
           <Route path="/AdminViewRequests" element={<AdminViewRequests/>}/>
-          <Route path="/ManagerViewRequests" element={<ManagerViewRequests/>}/>
         </Routes>
       </Router>
     </div>

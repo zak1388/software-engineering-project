@@ -151,9 +151,10 @@ function AddUserModal({ setModal }) {
                   <div>
                     <label className={styles.label} htmlFor="gender">Gender: </label>
                     <select className={styles.dropdown} name="gender" id="gender" defaultValue={gender.toString()} required={true}>
-                      <option disabled selected value="">Select an option&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x25BC;</option>
+                      <option disabled selected value="">Select an option</option>
                       <option value="M">Male</option>
                       <option value="F">Female</option>
+                      <option value="X">Other</option>
                     </select>
                   </div>
                   <div className={styles.progressBox}>
@@ -227,7 +228,7 @@ function AddUserModal({ setModal }) {
                   <div>
                     <label className={styles.label} htmlFor="position">Position: </label>
                     <select className={styles.dropdown} name="position" id="position" defaultValue={position.toString()} onChange={((e) => setPosition(e.target.value))} required={true}>
-                      <option className={styles.default} disabled selected value="">Select an option&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x25BC;</option>
+                      <option className={styles.default} disabled selected value="">Select an option</option>
                       <optgroup label='Internal Staff'>
                         <option value="employee">employee</option>
                         <option value="manager">manager</option>

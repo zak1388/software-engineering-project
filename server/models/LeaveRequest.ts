@@ -5,7 +5,7 @@ const LeaveRequestSchema = new Schema({
     start: Date,
     end: Date,
     comment: String,
-    active: Boolean,
+    state: String,
     proof: String,
     requestor: {type: Schema.Types.ObjectId, ref: "Employee"},
     type: String,
