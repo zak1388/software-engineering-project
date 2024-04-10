@@ -89,8 +89,12 @@ function TimeAway () {
     }
 
     function deleteRequest(request) {
-        // TODO: im getting lazy
-        // Axios.post();
+        Axios.post("http://localhost:8000/api/DeleteLeaveRequest", {
+            params: {
+                userId: localStorage.getItem("userId"),
+                requestId: request._id
+            }
+        }).catch(console.error);
         setRequests(requests.filter(req => req._id !== request._id));
     }
 

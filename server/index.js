@@ -444,6 +444,20 @@ app.post("/api/DeleteIssue", async(req, res) => {
     }
 });
 
+app.post("/api/DeleteLeaveRequest", async(req, res) => {
+    const { userdId, requestId } = req.body.params;
+
+    // TODO: verify uid is requst owner
+
+    try {
+        await LeaveRequestModel.deleteOne({ _id: requestId });
+        res.send();
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
 app.post("/api/GetIssues", async(req, res) => {
     const { userId } = req.body.params;
 
