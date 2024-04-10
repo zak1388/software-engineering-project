@@ -217,7 +217,7 @@ app.post("/api/CreateLeaveRequest", async(req, res) => {
             start: start,
             end: end,
             comment: comments,
-            active: true,
+            state: "Active",
             proof: proof,
             requestor: employee,
             type: type,

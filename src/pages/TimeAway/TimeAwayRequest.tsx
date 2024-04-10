@@ -61,8 +61,8 @@ function TimeAwayRequest({ setCreatingRequest }) {
         event.preventDefault();
 
         const form = event.target;
-        const startDate = new Date(form.querySelector("." + styles.StartDate).value);
-        const endDate = new Date(form.querySelector("." + styles.EndDate).value);
+        const start = new Date(form.querySelector("." + styles.StartDate).value);
+        const end = new Date(form.querySelector("." + styles.EndDate).value);
         const comments = form.querySelector("." + styles.Comments).value;
         const type = form.querySelector("." + styles.Type).value;
 
@@ -74,11 +74,11 @@ function TimeAwayRequest({ setCreatingRequest }) {
         Axios.post("http://localhost:8000/api/CreateLeaveRequest", {
             params: { 
                 id: localStorage.getItem("userId"), 
-                start: startDate, 
-                end: endDate, 
-                type: type, 
-                comments: comments, 
-                proof: ""
+                start, 
+                end, 
+                type, 
+                comments, 
+                proof: "",
             }
         }).then(() => window.location.reload(), err => console.error("Failed to send CreateLeaveRequest post request", err));
 
