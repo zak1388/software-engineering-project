@@ -5,6 +5,7 @@ import { TiPlus } from "react-icons/ti";
 import { CiCircleCheck } from "react-icons/ci";
 import { CiCircleRemove } from "react-icons/ci";
 import { CiCircleQuestion } from "react-icons/ci";
+import { AiOutlineEllipsis, AiOutlineClose, AiOutlineCheck } from "react-icons/ai";
 import TimeAwayRequestForm from "./TimeAwayRequest.tsx";
 import Request from "../../components/request/Request.tsx";
 
@@ -87,6 +88,12 @@ function TimeAway () {
         setCreatingRequest(true);
     }
 
+    function deleteRequest(request) {
+        // TODO: im getting lazy
+        // Axios.post();
+        setRequests(requests.filter(req => req._id !== request._id));
+    }
+
     return (
         <div className={styles.container}>
             {
@@ -127,13 +134,13 @@ function TimeAway () {
             </div>
             {
                 (creatingRequest && <TimeAwayRequestForm setCreatingRequest={setCreatingRequest} />) ||
-                <RequestList requests={requests} />
+                <RequestList requests={requests} deleteRequest={deleteRequest} />
             }
         </div>
     )
 }
 
-function RequestList({requests}) {
+function RequestList({requests, deleteRequest}) {
     return (
         <div className={styles.RequestList}>
             {
@@ -141,6 +148,7 @@ function RequestList({requests}) {
                 <TimeAwayRequest 
                     key={request._id}
                     request={request}
+                    deleteRequest={deleteRequest}
                 />
             ))
             }
@@ -159,7 +167,7 @@ function HolidayInfoRow({type, grant, approved, remaining}) {
     );
 }
 
-function TimeAwayRequest({request}) {
+function TimeAwayRequest({request, deleteRequest}) {
     const dateFormatter = new Intl.DateTimeFormat("en-GB", {weekday: "long", year: 'numeric', month: "long", day: "numeric"});
     return (
             <Request>
@@ -178,23 +186,56 @@ function TimeAwayRequest({request}) {
                     </div>
                 </div>
 
-                <div onClick={() => alert(request._id)} className={styles.Accepted}>
-                    <span>
-                        {
-                            (request.accepted && <CiCircleCheck className={styles.AcceptedIcon}/>)
-                            || (request.active && <CiCircleQuestion className={styles.AcceptedIcon}/>)
-                            || <CiCircleRemove className={styles.AcceptedIcon}/>
-                        }
-                    </span>
-                    <h1>
-                        {
-                            (request.accepted && "Accepted")
-                            || (request.active && "Active")
-                            || "Rejected"
-                        }
-                    </h1>
-                </div>
+                <StateButton request={request} deleteRequest={deleteRequest} />
             </Request>
+    );
+}
+
+function StateButton({request, deleteRequest}) {
+    let [dropdown, setDropdown] = useState();
+
+    let icon = (<></>);
+    let text = request.state;
+
+    if (request.state === "Approved") {
+        icon = (<AiOutlineCheck className={styles.button_icon}/>);
+    } else if (request.state === "Rejected") {
+        icon = (<AiOutlineClose className={styles.button_icon}/>);
+    } else if (request.state === "Pending") {
+        icon = (<AiOutlineEllipsis className={styles.button_icon}/>);
+    }
+
+    const addDropdown = () => {
+        if (request.state !== "Pending" && request.state !== "Rejected") {
+            return;
+        }
+
+        setDropdown(
+                <div className={styles.dropdown}>
+                    <p onClick={() => deleteRequest(request)}>Delete</p>
+                </div>
+        );
+        setTimeout(() => document.addEventListener("click", removeDropdown, { once: true }));
+    };
+
+    const removeDropdown = (event) => {
+        if (event.target !== document.querySelector("#StateButton") && request.state !== "Approved") 
+            setDropdown();
+    }
+
+    const clickHandler = (event) => {
+        addDropdown();
+    };
+
+
+    return (
+        <>
+            <button id="StateButton" onClick={clickHandler} className={styles.Accepted}>
+                {dropdown}
+                {icon}
+                {text}
+            </button>
+        </>
     );
 }
 

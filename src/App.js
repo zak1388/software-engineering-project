@@ -39,6 +39,7 @@ function App() {
             <Route path="ManagerNotice" element={<ManagerAnnouncement/>}/>
             <Route path="AdminNotice" element={<AdminAnnouncement/>}/>
             <Route path="/AdminIssues" element= {<AdminIssues/>}/>
+          <Route path="/ManagerViewRequests" element={<ManagerViewRequests/>}/>
           </Route>
           <Route path="/profile/:id" element={<EditProfile />} />
           <Route path="/editprofile/:id" element={<EditProfile />} />
@@ -50,7 +51,6 @@ function App() {
           <Route path="/login" element={<Login />}/>
           <Route path="/AdminIssues" element= {<AdminIssues/>}/>
           <Route path="/AdminViewRequests" element={<AdminViewRequests/>}/>
-          <Route path="/ManagerViewRequests" element={<ManagerViewRequests/>}/>
         </Routes>
       </Router>
     </div>
