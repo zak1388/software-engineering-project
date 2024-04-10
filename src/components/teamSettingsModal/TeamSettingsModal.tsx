@@ -37,6 +37,9 @@ function TeamSettingsModal({ setTeamSettingsModal, teamClicked }) {
             // employeeId: employeeId
         }).then((response) => {
             // console.log(response)
+            // if(response.data){
+            //     setTeamSettingsModal(false)
+            // }
         })
     }
 

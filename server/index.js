@@ -499,11 +499,11 @@ app.get("/api/getTeams", async(req, res) => {
         if(userId != undefined){
             const managedTeams = await TeamModel.find({ manager: userId })
             res.send(managedTeams)
-            console.log(managedTeams)
+            // console.log(managedTeams)
 
         } else{
             const teams = await TeamModel.find({})
-            console.log(teams)
+            // console.log(teams)
             res.send(teams)
         }
     } catch(err){

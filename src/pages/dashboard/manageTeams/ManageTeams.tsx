@@ -27,7 +27,7 @@ function ManageTeams() {
         }
 
         getTeams()
-    }, [])
+    }, [teams])
 
     const openTeamSettings = (team) => {
         setTeamClicked(team)
