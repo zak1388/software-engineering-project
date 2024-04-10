@@ -66,7 +66,7 @@ function Sidebar() {
             </div>
 
             {(position == "manager") && (
-                <div className={styles.separateLink} onClick={() => routePage("")}>
+                <div className={styles.separateLink} onClick={() => routePage("managerViewRequests")}>
                     <FaCodePullRequest className={styles.linkIcon}/>
                     <h2>Requests</h2>
                 </div>
@@ -83,7 +83,7 @@ function Sidebar() {
                         <RiTeamFill className={styles.linkIcon}/>
                         <h2>Teams</h2>
                     </div>
-                    <div className={styles.separateLink} onClick={() => routePage("")}>
+                    <div className={styles.separateLink} onClick={() => routePage("managerViewRequests")}>
                         <FaCodePullRequest className={styles.linkIcon}/>
                         <h2>Requests</h2>
                     </div>
