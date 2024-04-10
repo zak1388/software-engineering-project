@@ -343,7 +343,7 @@ app.post("/api/addEmployee", async(req, res) => {
             username: username,
             password: password,
             email: email,
-            date_Of_birth: dateOfBirth,
+            date_of_birth: dateOfBirth,
             gender: gender,
             office_location: officeLocation,
             personal_number: personalNumber,
