@@ -37,6 +37,8 @@ h1{
 }
 
 .Accepted {
+    font-weight: bold;
+    font-size: 22px;
     display: flex;
     align-items: center; 
     justify-content: center;
@@ -164,4 +166,42 @@ h1{
 .plus {
     margin-left: 5px;
     font-size: 29px;
+}
+.dropdown {
+    font-weight: bold;
+    width: auto;
+    position: absolute;
+    background: white;
+    color: black;
+    border-radius: 1em;
+    padding: 0.5em;
+}
+
+.dropdown > * {
+    border-top: thin solid gray;
+    border-bottom: thin solid gray;
+    border-collapse: collapse;
+    padding: 0.25em;
+}
+
+.dropdown > *:hover {
+    background-color: lightgray;
+}
+
+.dropdown > *:hover:first-child {
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+}
+
+.dropdown > *:hover:last-child {
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+}
+
+.dropdown > *:first-child {
+    border-top: 0;
+}
+
+.dropdown > *:last-child {
+    border-bottom: 0;
 }

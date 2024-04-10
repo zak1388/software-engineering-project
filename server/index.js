@@ -208,6 +208,23 @@ app.post("/api/GetLeaveRequests", async(req, res) => {
     }
 });
 
+app.post("/api/GetLeaveRequestsForTeam", async(req, res) => {
+    const { userId, teamIds } = req.body.params;
+
+    // TODO: validation
+
+    try {
+        const employees_teams = (await Promise.all(teamIds.map(teamId => EmployeeTeamModel.find({ team_id: teamId })))).flat();
+        const employeeIds = employees_teams.map(empteam => empteam.employee_id);
+        const nested_leave_reqs = await Promise.all(employeeIds.map(empId => LeaveRequestModel.find({ requestor: empId })));
+        const leave_reqs = nested_leave_reqs.flat();
+        res.json(leave_reqs);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
 app.post("/api/CreateLeaveRequest", async(req, res) => {
     const { id, start, end, type, comments, proof } = req.body.params;
 
@@ -217,7 +234,7 @@ app.post("/api/CreateLeaveRequest", async(req, res) => {
             start: start,
             end: end,
             comment: comments,
-            active: true,
+            state: "Active",
             proof: proof,
             requestor: employee,
             type: type,
@@ -427,6 +444,20 @@ app.post("/api/DeleteIssue", async(req, res) => {
     }
 });
 
+app.post("/api/DeleteLeaveRequest", async(req, res) => {
+    const { userdId, requestId } = req.body.params;
+
+    // TODO: verify uid is requst owner
+
+    try {
+        await LeaveRequestModel.deleteOne({ _id: requestId });
+        res.send();
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
 app.post("/api/GetIssues", async(req, res) => {
     const { userId } = req.body.params;
 
@@ -597,6 +628,23 @@ app.post("/api/UpdateChangeRequest", async(req, res) => {
         const changeReq = await ChangeRequestModel.findOne({ _id: requestId });
         changeReq.state = newState;
         await changeReq.save();
+        res.json();
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+
+});
+
+app.post("/api/UpdateLeaveRequest", async(req, res) => {
+    const { userId, requestId, newState } = req.body.params;
+
+    // TODO: verify uid manager
+
+    try {
+        const LeaveReq = await LeaveRequestModel.findOne({ _id: requestId });
+        LeaveReq.state = newState;
+        await LeaveReq.save();
         res.json();
     } catch (err) {
         console.log(err);
