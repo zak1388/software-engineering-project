@@ -564,15 +564,15 @@ app.get("/api/getTeamMembers", async(req, res) => {
 
 // remove member from team
 
-app.post("/api/removeFromTeam", async(req, res) => {
-    const { teamId, employeeId } = req.body;
+app.delete("/api/removeFromTeam", async(req, res) => {
+    const { teamId, employeeId } = req.query;
     // console.log(req.body)
 
     try{
-        const deleted = await EmployeeTeamModel.deleteOne({ team_id: teamId, employee_id: employeeId })
-        res.send(deleted)
+        const response = await EmployeeTeamModel.deleteOne({ team_id: teamId, employee_id: employeeId })
+        // console.log(deleted)
+        res.send(response)
     } catch(err){
-        console.log(err)
         res.send(err)
     }
 })

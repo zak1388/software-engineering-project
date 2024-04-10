@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styles from "./teamChat.module.css"
 import { CgProfile } from "react-icons/cg";
+import ClipLoader from "react-spinners/ClipLoader";
 import Axios from "axios"
 
 interface Team{
@@ -23,6 +24,8 @@ function TeamChat() {
   const [currentChat, setCurrentChat] = useState([])
   const [chosenTeam, setChosenTeam] = useState("")
   const [message, setMessage] = useState("")
+  const [teamSpinner, setTeamSpinner] = useState(false)
+  const [chatSpinner, setChatSpinner] = useState(false)
 
   const sendMessage = async () => {
     const teamId = chosenTeam
@@ -41,24 +44,28 @@ function TeamChat() {
 
   
   const fetchMessages = async (teamId) => {
-    // console.log(teamId)
+    setChatSpinner(true)
+    console.log(teamId)
     setChosenTeam(teamId)
     await Axios.get("http://localhost:8000/api/GetTeamMessages", {
       params: { teamId }
     }).then((response) => {
       // console.log(response)
       setCurrentChat(response.data)
+      setChatSpinner(false)
     })
   }
 
 
   useEffect(() => {
     const getTeams = async () => {
+      setTeamSpinner(true)
       await Axios.get("http://localhost:8000/api/getUsersTeams", {
         params: { userId }
       }).then((response) => {
-        // console.log(response)
+        console.log(response)
         setTeams(response.data)
+        setTeamSpinner(false)
       })
     }
 
@@ -72,7 +79,11 @@ function TeamChat() {
 
   return (
     <>
-      {teams.length > 0 ? (
+      {teamSpinner ? (
+        <ClipLoader color="#36d7b7" />
+      ) : (
+        <>
+        {teams.length > 0 ? (
           <div className={styles.container}>
            <div className={styles.chat_sidebar}>
              <h4>Your chats</h4>
@@ -103,40 +114,45 @@ function TeamChat() {
                   <div className={styles.header}>
                     <h2>{chosenTeam}</h2>
                   </div>
-                    
-                   {currentChat?.map((message, idx) => {
-                  return (
-                    <>
-                    <div className={styles.chat_messages}>
-                      {(message.sender == userId) ? (
-                        <div className={styles.own_message}>
-                          <div className={styles.own_message_content}>
-                          <div className={styles.user_details}>
-                              <p>You</p>
-                              <p>{message.sent_at}</p>
+                    {chatSpinner ? (
+                      <ClipLoader color="#36d7b7" />
+                    ) : (
+                      <>
+                      {currentChat?.map((message, idx) => {
+                        return (
+                          <>
+                          <div className={styles.chat_messages}>
+                            {(message.sender == userId) ? (
+                              <div className={styles.own_message}>
+                                <div className={styles.own_message_content}>
+                                <div className={styles.user_details}>
+                                    <p>You</p>
+                                    <p>{message.sent_at}</p>
+                                  </div>
+                                  <p>{message.message}</p>
+                                </div>
+                                <CgProfile style={{ fontSize: "30px" }}/>
+                              </div>
+                            ) : (
+                            <div className={styles.message}>
+                                <CgProfile style={{ fontSize: "30px" }}/>
+                                <div className={styles.message_content}>
+                                  <div className={styles.user_details}>
+                                    <p>{message.first_name} {message.last_name}</p>
+                                    <p>{message.sent_at}</p>
+                                  </div>
+                                  <p>{message.message}</p>
+                                </div>
                             </div>
-                            <p>{message.message}</p>
-                          </div>
-                          <CgProfile style={{ fontSize: "30px" }}/>
-                        </div>
-                      ) : (
-                      <div className={styles.message}>
-                          <CgProfile style={{ fontSize: "30px" }}/>
-                          <div className={styles.message_content}>
-                            <div className={styles.user_details}>
-                              <p>{message.first_name} {message.last_name}</p>
-                              <p>{message.sent_at}</p>
+                            
+                            )}
                             </div>
-                            <p>{message.message}</p>
-                          </div>
-                      </div>
-                      
-                      )}
-                      </div>
-                    
-                     </>
-                  )
-                })}
+                          
+                          </>
+                        )
+                      })}
+                      </>
+                    )}
                       <div className={styles.send_message}>
                         <input type="text" placeholder='Type a message...' onChange={((e) => setMessage(e.target.value))}/>
                         <button onClick={sendMessage}>Send</button>
@@ -194,6 +210,9 @@ function TeamChat() {
       ) : (
         <p>You are currently not in any teams</p>
       )}
+        </>
+      )}
+
     </>
   )
 }

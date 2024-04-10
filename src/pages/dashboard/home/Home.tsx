@@ -9,6 +9,7 @@ import { PiFirstAidKitBold } from "react-icons/pi";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { FaPlaneDeparture } from "react-icons/fa";
+import ClipLoader from "react-spinners/ClipLoader";
 
 import FilterComponentsModal from '../../../components/filterComponentsModal/FilterComponentsModal.tsx';
 import Axios from "axios"
@@ -19,6 +20,10 @@ import moment from 'moment';
 function Home() {
   
   const userId = localStorage.getItem("userId")
+  const [adminNoticeSpinner, setAdminNoticeSpinner] = useState(false)
+  const [managerNoticeSpinner, setManagerNoticeSpinner] = useState(false)
+  const [issueSpinner, setIssueSpinner] = useState(false)
+  const [calendarSpinner, setCalendarSpinner] = useState(false)
 
   const [modal, setModal] = useState(false)
   const [componentListState, setComponentListState] = useState({})
@@ -90,19 +95,25 @@ function Home() {
       getTeams()
 
     const getNotices = async ( teams ) => {
+        setAdminNoticeSpinner(true)
+        setManagerNoticeSpinner(true)
         console.log(teams)
         await Axios.get("http://localhost:8000/api/getNotices", {
             params: { teams }
         }).then((response) => {
             console.log(response.data)
             setAdminUpdates(response.data.adminNotices)
+            setAdminNoticeSpinner(false)
             setManagerUpdates(response.data.managerNotices)
+            setManagerNoticeSpinner(false)
         })
     }
 
     const getIssues = async () => {
+        setIssueSpinner(true)
         await Axios.get("http://localhost:8000/api/getIssues").then((response) => {
             // console.log(response)
+            setIssueSpinner(false)
             setIssues(response.data)
         })
     }
@@ -110,6 +121,7 @@ function Home() {
     getIssues()
 
     const getTodayEvents = async () => {
+        setCalendarSpinner(true)
         const start = moment(Date()).startOf('day').toISOString()
         const end = moment(Date()).endOf('day').toISOString()
         console.log("this runs")
@@ -118,6 +130,7 @@ function Home() {
         }).then((response) => {
             console.log(response)
             setTodayEvents(response.data)
+            setCalendarSpinner(false)
         })
     }
 
@@ -145,19 +158,32 @@ function Home() {
                         <div className={styles.updates_header}> */}
                             <div className={styles.company_updates} id="company_updates">
                                 <div className={styles.updatesHeader}>
-    
                                     <h2>Company Updates</h2>
                                     <h5 className={styles.new_updates}>2 new</h5>
                                 </div>
-                                {adminUpdates.map((update, idx) => {
-                                    return (
-                                        <div className={styles.update_block}>
-                                           <p>{update.date}</p>
-                                           <p>{update.title}</p>
-                                           <p>{update.main_text}</p>
-                                        </div>
-                                    )
-                                })}
+                                {adminNoticeSpinner ? (
+                                    <ClipLoader color="#36d7b7" />
+
+                                ) : (
+                                    <>
+                                {adminUpdates.length > 0 ? (
+                                    <>
+
+                                        {adminUpdates.map((update, idx) => {
+                                            return (
+                                                <div className={styles.update_block}>
+                                                <p>{update.date}</p>
+                                                <p>{update.title}</p>
+                                                <p>{update.main_text}</p>
+                                                </div>
+                                            )
+                                        })}
+                                    </>
+                                ) : (
+                                    <p>There are no company updates right now</p>
+                                )}
+                                    </>
+                                )}
                             </div>
                         {/* </div>
                     </div>
@@ -177,15 +203,29 @@ function Home() {
                             <div className={styles.updates_header}>
                                 <h2>Admin Updates</h2>
                             </div>
-                                {issues.map((issue, idx) => {
-                                return (
-                                    <div className={styles.update_block}>
-                                        <p style={{ fontWeight: "bold", fontSize: "12px" }}>{issue.createdAt}</p>
-                                        <p style={{ fontWeight: "bold" }}>{issue.brief}</p>
-                                        <p>{issue.fullText}</p>
-                                    </div>
-                                )
-                            })}
+                                {issueSpinner ? (
+                                    <ClipLoader color="#36d7b7" />
+
+                                ) : (
+                                    <>
+                                {issues.length > 0 ? (
+                                    <>
+                                        {issues.map((issue, idx) => {
+                                            return (
+                                                <div className={styles.update_block}>
+                                                    <p style={{ fontWeight: "bold", fontSize: "12px" }}>{issue.createdAt}</p>
+                                                    <p style={{ fontWeight: "bold" }}>{issue.brief}</p>
+                                                    <p>{issue.fullText}</p>
+                                                </div>
+                                            )
+                                        })}
+                                    </>
+                                ) : (
+                                    <p>There are no admin issues right now</p>
+                                )}
+                                    </>
+                                )}
+
                         </div>
                     </div>
                 </div>
@@ -205,23 +245,30 @@ function Home() {
                                 <h2>Today</h2>
                                 <h2>, 02 April</h2>
                             </div>
-                            {todayEvents.length > 0 ? (
-                                <>
-                                    {todayEvents.map((event, idx) => {
-                                        return (
-                                        <div className={styles.calendar_block}>
-                                            <p>{event.start.slice(11, 19)}</p>
-                                            <article className={styles.calendar_event}>
-                                                <h4>{event.title}</h4>
-                                                <p>{event.start.slice(11, 19)} - {event.end.slice(11, 19)}</p>
-                                            </article>
-                                        </div>
-                                        )
-                                    })}
-                                </>
+                            {calendarSpinner ? (
+                                <ClipLoader color="#36d7b7" />
                             ) : (
-                                <p>You have no events for today!</p>
+                                <>
+                                    {todayEvents.length > 0 ? (
+                                        <>
+                                            {todayEvents.map((event, idx) => {
+                                                return (
+                                                <div className={styles.calendar_block}>
+                                                    <p>{event.start.slice(11, 19)}</p>
+                                                    <article className={styles.calendar_event}>
+                                                        <h4>{event.title}</h4>
+                                                        <p>{event.start.slice(11, 19)} - {event.end.slice(11, 19)}</p>
+                                                    </article>
+                                                </div>
+                                                )
+                                            })}
+                                        </>
+                                    ) : (
+                                        <p>You have no events for today!</p>
+                                    )}
+                                </>
                             )}
+
                         </div>
     
     
@@ -271,10 +318,14 @@ function Home() {
                             <h2>Team Updates</h2>
                             <h5 className={styles.new_updates}>1 new</h5>
                         </div>
+                        {managerNoticeSpinner ? (
+                            <ClipLoader color="#36d7b7" />
+
+                        ) : (
+                            <>
                         {managerUpdates.length > 0 ? (
                             <>
                                 {managerUpdates.map((content, idx) => {
-
                                     return (
                                         <div className={styles.update_block}>
                                             <p style={{ fontWeight: "bold", fontSize: "12px" }}>{content.team}</p>
@@ -283,10 +334,13 @@ function Home() {
                                         </div>
                                     )
                                 })}
+                             </>
+                            ) : (
+                                <p>There are no updates from your managers</p>
+                            )}
                             </>
-                        ) : (
-                            <p>There are no updates from your managers</p>
                         )}
+
 
 
 

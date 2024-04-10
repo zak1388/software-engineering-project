@@ -29,11 +29,14 @@ function TeamSettingsModal({ setTeamSettingsModal, teamClicked }) {
     }
 
     const removeMember = async (employeeId) => {
-        await Axios.post("http://localhost:8000/api/removeFromTeam", {
-            teamId: teamClicked._id,
-            employeeId: employeeId
+        const teamId = teamClicked._id
+        console.log(teamId)
+        await Axios.delete("http://localhost:8000/api/removeFromTeam", {
+            params: { teamId, employeeId }
+            // teamId: teamId,
+            // employeeId: employeeId
         }).then((response) => {
-            console.log(response)
+            // console.log(response)
         })
     }
 
@@ -53,7 +56,7 @@ function TeamSettingsModal({ setTeamSettingsModal, teamClicked }) {
             await Axios.get("http://localhost:8000/api/getTeamMembers", {
                 params: { teamId }
             }).then((response) => {
-                console.log(response)
+                // console.log(response)
                 for(let i=0; i<=response.data.length-1; i++){
                     getEmployee(response.data[i].employee_id)
                 }

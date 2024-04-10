@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import styles from './ManagerNotice.module.css'
 import Sidebar from '../../components/sidebar/Sidebar.tsx'
 import Navbar from '../../components/navbar/Navbar.tsx'
@@ -7,6 +7,7 @@ import Axios from "axios"
 
 function ManagerAnnouncement() {
     const userId = localStorage.getItem("userId")
+    const navigate = useNavigate()
 
     const type = localStorage.getItem("position")
     const [title, setTitle] = useState("")
@@ -28,6 +29,7 @@ function ManagerAnnouncement() {
 
         }).then((response) => {
             console.log(response)
+            navigate("/")
         })
     }
 
@@ -58,15 +60,15 @@ function ManagerAnnouncement() {
     return (
           <div className={styles.container}>
               <form onSubmit={addNotice} className={styles.ManagerPost}>
-              <h2>Admin notice</h2>
+              <h2>Manager notice</h2>
                 <div>
-                      <textarea className='Title' cols={70} rows={2} placeholder='Enter Title' onChange={((e) => setTitle(e.target.value))}></textarea>
+                      <textarea className='Title' cols={70} rows={2} placeholder='Enter Title' onChange={((e) => setTitle(e.target.value))} required={true}></textarea>
                   </div>
                   <div>
-                      <textarea className='Notice' cols={70} rows={10} placeholder='Enter Announcement' onChange={((e) => setMainText(e.target.value))}></textarea>
+                      <textarea className='Notice' cols={70} rows={10} placeholder='Enter Announcement' onChange={((e) => setMainText(e.target.value))} required={true}></textarea>
                   </div>
                   <select onChange={updateSelectedTeam}>
-                    <option value="select a team">Select a team</option>
+                    <option value="select a team" >Select a team</option>
                     {teams.length > 0 ? (
                         <>
                             {teams.map((team, idx) => {
