@@ -50,6 +50,7 @@ button {
     background-color: transparent;
     float: right;
     margin-top: 1em;
+    cursor: pointer;
 }
 
  .title h1 {
@@ -91,4 +92,5 @@ button {
     margin-bottom: 0.5em;
     text-align: left;
  }
+
 

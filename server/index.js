@@ -11,8 +11,7 @@ const LeaveRequestModel = require("./models/LeaveRequest.ts");
 const LeaveResponseModel = require("./models/LeaveResponse.ts");
 const IssueTicketModel = require("./models/IssueTicket.ts");
 const ChangeRequestModel = require("./models/ChangeRequest.ts");
-const AdminNoticeModel = require("./models/AdminNotice.ts");
-const ManagerNoticeModel = require("./models/ManagerNotice.ts");
+const NoticeModel = require("./models/Notice.ts");
 const EventModel = require("./models/Event.ts")
 const moment = require("moment")
 
@@ -307,6 +306,18 @@ app.get("/api/getEmployees", async(req, res) => {
     }
 })
 
+// get managers
+app.get("/api/getManagers", async(req, res) => {
+    
+    try{
+        const response = await EmployeeModel.find({ position: "manager" })
+        res.send(response)
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
+
 // add employee
 
 app.post("/api/addEmployee", async(req, res) => {
@@ -402,8 +413,10 @@ app.post("/api/createEvent", async(req, res) => {
 
 app.get("/api/getEvents", async(req, res) => {
     const { userId, start, end } = req.query
+    console.log(start, end)
 
     try{
+
         const events = await EventModel.find({userId: userId, start: {$gte: moment(start).toDate()}, end: {$lte: moment(end).toDate()}})
         res.send(events)
     } catch(err){
@@ -416,14 +429,15 @@ app.post("/api/CreateIssue", async(req, res) => {
     const { userId, brief, fullText } = req.body.params;
 
     try {
-        await (new IssueTicketModel({
+        const issue = await new IssueTicketModel({
             resolved: false,
-            brief,
-            fullText,
+            brief: brief,
+            fullText: fullText,
             createdAt: new Date(),
             creator: userId,
-        })).save();
-        res.send();
+        })
+        issue.save()
+        res.send(issue);
     } catch (err) {
         console.log(err);
         res.status(500).send(err);
@@ -458,6 +472,19 @@ app.post("/api/DeleteLeaveRequest", async(req, res) => {
     }
 });
 
+app.get("/api/getIssues", async(req, res) => {
+    // TODO: verify uid is an admin
+
+    try {
+        const issues = await IssueTicketModel.find();
+        // console.log(issues)
+        res.send(issues);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
 app.post("/api/GetIssues", async(req, res) => {
     const { userId } = req.body.params;
 
@@ -465,6 +492,7 @@ app.post("/api/GetIssues", async(req, res) => {
 
     try {
         const issues = await IssueTicketModel.find();
+        // console.log(issues)
         res.send(issues);
     } catch (err) {
         console.log(err);
@@ -501,11 +529,12 @@ app.get("/api/getUsersTeams", async(req, res) => {
 // create team
 
 app.post("/api/createTeam", async(req, res) => {
-    const { name } = req.body;
+    const { name, manager } = req.body;
 
     try{
         const team = await new TeamModel({
-            name: name
+            name: name,
+            manager: manager
         })
 
         team.save()
@@ -519,10 +548,22 @@ app.post("/api/createTeam", async(req, res) => {
 //get all teams
 
 app.get("/api/getTeams", async(req, res) => {
+    const { userId } = req.query
+    // console.log(userId)
 
     try{
-        const teams = await TeamModel.find({})
-        res.send(teams)
+        // const teams = await TeamModel.find({ manager: userId })
+        // res.send(teams)
+        if(userId != undefined){
+            const managedTeams = await TeamModel.find({ manager: userId })
+            res.send(managedTeams)
+            // console.log(managedTeams)
+
+        } else{
+            const teams = await TeamModel.find({})
+            // console.log(teams)
+            res.send(teams)
+        }
     } catch(err){
         console.log(err)
         res.send(err)
@@ -533,6 +574,7 @@ app.get("/api/getTeams", async(req, res) => {
 
 app.post("/api/addMember", async(req, res) => {
     const { employeeId, teamId } = req.body;
+    console.log(employeeId, teamId)
 
     try{
         const teamMember = await new EmployeeTeamModel({
@@ -579,18 +621,44 @@ app.get("/api/getTeamMembers", async(req, res) => {
 })
 
 // remove member from team
-// Create notice
+app.delete("/api/removeFromTeam", async(req, res) => {
+    const { teamId, employeeId } = req.query;
+    // console.log(req.body)
 
+    try{
+        const response = await EmployeeTeamModel.deleteOne({ team_id: teamId, employee_id: employeeId })
+        // console.log(deleted)
+        res.send(response)
+    } catch(err){
+        res.send(err)
+    }
+})
+
+// edit team name
+
+app.post("/api/editTeamName", async(req, res) => {
+    const { teamId, name } = req.body;
+
+    try{
+        const response = await TeamModel.updateOne({ _id: teamId }, { name: name })
+        res.send(response)
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
+
+// Create notice
 app.post("/api/createNotice", async(req, res) => {
-    const { type, title, mainText, urgent, date, creator, team } = req.body;
+    const { type, title, mainText, date, creator, team } = req.body;
+    console.log(req.body)
 
     try{
         const notice = await new NoticeModel({
             type: type,
             title: title,
             main_text: mainText,
-            urgent: urgent,
-            daate: date,
+            date: date,
             creator: creator,
             team: team
         })
@@ -606,13 +674,39 @@ app.post("/api/createNotice", async(req, res) => {
 // Get notices
 
 app.get("/api/getNotices", async(req, res) => {
-    const { teamId } = req.query;
+    const { teams } = req.query;
+    const filteredTeams = []
+
+    for(let i = 0; i<=teams?.length-1; i++){
+        filteredTeams.push(teams[i].team_id)
+    }
+    console.log(filteredTeams)
 
     try{
         const adminNotices = await NoticeModel.find({ type: "admin" })
-        const managerNotices = await NoticeModel.find({ type: "manager", team: teamId })
+        const managerNotices = await NoticeModel.find({ type: "manager", team: {$in: filteredTeams} })
+
+        
+        // for (let i=0; i<=teams?.length-1; i++){
+        //     const notice = await NoticeModel.find({ type: "manager", team: teams[i] })
+
+        //     managerNotices.push(notice)
+        // }
 
         res.send({adminNotices, managerNotices})
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
+
+// delete user from system
+app.post("/api/deleteUser", async(req, res) => {
+    const { userId } = req.body;
+
+    try{
+        const deleted = await EmployeeModel.deleteOne({ _id: userId })
+        res.send(deleted)
     } catch(err){
         console.log(err)
         res.send(err)
@@ -645,28 +739,6 @@ app.post("/api/UpdateLeaveRequest", async(req, res) => {
         const LeaveReq = await LeaveRequestModel.findOne({ _id: requestId });
         LeaveReq.state = newState;
         await LeaveReq.save();
-        res.json();
-    } catch (err) {
-        console.log(err);
-        res.status(500).send(err);
-    }
-
-});
-
-app.post("/api/AdminPostNotice", async(req, res) => {
-    const { userId, title, notice, urgent } = req.body.params;
-
-    // TODO: verify uid admin
-
-    try {
-        const adminNotice = new AdminNoticeModel({
-            title, 
-            notice, 
-            urgent, 
-            creator: userId,
-            createdAt: Date.now(),
-        });
-        await adminNotice.save();
         res.json();
     } catch (err) {
         console.log(err);

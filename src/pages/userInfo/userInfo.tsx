@@ -1,16 +1,23 @@
 import React from 'react'
 import styles from "./userInfo.module.css"
-import { Outlet } from 'react-router-dom'
+import { Outlet, useParams } from 'react-router-dom'
 import { FaPencilAlt } from "react-icons/fa"
 
-function userInfo() {
+function UserInfo() {
+    const {id} = useParams()
+    const userId = localStorage.getItem("userId")
+
+    console.log(userId, id)
+
+
+
     return (
         <div className={styles.container}>
             <div className={styles.wrapper}>
                 <div className={styles.contact_panel}>
                     <div className={styles.title}>
                         <h1>Contact Information: </h1>
-                        <button className={styles.edit_btn}>< FaPencilAlt size={20}/></button>
+                        {userId === id && <button className={styles.edit_btn}>< FaPencilAlt size={20}/></button>}
                     </div>
                     <div className={styles.address}>
                         <p className={styles.ttl}>Address:</p>
@@ -28,7 +35,7 @@ function userInfo() {
                 <div className={styles.personal_info_panel}>
                     <div className={styles.title}>
                         <h1>Personal Information: </h1>
-                        <button className={styles.edit_btn}>< FaPencilAlt size={20}/></button>
+                        {userId == id &&  <button className={styles.edit_btn}>< FaPencilAlt size={20}/></button>}
                     </div>
                     <div className={styles.details}>
                         <p className={styles.ttl}>Personal Details:</p>
@@ -48,4 +55,4 @@ function userInfo() {
       )
 }
 
-export default userInfo
+export default UserInfo

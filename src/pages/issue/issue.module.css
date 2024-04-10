@@ -33,6 +33,8 @@
   resize: none;
   min-width: 30em;
   height: 40vh;
+  padding: 5px;
+  outline: none;
 }
 
 ::placeholder{
@@ -48,11 +50,14 @@
   border-radius: 0.5em;
   padding: 2%;
   margin-top: 40px;
+  cursor: pointer;
 }
 
 .Brief {
   font-size: 20px;
   background: rgba(217, 217, 217, 0.75);
+  padding: 5px;
+  outline: none;
 }
 
 .Errors {

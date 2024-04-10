@@ -15,6 +15,10 @@ function ProfileOptions({ setModal }) {
         navigate("/login")
         localStorage.clear()
     }
+
+    const routeIssue = () => {
+        navigate("/issue")
+    }
     
 
   return (
@@ -22,7 +26,7 @@ function ProfileOptions({ setModal }) {
         <div className={styles.item} onClick={routeProfile}>
             <p>Profile</p>
         </div>
-        <div className={styles.item}>
+        <div className={styles.item} onClick={routeIssue}>
             <p>Issues</p>
         </div>
         <div className={styles.item} onClick={attemptLogout}>

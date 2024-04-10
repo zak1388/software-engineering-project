@@ -1,6 +1,6 @@
 import React, { useState }from 'react'
 import styles from "./issue.module.css"
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import Sidebar from '../../components/sidebar/Sidebar.tsx'
 import Navbar from '../../components/navbar/Navbar.tsx'
 import Axios from "axios";
@@ -10,7 +10,6 @@ const BriefCharacterLimit = 30;
 function validateForm(form, setErrors) {
     const brief = form.querySelector("." + styles.Brief).value;
     const fullText = form.querySelector("." + styles.Feedback).value;
-
     let valid = true;
     let errors = [];
     if (brief === "") {
@@ -30,6 +29,8 @@ function validateForm(form, setErrors) {
 
 function Issue() {
     const [errors, setErrors] = useState([]);
+    const navigate = useNavigate()
+
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -48,7 +49,8 @@ function Issue() {
                 brief,
                 fullText
             }
-        }).then(() => window.location.pathname = "", console.error);
+        }).then(() => 
+            navigate("/"), console.error);
     };
 
   return (

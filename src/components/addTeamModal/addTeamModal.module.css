@@ -36,6 +36,14 @@
     border: 1px solid lightgray;
 }
 
+
+.members{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
 .memberInput{
     width: 100%;
     background-color: white;
@@ -50,6 +58,24 @@
     width: 100%;
     border: none;
     outline: none;
+}
+
+.manager{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.left{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.manager:hover{
+    background-color: #ddd;
 }
 
 .buttons{

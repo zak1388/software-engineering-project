@@ -12,6 +12,7 @@ import { IoMdClose } from "react-icons/io";
 import { FaCodePullRequest } from "react-icons/fa6";
 import { FaUsers } from "react-icons/fa";
 import { RiTeamFill } from "react-icons/ri";
+import { GrAnnounce } from "react-icons/gr";
 
 
 function Sidebar() {
@@ -66,10 +67,17 @@ function Sidebar() {
             </div>
 
             {(position == "manager") && (
-                <div className={styles.separateLink} onClick={() => routePage("managerViewRequests")}>
-                    <FaCodePullRequest className={styles.linkIcon}/>
-                    <h2>Requests</h2>
-                </div>
+                <>
+                    <div className={styles.separateLink} onClick={() => routePage("managerNotice")}>
+                        <GrAnnounce className={styles.linkIcon}/>
+                        <h2>Notices</h2>
+                    </div>
+                    <div className={styles.separateLink} onClick={() => routePage("")}>
+                        <FaCodePullRequest className={styles.linkIcon}/>
+                        <h2>Requests</h2>
+                    </div>
+                </>
+                
             )}
 
             
@@ -86,6 +94,10 @@ function Sidebar() {
                     <div className={styles.separateLink} onClick={() => routePage("managerViewRequests")}>
                         <FaCodePullRequest className={styles.linkIcon}/>
                         <h2>Requests</h2>
+                    </div>
+                    <div className={styles.separateLink} onClick={() => routePage("adminNotice")}>
+                        <GrAnnounce className={styles.linkIcon}/>
+                        <h2>Notices</h2>
                     </div>
                 </>
             )}
