@@ -72,7 +72,7 @@ function Sidebar() {
                         <GrAnnounce className={styles.linkIcon}/>
                         <h2>Notices</h2>
                     </div>
-                    <div className={styles.separateLink} onClick={() => routePage("")}>
+                    <div className={styles.separateLink} onClick={() => routePage("managerViewRequests")}>
                         <FaCodePullRequest className={styles.linkIcon}/>
                         <h2>Requests</h2>
                     </div>
