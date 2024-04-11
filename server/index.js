@@ -19,7 +19,7 @@ const moment = require("moment")
 require("dotenv").config();
 const app = express()
 
-mongoose.connect("mongodb+srv://zak:ECS506@cluster0.3ranwb2.mongodb.net/", {
+mongoose.connect(process.env.MONGO_URI, {
 
 }).then((response) => {
     if(response){
